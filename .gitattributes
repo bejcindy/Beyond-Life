@@ -1,0 +1,2 @@
+*.fbx filter=lfs diff=lfs merge=lfs -text
+Assets/Models/structure_orgni.fbx filter=lfs diff=lfs merge=lfs -text

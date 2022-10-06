@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
     Vector3 currentDirection;
     Vector3 zeroX, zeroY, zeroZ;
     bool zX, zY, zZ;
+    bool activeAxisX;
+    float rot;
 
     // Start is called before the first frame update
     void Start()
@@ -67,13 +69,17 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Walkable"))
         {
             //改一下这个
+            //可能要手动根据collision.gameobject.transform.up来给player+-90°
             transform.up = collision.gameObject.transform.up;
+            //transform.rotation *= collision.gameObject.transform.rotation;
             Physics.gravity = collision.gameObject.transform.up * -9.81f;
             if (Mathf.Abs( collision.gameObject.transform.up.y)!=0)
             {
                 zX = false;
                 zY = true;
                 zZ = false;
+                
+                activeAxisX = false;
                 Debug.Log("yhere");
             }
             if(Mathf.Abs(collision.gameObject.transform.up.x) !=0)
@@ -81,6 +87,8 @@ public class PlayerController : MonoBehaviour
                 zX = true;
                 zY = false;
                 zZ = false;
+                activeAxisX = true;
+                
                 Debug.Log("xhere");
             }
             if(Mathf.Abs(collision.gameObject.transform.up.z) !=0)
@@ -88,9 +96,11 @@ public class PlayerController : MonoBehaviour
                 zX = false;
                 zY = false;
                 zZ = true;
+                activeAxisX = true;
+                
                 Debug.Log("zhere");
             }
-            Debug.Log("hit"+ collision.gameObject.transform.up);
+            //Debug.Log("hit"+ collision.gameObject.transform.up);
         }
     }
 }

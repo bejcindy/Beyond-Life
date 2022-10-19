@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Level_prototype_3layers.unity
+    guid: 8404abd8cee5ede48925af581b9294a0
   m_configObjects: {}

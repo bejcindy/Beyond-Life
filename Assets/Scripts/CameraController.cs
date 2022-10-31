@@ -26,6 +26,8 @@ public class CameraController : MonoBehaviour
     bool stop;
     bool toohigh;
 
+    float verticalMove;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,18 +48,26 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
+        verticalMove = Input.mousePosition.y;
+        //Vector3 realTarget = player.position + player.transform.up * verticalMove*0.01f;
+        Vector3 realTarget = targetPos.position + player.transform.up * verticalMove * 0.01f-player.transform.up*5f;
+        Debug.Log(realTarget);
         if (!player)
         {
             return;
         }
         if (!waitForCurve)
         {
-            transform.position = Vector3.Lerp(transform.position, targetPos.position, Time.deltaTime * camSpeed);
-            transform.rotation = targetPos.rotation;
+            //transform.position = Vector3.Lerp(transform.position, targetPos.position, Time.deltaTime * camSpeed);
+            transform.position = Vector3.Lerp(transform.position, realTarget, Time.deltaTime * camSpeed);
+            //transform.rotation = targetPos.rotation;
+            //transform.LookAt(realTarget);
+            transform.LookAt(player);
+
         }
         else
         {
-            transform.LookAt(player);
+            transform.LookAt(realTarget);
         }
     }
 }

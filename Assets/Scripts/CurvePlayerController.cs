@@ -68,8 +68,8 @@ public class CurvePlayerController : MonoBehaviour
                 groundCheck[i] = false;
             }
         }
-        Debug.DrawRay(legPos[0].position, -transform.up, Color.blue);
-        Debug.Log(groundCheck[0] + " " + groundCheck[1] + " " + groundCheck[2] + " " + groundCheck[3] + " ");
+        //Debug.DrawRay(legPos[0].position, -transform.up, Color.blue);
+        //Debug.Log(groundCheck[0] + " " + groundCheck[1] + " " + groundCheck[2] + " " + groundCheck[3] + " ");
         if (!groundCheck[0] && !groundCheck[1] && !groundCheck[2] && !groundCheck[3])
         {
             rb.AddForce(-transform.up * -g * 4000 * Time.deltaTime, ForceMode.Acceleration);

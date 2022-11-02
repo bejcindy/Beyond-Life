@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class CameraController : MonoBehaviour
 {
@@ -46,28 +47,33 @@ public class CameraController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void LateUpdate()
+    void Update()
     {
-        verticalMove = Input.mousePosition.y;
-        //Vector3 realTarget = player.position + player.transform.up * verticalMove*0.01f;
-        Vector3 realTarget = targetPos.position + player.transform.up * verticalMove * 0.01f-player.transform.up*5f;
-        Debug.Log(realTarget);
-        if (!player)
-        {
-            return;
-        }
-        if (!waitForCurve)
-        {
-            //transform.position = Vector3.Lerp(transform.position, targetPos.position, Time.deltaTime * camSpeed);
-            transform.position = Vector3.Lerp(transform.position, realTarget, Time.deltaTime * camSpeed);
-            //transform.rotation = targetPos.rotation;
-            //transform.LookAt(realTarget);
-            transform.LookAt(player);
+        //verticalMove = Mathf.Clamp(-(Input.mousePosition.y - Screen.height / 2), -300, 300);
 
-        }
-        else
-        {
-            transform.LookAt(realTarget);
-        }
+        //Vector3 realTarget = player.position + player.transform.up * verticalMove*0.01f;
+        //Vector3 realTarget = targetPos.position + player.transform.up * verticalMove * 0.01f;
+        //Vector3 realTarget = targetPos.position;
+        //Debug.Log(realTarget);
+        //Debug.Log(verticalMove);
+
+        //if (!waitForCurve)
+        //{
+        //transform.position = Vector3.Lerp(transform.position, targetPos.position, Time.deltaTime * camSpeed);
+        verticalMove = Mathf.Clamp(-(Input.mousePosition.y - Screen.height *.75f), -15, 300);
+        transform.localPosition = new Vector3(0, verticalMove * 0.01f, -5);
+        //transform.position = Vector3.Lerp(transform.position, realTarget, Time.deltaTime * camSpeed);
+        //Debug.Log(realTarget);
+        //transform.rotation = targetPos.rotation;
+        //transform.LookAt(realTarget);
+        //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(player.position), .1f * Time.deltaTime);
+        transform.LookAt(player,player.transform.up);
+
+        //}
+        //else
+        //{
+        //    //transform.LookAt(realTarget);
+        //    transform.LookAt(player);
+        //}
     }
 }

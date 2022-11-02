@@ -41,6 +41,7 @@ public class CurvePlayerController : MonoBehaviour
     {
         x = Input.GetAxisRaw("Horizontal");
         z = Input.GetAxisRaw("Vertical");
+        Debug.Log(transform.up);
         Vector3 direction = (transform.forward * z + transform.right * x).normalized;
         //zeroY = new Vector3(direction.x, 0, direction.z);
         //zeroZ = new Vector3(direction.x, direction.y, 0);

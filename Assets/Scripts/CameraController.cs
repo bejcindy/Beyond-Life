@@ -60,13 +60,18 @@ public class CameraController : MonoBehaviour
         //if (!waitForCurve)
         //{
         //transform.position = Vector3.Lerp(transform.position, targetPos.position, Time.deltaTime * camSpeed);
+
         verticalMove = Mathf.Clamp(-(Input.mousePosition.y - Screen.height *.75f), -15, 300);
-        transform.localPosition = new Vector3(0, verticalMove * 0.01f, -5);
+        transform.localPosition = new Vector3(0, verticalMove * 0.01f, -2- verticalMove * 0.01f);
+
         //transform.position = Vector3.Lerp(transform.position, realTarget, Time.deltaTime * camSpeed);
         //Debug.Log(realTarget);
         //transform.rotation = targetPos.rotation;
         //transform.LookAt(realTarget);
         //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(player.position), .1f * Time.deltaTime);
+
+
+
         transform.LookAt(player,player.transform.up);
 
         //}

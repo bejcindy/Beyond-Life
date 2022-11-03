@@ -16,9 +16,16 @@ public class WakeUp : MonoBehaviour
     public float wakeSpeed;
     public float sleepRate;
 
+
+    public float newAlpha;
+    public float alphaDiff = 0.05f;
+
     AudioSource a;
     float t;
     bool fallingAsleep;
+    int iPressedTimes = 0;
+
+    bool eyesOpen = false;
 
     // Start is called before the first frame update
     void Start()
@@ -36,15 +43,29 @@ public class WakeUp : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.J))
             {
-                blackImage.color = new Color(0, 0, 0, blackImage.color.a - wakeSpeed);
-                if (blackImage.color.a > 0)
+                if (!eyesOpen)
                 {
-                    fallingAsleep = true;
+                    newAlpha = blackImage.color.a - alphaDiff;
+                    alphaDiff += 0.05f;
+                    iPressedTimes += 1;
+                    if (iPressedTimes == 4)
+                    {
+                        newAlpha = 0;
+                        eyesOpen = true;
+                    }
+
+                    blackImage.color = new Color(0, 0, 0, blackImage.color.a - wakeSpeed);
+
+                    if (blackImage.color.a > 0)
+                    {
+                        fallingAsleep = true;
+                    }
+                    else
+                    {
+                        blackImage.gameObject.SetActive(false);
+                    }
                 }
-                else
-                {
-                    blackImage.gameObject.SetActive(false);
-                }
+
                 if (wakeSound)
                 {
                     a.PlayOneShot(wakeSound);
@@ -72,7 +93,12 @@ public class WakeUp : MonoBehaviour
         {
             if (blackImage.color.a < 1)
             {
-                blackImage.color += new Color(0, 0, 0, sleepRate);
+                if(blackImage.color.a < newAlpha)
+                {
+                    blackImage.color += new Color(0, 0, 0, sleepRate);
+                }
+                Debug.Log(blackImage.color.a);
+                
             }
             else
             {

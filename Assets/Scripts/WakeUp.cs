@@ -9,6 +9,7 @@ public class WakeUp : MonoBehaviour
     public GameObject J;
 
     public GameObject player;
+    public GameObject ringTrack;
 
     public AudioClip wakeSound;
 
@@ -116,8 +117,8 @@ public class WakeUp : MonoBehaviour
     {
         player.transform.GetChild(0).gameObject.GetComponent<CurvePlayerController>().enabled = true;
         Camera.main.GetComponent<CameraController>().enabled = true;
+        ringTrack.GetComponent<MeshCollider>().enabled = false;
         J.SetActive(false);
-        player.transform.GetChild(0).gameObject.GetComponent<Animator>().enabled = true;
         player.transform.parent = null;
     }
 }

@@ -79,6 +79,10 @@ public class CurvePlayerController : MonoBehaviour
         
 
         transform.Rotate(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
+
+
+
+
     }
 
   

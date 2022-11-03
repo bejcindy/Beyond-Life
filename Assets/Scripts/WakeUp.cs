@@ -8,6 +8,8 @@ public class WakeUp : MonoBehaviour
     public Image blackImage;
     public GameObject J;
 
+    public GameObject player;
+
     public AudioClip wakeSound;
 
     [Header("Time Interval Between J")]
@@ -52,6 +54,8 @@ public class WakeUp : MonoBehaviour
                     {
                         newAlpha = 0;
                         eyesOpen = true;
+                        activatePlayer();
+
                     }
 
                     blackImage.color = new Color(0, 0, 0, blackImage.color.a - wakeSpeed);
@@ -106,5 +110,14 @@ public class WakeUp : MonoBehaviour
                 fallingAsleep = false;
             }
         }
+    }
+
+    void activatePlayer()
+    {
+        player.transform.GetChild(0).gameObject.GetComponent<CurvePlayerController>().enabled = true;
+        Camera.main.GetComponent<CameraController>().enabled = true;
+        J.SetActive(false);
+        player.transform.GetChild(0).gameObject.GetComponent<Animator>().enabled = true;
+        player.transform.parent = null;
     }
 }

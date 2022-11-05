@@ -51,6 +51,8 @@ public class WakeUp : MonoBehaviour
                     newAlpha = blackImage.color.a - alphaDiff;
                     alphaDiff += 0.05f;
                     iPressedTimes += 1;
+
+                    //Pressed J 4 times
                     if (iPressedTimes == 4)
                     {
                         newAlpha = 0;

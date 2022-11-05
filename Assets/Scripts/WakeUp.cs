@@ -29,6 +29,7 @@ public class WakeUp : MonoBehaviour
     int iPressedTimes = 0;
 
     bool eyesOpen = false;
+    public bool offTrack = false;
 
     // Start is called before the first frame update
     void Start()
@@ -44,8 +45,9 @@ public class WakeUp : MonoBehaviour
     {
         if (J.activeSelf)
         {
-            if (Input.GetKeyDown(KeyCode.J))
+            if (Input.GetKeyDown(KeyCode.E))
             {
+                //if player hasn't gained full view yet
                 if (!eyesOpen)
                 {
                     newAlpha = blackImage.color.a - alphaDiff;
@@ -57,7 +59,7 @@ public class WakeUp : MonoBehaviour
                     {
                         newAlpha = 0;
                         eyesOpen = true;
-                        activatePlayer();
+                        //activatePlayer();
 
                     }
 
@@ -81,20 +83,20 @@ public class WakeUp : MonoBehaviour
                 J.SetActive(false);
             }
         }
-        else
-        {
-            if (t < timeInterval)
-            {
-                t += Time.deltaTime;
-            }
-            else
-            {
-                t = timeInterval;
-                J.SetActive(true);
-            }
+        //else
+        //{
+        //    if (t < timeInterval)
+        //    {
+        //        t += Time.deltaTime;
+        //    }
+        //    else
+        //    {
+        //        t = timeInterval;
+        //        J.SetActive(true);
+        //    }
             
             
-        }
+        //}
 
         if (fallingAsleep)
         {
@@ -104,7 +106,6 @@ public class WakeUp : MonoBehaviour
                 {
                     blackImage.color += new Color(0, 0, 0, sleepRate);
                 }
-                Debug.Log(blackImage.color.a);
                 
             }
             else
@@ -113,14 +114,26 @@ public class WakeUp : MonoBehaviour
                 fallingAsleep = false;
             }
         }
+
+        if (offTrack)
+        {
+            StartCoroutine(activatePlayer());
+        }
     }
 
-    void activatePlayer()
+    IEnumerator activatePlayer()
     {
+        ringTrack.GetComponent<Animator>().speed = 0;
+        player.transform.parent = null;
+        yield return 1.0f;
+        ringTrack.GetComponent<MeshCollider>().enabled = false;
         player.transform.GetChild(0).gameObject.GetComponent<CurvePlayerController>().enabled = true;
         Camera.main.GetComponent<CameraController>().enabled = true;
-        ringTrack.GetComponent<MeshCollider>().enabled = false;
+        ringTrack.GetComponent<Animator>().speed = 1;
         J.SetActive(false);
-        player.transform.parent = null;
+        
     }
+
+
+    
 }

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Walkable
   - Curve
+  - Checkpoint
   layers:
   - Default
   - TransparentFX

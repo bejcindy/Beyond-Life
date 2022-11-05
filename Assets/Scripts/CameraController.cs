@@ -29,6 +29,9 @@ public class CameraController : MonoBehaviour
 
     float verticalMove;
 
+    Vector3 camLookOffset;
+    Camera cam;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,6 +46,9 @@ public class CameraController : MonoBehaviour
         //transform.position = player.position + offset;
         stop = false;
         toohigh = false;
+        camLookOffset = new Vector3(0, 1, 0);
+        cam = GetComponent<Camera>();
+        cam.fieldOfView = 50;
         //offset = transform.position - player.transform.position;
     }
 
@@ -62,7 +68,7 @@ public class CameraController : MonoBehaviour
         //transform.position = Vector3.Lerp(transform.position, targetPos.position, Time.deltaTime * camSpeed);
 
         verticalMove = Mathf.Clamp(-(Input.mousePosition.y - Screen.height *.75f), -15, 300);
-        transform.localPosition = new Vector3(0, verticalMove * 0.01f, -2- verticalMove * 0.01f);
+        transform.localPosition = new Vector3(0, 1f+verticalMove * 0.01f, -5- verticalMove * 0.03f);
 
         //transform.position = Vector3.Lerp(transform.position, realTarget, Time.deltaTime * camSpeed);
         //Debug.Log(realTarget);
@@ -72,7 +78,7 @@ public class CameraController : MonoBehaviour
 
 
 
-        transform.LookAt(player,player.transform.up);
+        transform.LookAt(player.position+camLookOffset,player.transform.up);
 
         //}
         //else

@@ -38,17 +38,20 @@ public class CameraController : MonoBehaviour
     Vector3 camLookOffset;
     Camera cam;
 
+    float camMoveSpeed = 10f;
+    float camRotSpeed = 10f;
+
     // Start is called before the first frame update
     void Start()
     {
 
         originalOffestY = new Vector3(0, offset.y, 0);
         originalOffset = offset;
-        if (player)
-        {
-            transform.position = player.position + offset;
-            offset = transform.position - player.transform.position;
-        }
+        //if (player)
+        //{
+        //    transform.position = player.position + offset;
+        //    offset = transform.position - player.transform.position;
+        //}
         //transform.position = player.position + offset;
         stop = false;
         toohigh = false;
@@ -66,28 +69,35 @@ public class CameraController : MonoBehaviour
         
         moveTarget = new Vector3(0, 1f + verticalMove * 0.01f, -5 - verticalMove * 0.03f);
 
+        //Debug.Log(transform.localPosition);
 
-
-        if (wakeUp)
-        {
-            if (timer < 1)
-            {
-                timer += Time.deltaTime;
-                transform.localPosition = Vector3.Lerp(transform.localPosition, moveTarget, Time.deltaTime * 20f);
+        //if (wakeUp)
+        //{
+        //    if (timer < 3)
+        //    {
+        //        timer += Time.deltaTime;
+                transform.localPosition = Vector3.Lerp(transform.localPosition, moveTarget, Time.deltaTime * camMoveSpeed);
                 Vector3 relativePos = (player.position + camLookOffset) - transform.position;
                 Quaternion toRotation = Quaternion.LookRotation(relativePos);
-                transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, 20f * Time.deltaTime);
+                //transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, 10f * Time.deltaTime);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, camRotSpeed * Time.deltaTime);
                 
-            }
-            else
-            {
-                transform.localPosition = new Vector3(0, 1f + verticalMove * 0.01f, -5 - verticalMove * 0.03f);
-                //transform.localPosition = Vector3.Lerp(transform.localPosition, moveTarget, Time.deltaTime * 5f);
-                transform.LookAt(player.position + camLookOffset, player.transform.up);
-            }
-            //transform.localPosition = Vector3.Lerp(transform.localPosition, moveTarget, Time.deltaTime*5f);
-            //transform.localPosition = new Vector3(0, 1f + verticalMove * 0.01f, -5 - verticalMove * 0.03f);
-        }
+        //    }
+        //    else
+        //    {
+        //        timer = 3;
+        //        transform.localPosition = new Vector3(0, 1f + verticalMove * 0.01f, -5 - verticalMove * 0.03f);
+        //        //transform.localPosition = Vector3.Lerp(transform.localPosition, moveTarget, Time.deltaTime * 5f);
+        //        transform.LookAt(player.position + camLookOffset, player.transform.up);
+        //    }
+        //    //transform.localPosition = Vector3.Lerp(transform.localPosition, moveTarget, Time.deltaTime*5f);
+        //    //transform.localPosition = new Vector3(0, 1f + verticalMove * 0.01f, -5 - verticalMove * 0.03f);
+        //}
+        //timer += Time.deltaTime;
+        //transform.localPosition = Vector3.Lerp(transform.localPosition, moveTarget, Time.deltaTime * 10f);
+        //Vector3 relativePos = (player.position + camLookOffset) - transform.position;
+        //Quaternion toRotation = Quaternion.LookRotation(relativePos);
+        //transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, 10f * Time.deltaTime);
         //transform.localPosition = new Vector3(0, 1f+verticalMove * 0.01f, -5- verticalMove * 0.03f);
 
 

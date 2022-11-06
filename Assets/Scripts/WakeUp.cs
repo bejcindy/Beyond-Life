@@ -112,8 +112,9 @@ public class WakeUp : MonoBehaviour
     {
         ringTrack.GetComponent<Animator>().speed = 0;
         player.transform.parent = null;
-        yield return 1.0f;
         ringTrack.GetComponent<MeshCollider>().enabled = false;
+        yield return new WaitForSeconds(2.0f);
+        
         player.transform.GetChild(0).gameObject.GetComponent<CurvePlayerController>().enabled = true;
         Camera.main.GetComponent<CameraController>().enabled = true;
         Camera.main.GetComponent<CameraController>().wakeUp = true;

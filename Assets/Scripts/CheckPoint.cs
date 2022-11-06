@@ -20,10 +20,16 @@ public class CheckPoint : MonoBehaviour
 
     [SerializeField] Material yellowMat;
     [SerializeField] Material redMat;
+    [SerializeField] AudioClip greenSound;
+    [SerializeField] AudioClip yellowSound;
+    [SerializeField] AudioClip redSound;
+
+    AudioSource AS;
     // Start is called before the first frame update
     void Start()
     {
         pressCDVal = pressCD;
+        AS = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -51,6 +57,7 @@ public class CheckPoint : MonoBehaviour
             }
             else
             {
+                AS.PlayOneShot(greenSound);
                 inCheck = false;
                 pressCD = pressCDVal;
                 
@@ -74,12 +81,14 @@ public class CheckPoint : MonoBehaviour
     {
         switch (unpressedAmt)
         {
-            case 0: break;
+            case 0:
+                break;
             case 1:
                 foreach(GameObject light in cpLights)
                 {
                     light.GetComponent<Renderer>().material = yellowMat;
                 }
+                AS.PlayOneShot(yellowSound);
                 
                 break;
             case 2:
@@ -87,6 +96,7 @@ public class CheckPoint : MonoBehaviour
                 {
                     light.GetComponent<Renderer>().material = redMat;
                 }
+                AS.PlayOneShot(redSound);
                 GetComponent<BoxCollider>().enabled = false;
                 wakeUpLogic.SetActive(true);
                 wakeUpLogic.GetComponent<WakeUp>().offTrack = true;

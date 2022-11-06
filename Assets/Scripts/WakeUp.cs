@@ -75,10 +75,10 @@ public class WakeUp : MonoBehaviour
                     }
                 }
 
-                if (wakeSound)
-                {
-                    a.PlayOneShot(wakeSound);
-                }
+                //if (wakeSound)
+                //{
+                //    a.PlayOneShot(wakeSound);
+                //}
                 t = 0;
                 J.SetActive(false);
             }
@@ -113,6 +113,7 @@ public class WakeUp : MonoBehaviour
     {
         ringTrack.GetComponent<Animator>().speed = 0;
         player.transform.parent = null;
+        yield return new WaitForSeconds(2.0f);
         ringTrack.GetComponent<MeshCollider>().enabled = false;
         //Camera.main.GetComponent<CameraController>().enabled = true;
         //Camera.main.GetComponent<CameraController>().wakeUp = true;

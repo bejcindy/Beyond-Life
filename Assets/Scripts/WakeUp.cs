@@ -104,6 +104,7 @@ public class WakeUp : MonoBehaviour
 
         if (offTrack)
         {
+            
             StartCoroutine(activatePlayer());
         }
     }
@@ -113,8 +114,11 @@ public class WakeUp : MonoBehaviour
         ringTrack.GetComponent<Animator>().speed = 0;
         player.transform.parent = null;
         ringTrack.GetComponent<MeshCollider>().enabled = false;
+        //Camera.main.GetComponent<CameraController>().enabled = true;
+        //Camera.main.GetComponent<CameraController>().wakeUp = true;
         yield return new WaitForSeconds(2.0f);
-        
+        //yield return 1.0f;
+
         player.transform.GetChild(0).gameObject.GetComponent<CurvePlayerController>().enabled = true;
         Camera.main.GetComponent<CameraController>().enabled = true;
         Camera.main.GetComponent<CameraController>().wakeUp = true;

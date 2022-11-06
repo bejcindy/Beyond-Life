@@ -83,20 +83,7 @@ public class WakeUp : MonoBehaviour
                 J.SetActive(false);
             }
         }
-        //else
-        //{
-        //    if (t < timeInterval)
-        //    {
-        //        t += Time.deltaTime;
-        //    }
-        //    else
-        //    {
-        //        t = timeInterval;
-        //        J.SetActive(true);
-        //    }
-            
-            
-        //}
+        
 
         if (fallingAsleep)
         {
@@ -129,6 +116,7 @@ public class WakeUp : MonoBehaviour
         ringTrack.GetComponent<MeshCollider>().enabled = false;
         player.transform.GetChild(0).gameObject.GetComponent<CurvePlayerController>().enabled = true;
         Camera.main.GetComponent<CameraController>().enabled = true;
+        Camera.main.GetComponent<CameraController>().wakeUp = true;
         ringTrack.GetComponent<Animator>().speed = 1;
         J.SetActive(false);
         

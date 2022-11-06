@@ -29,7 +29,7 @@ public class CheckPoint : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(unpressedAmt);
+        //Debug.Log(unpressedAmt);
         if (inCheck)
         {
             if (!Input.GetKeyDown(KeyCode.E))
@@ -62,7 +62,7 @@ public class CheckPoint : MonoBehaviour
     {
         if(coll.gameObject.tag == "Player")
         {
-            Debug.Log("found player");
+            //Debug.Log("found player");
             wakeUpLogic.SetActive(true);
             checkKey.SetActive(true);
             inCheck = true;

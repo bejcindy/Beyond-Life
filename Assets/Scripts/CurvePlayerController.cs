@@ -41,7 +41,7 @@ public class CurvePlayerController : MonoBehaviour
     {
         x = Input.GetAxisRaw("Horizontal");
         z = Input.GetAxisRaw("Vertical");
-        Debug.Log(transform.up);
+        //Debug.Log(transform.up);
         Vector3 direction = (transform.forward * z + transform.right * x).normalized;
         //zeroY = new Vector3(direction.x, 0, direction.z);
         //zeroZ = new Vector3(direction.x, direction.y, 0);
@@ -74,7 +74,7 @@ public class CurvePlayerController : MonoBehaviour
         if (!groundCheck[0] && !groundCheck[1] && !groundCheck[2] && !groundCheck[3])
         {
             rb.AddForce(-transform.up * -g * 4000 * Time.deltaTime, ForceMode.Acceleration);
-            Debug.Log("here");
+            //Debug.Log("here");
         }
         
 
@@ -85,14 +85,6 @@ public class CurvePlayerController : MonoBehaviour
 
     }
 
-  
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Curve"))
-        {
-            //cam.GetComponent<CameraController>().waitForCurve = true;
-        }
-    }
 
     private void OnTriggerStay(Collider other)
     {
@@ -102,26 +94,16 @@ public class CurvePlayerController : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(transform.position, -transform.up, out hit, 3))
             {
-                //Physics.gravity = (transform.position - hit.point).normalized * -9.81f;
-                //Physics.gravity = hit.normal * -9.81f;
-                //transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
-                //transform.up += hit.normal;
+                
                 newUp = hit.normal;
                 Vector3 left = Vector3.Cross(transform.forward, newUp);
                 Vector3 newForward = Vector3.Cross(newUp, left);
                 Quaternion newRotation = Quaternion.LookRotation(newForward, newUp);
                 transform.rotation = newRotation;
-                //Debug.Log(hit.normal);
-                //realUp = (hit.point - transform.position).normalized;
+                
             }
         }
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Curve"))
-        {
-            //cam.GetComponent<CameraController>().waitForCurve = false;
-        }
-    }
+    
 }

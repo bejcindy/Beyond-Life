@@ -111,6 +111,7 @@ public class WakeUp : MonoBehaviour
 
     IEnumerator activatePlayer()
     {
+        yield return new WaitForSeconds(0.5f);
         ringTrack.GetComponent<Animator>().speed = 0;
         player.transform.parent = null;
         yield return new WaitForSeconds(2.0f);

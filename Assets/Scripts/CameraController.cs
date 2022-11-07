@@ -12,6 +12,10 @@ public class CameraController : MonoBehaviour
 
     public Vector3 offset;
 
+    public bool wakeUp;
+
+    //bool wokeUp;
+
     Vector3 originalOffestY;
     Vector3 originalOffset;
     public float horizontal;
@@ -28,6 +32,14 @@ public class CameraController : MonoBehaviour
     bool toohigh;
 
     float verticalMove;
+    float timer;
+    Vector3 moveTarget;
+
+    Vector3 camLookOffset;
+    Camera cam;
+
+    float camMoveSpeed = 10f;
+    float camRotSpeed = 10f;
 
     // Start is called before the first frame update
     void Start()
@@ -35,50 +47,61 @@ public class CameraController : MonoBehaviour
 
         originalOffestY = new Vector3(0, offset.y, 0);
         originalOffset = offset;
-        if (player)
-        {
-            transform.position = player.position + offset;
-            offset = transform.position - player.transform.position;
-        }
+        //if (player)
+        //{
+        //    transform.position = player.position + offset;
+        //    offset = transform.position - player.transform.position;
+        //}
         //transform.position = player.position + offset;
         stop = false;
         toohigh = false;
+        camLookOffset = new Vector3(0, 1, 0);
+        cam = GetComponent<Camera>();
+        cam.fieldOfView = 50;
         //offset = transform.position - player.transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //verticalMove = Mathf.Clamp(-(Input.mousePosition.y - Screen.height / 2), -300, 300);
-
-        //Vector3 realTarget = player.position + player.transform.up * verticalMove*0.01f;
-        //Vector3 realTarget = targetPos.position + player.transform.up * verticalMove * 0.01f;
-        //Vector3 realTarget = targetPos.position;
-        //Debug.Log(realTarget);
-        //Debug.Log(verticalMove);
-
-        //if (!waitForCurve)
-        //{
-        //transform.position = Vector3.Lerp(transform.position, targetPos.position, Time.deltaTime * camSpeed);
-
+        
         verticalMove = Mathf.Clamp(-(Input.mousePosition.y - Screen.height *.75f), -15, 300);
-        transform.localPosition = new Vector3(0, verticalMove * 0.01f, -2- verticalMove * 0.01f);
+        
+        moveTarget = new Vector3(0, 1f + verticalMove * 0.01f, -5 - verticalMove * 0.03f);
 
-        //transform.position = Vector3.Lerp(transform.position, realTarget, Time.deltaTime * camSpeed);
-        //Debug.Log(realTarget);
-        //transform.rotation = targetPos.rotation;
-        //transform.LookAt(realTarget);
-        //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(player.position), .1f * Time.deltaTime);
+        //Debug.Log(transform.localPosition);
 
-
-
-        transform.LookAt(player,player.transform.up);
-
-        //}
-        //else
+        //if (wakeUp)
         //{
-        //    //transform.LookAt(realTarget);
-        //    transform.LookAt(player);
+        //    if (timer < 3)
+        //    {
+        //        timer += Time.deltaTime;
+                transform.localPosition = Vector3.Lerp(transform.localPosition, moveTarget, Time.deltaTime * camMoveSpeed);
+                Vector3 relativePos = (player.position + camLookOffset) - transform.position;
+                Quaternion toRotation = Quaternion.LookRotation(relativePos);
+                //transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, 10f * Time.deltaTime);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, camRotSpeed * Time.deltaTime);
+                
+        //    }
+        //    else
+        //    {
+        //        timer = 3;
+        //        transform.localPosition = new Vector3(0, 1f + verticalMove * 0.01f, -5 - verticalMove * 0.03f);
+        //        //transform.localPosition = Vector3.Lerp(transform.localPosition, moveTarget, Time.deltaTime * 5f);
+        //        transform.LookAt(player.position + camLookOffset, player.transform.up);
+        //    }
+        //    //transform.localPosition = Vector3.Lerp(transform.localPosition, moveTarget, Time.deltaTime*5f);
+        //    //transform.localPosition = new Vector3(0, 1f + verticalMove * 0.01f, -5 - verticalMove * 0.03f);
         //}
+        //timer += Time.deltaTime;
+        //transform.localPosition = Vector3.Lerp(transform.localPosition, moveTarget, Time.deltaTime * 10f);
+        //Vector3 relativePos = (player.position + camLookOffset) - transform.position;
+        //Quaternion toRotation = Quaternion.LookRotation(relativePos);
+        //transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, 10f * Time.deltaTime);
+        //transform.localPosition = new Vector3(0, 1f+verticalMove * 0.01f, -5- verticalMove * 0.03f);
+
+
+        //transform.LookAt(player.position+camLookOffset,player.transform.up);
+
     }
 }

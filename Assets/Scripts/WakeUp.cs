@@ -28,7 +28,7 @@ public class WakeUp : MonoBehaviour
     bool fallingAsleep;
     int iPressedTimes = 0;
 
-    bool eyesOpen = false;
+    [SerializeField] bool eyesOpen = false;
     public bool offTrack = false;
 
     // Start is called before the first frame update
@@ -47,6 +47,7 @@ public class WakeUp : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
+                Debug.Log("pressed E");
                 //if player hasn't gained full view yet
                 if (!eyesOpen)
                 {

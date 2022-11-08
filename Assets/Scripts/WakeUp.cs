@@ -23,6 +23,10 @@ public class WakeUp : MonoBehaviour
     public float newAlpha;
     public float alphaDiff = 0.05f;
 
+    public bool mouseWakeUp;
+    public float mouseWakeUpSpeed = 0.0001f;
+
+
     AudioSource a;
     float t;
     bool fallingAsleep;
@@ -43,65 +47,79 @@ public class WakeUp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (J.activeSelf)
+        //Press Button to Wake Up
+        if (!mouseWakeUp)
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (J.activeSelf)
             {
-                Debug.Log("pressed E");
-                //if player hasn't gained full view yet
-                if (!eyesOpen)
+                if (Input.GetKeyDown(KeyCode.E))
                 {
-                    newAlpha = blackImage.color.a - alphaDiff;
-                    alphaDiff += 0.05f;
-                    iPressedTimes += 1;
-
-                    //Pressed J 4 times
-                    if (iPressedTimes == 4)
+                    //if player hasn't gained full view yet
+                    if (!eyesOpen)
                     {
-                        newAlpha = 0;
-                        eyesOpen = true;
-                        //activatePlayer();
 
-                    }
+                        newAlpha = blackImage.color.a - alphaDiff;
+                        alphaDiff += 0.05f;
+                        iPressedTimes += 1;
 
-                    blackImage.color = new Color(0, 0, 0, blackImage.color.a - wakeSpeed);
+                        //Pressed J 4 times
+                        if (iPressedTimes == 4)
+                        {
+                            newAlpha = 0;
+                            eyesOpen = true;
+                            //activatePlayer();
 
-                    if (blackImage.color.a > 0)
-                    {
-                        fallingAsleep = true;
+                        }
+
+                        blackImage.color = new Color(0, 0, 0, blackImage.color.a - wakeSpeed);
+
+                        if (blackImage.color.a > 0)
+                        {
+                            fallingAsleep = true;
+                        }
+                        else
+                        {
+                            blackImage.gameObject.SetActive(false);
+                        }
                     }
-                    else
-                    {
-                        blackImage.gameObject.SetActive(false);
-                    }
+                    t = 0;
+                    J.SetActive(false);
                 }
+            }
+            if (fallingAsleep)
+            {
+                if (blackImage.color.a < 1)
+                {
+                    if (blackImage.color.a < newAlpha)
+                    {
+                        blackImage.color += new Color(0, 0, 0, sleepRate);
+                    }
 
-                //if (wakeSound)
-                //{
-                //    a.PlayOneShot(wakeSound);
-                //}
-                t = 0;
-                J.SetActive(false);
+                }
+                else
+                {
+                    blackImage.color = Color.black;
+                    fallingAsleep = false;
+                }
             }
         }
-        
-
-        if (fallingAsleep)
+        else
         {
-            if (blackImage.color.a < 1)
+            //Mouse Wake Up
+            if (blackImage.color.a > 0)
             {
-                if(blackImage.color.a < newAlpha)
+                if (Input.GetAxisRaw("Mouse X") != 0 || Input.GetAxisRaw("Mouse Y") != 0)
                 {
-                    blackImage.color += new Color(0, 0, 0, sleepRate);
+                    blackImage.color-= new Color(0, 0, 0, mouseWakeUpSpeed);
                 }
-                
             }
             else
             {
-                blackImage.color = Color.black;
-                fallingAsleep = false;
+                blackImage.color= new Color(0, 0, 0, 0);
             }
         }
+
+
 
         if (offTrack)
         {

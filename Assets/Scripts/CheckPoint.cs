@@ -8,6 +8,7 @@ public class CheckPoint : MonoBehaviour
     public GameObject checkKey;
     public GameObject[] cpLights;
     public GameObject wakeUpLogic;
+    [SerializeField] private GameObject myDoor;
 
     public bool inCheck = false;
 
@@ -29,7 +30,7 @@ public class CheckPoint : MonoBehaviour
     void Start()
     {
         pressCDVal = pressCD;
-        AS = GetComponent<AudioSource>();
+        AS = myDoor.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -69,7 +70,6 @@ public class CheckPoint : MonoBehaviour
     {
         if(coll.gameObject.tag == "Player")
         {
-            //Debug.Log("found player");
             wakeUpLogic.SetActive(true);
             checkKey.SetActive(true);
             inCheck = true;

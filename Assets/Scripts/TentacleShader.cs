@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class TentacleShader : MonoBehaviour
 {
+    [ColorUsage(true, true)]
     [SerializeField] Color color_1;
 
+    [ColorUsage(true, true)]
     [SerializeField] Color color_2;
 
     [SerializeField] MeshRenderer[] CubeMat;

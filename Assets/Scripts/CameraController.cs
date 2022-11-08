@@ -28,6 +28,9 @@ public class CameraController : MonoBehaviour
 
     public Vector3 previousPos;
 
+    public float camUpperLimit = 500f;
+    public float camLowerLimit = -15f;
+
     bool stop;
     bool toohigh;
 
@@ -38,8 +41,8 @@ public class CameraController : MonoBehaviour
     Vector3 camLookOffset;
     Camera cam;
 
-    float camMoveSpeed = 10f;
-    float camRotSpeed = 10f;
+    float camMoveSpeed = 20f;
+    float camRotSpeed = 20f;
 
     // Start is called before the first frame update
     void Start()
@@ -65,9 +68,11 @@ public class CameraController : MonoBehaviour
     void Update()
     {
         
-        verticalMove = Mathf.Clamp(-(Input.mousePosition.y - Screen.height *.75f), -15, 300);
-        
-        moveTarget = new Vector3(0, 1f + verticalMove * 0.01f, -5 - verticalMove * 0.03f);
+        verticalMove = Mathf.Clamp(-(Input.mousePosition.y - Screen.height *.75f), camLowerLimit, camUpperLimit);
+
+        moveTarget = new Vector3(0, 1f + verticalMove * 0.01f, Mathf.Clamp( (-5 - verticalMove * 0.03f),-15,-3));
+        //moveTarget = new Vector3(0, 1f + verticalMove * 0.01f, -5 - verticalMove * 0.03f);
+        //Debug.Log(-5 - verticalMove * 0.03f);
 
         //Debug.Log(transform.localPosition);
 
@@ -76,7 +81,7 @@ public class CameraController : MonoBehaviour
         //    if (timer < 3)
         //    {
         //        timer += Time.deltaTime;
-                transform.localPosition = Vector3.Lerp(transform.localPosition, moveTarget, Time.deltaTime * camMoveSpeed);
+        transform.localPosition = Vector3.Lerp(transform.localPosition, moveTarget, Time.deltaTime * camMoveSpeed);
                 Vector3 relativePos = (player.position + camLookOffset) - transform.position;
                 Quaternion toRotation = Quaternion.LookRotation(relativePos);
                 //transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, 10f * Time.deltaTime);

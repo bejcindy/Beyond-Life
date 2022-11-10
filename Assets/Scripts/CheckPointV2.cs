@@ -25,7 +25,9 @@ public class CheckPointV2   : MonoBehaviour
 
 
     //New Logic
-    public bool wrongKey = false;
+
+
+    public bool firstCheckPass = false;
 
     [SerializeField] Material greenMat;
     [SerializeField] Material yellowMat;
@@ -47,15 +49,28 @@ public class CheckPointV2   : MonoBehaviour
     void Update()
     {
 
-        if (Input.anyKey)
+        //if (Input.anyKey)
+        //{
+        //    if (Input.GetKey(KeyCode.E))
+        //    {
+        //        Debug.Log("pressed E");
+        //    }
+        //    else
+        //    {
+        //        Debug.Log("wrong key");
+        //    }
+        //}
+
+        if (inCheck)
         {
             if (Input.GetKey(KeyCode.E))
             {
-                Debug.Log("pressed E");
+                Debug.Log("passing check");
             }
-            else
+            if (Input.GetKeyUp(KeyCode.E))
             {
-                Debug.Log("wrong key");
+                firstCheckPass = false;
+                Debug.Log("you failed");
             }
         }
     }  
@@ -65,6 +80,7 @@ public class CheckPointV2   : MonoBehaviour
         if(coll.gameObject.tag == "Player")
         {
             //wakeUpLogic.SetActive(true);
+            inCheck = true;
             checkKey.SetActive(true);
         }
 
@@ -74,10 +90,21 @@ public class CheckPointV2   : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            if (!wrongKey)
-            {
-                AS.PlayOneShot(greenSound);
-            }
+            checkKey.SetActive(false);
+            inCheck = false;
+            enterSecondCheck();
+        }
+    }
+
+    public void enterSecondCheck()
+    {
+        if (firstCheckPass)
+        {
+            //continue
+        }
+        else
+        {
+            //pause and start second check
         }
     }
 
@@ -108,23 +135,23 @@ public class CheckPointV2   : MonoBehaviour
         //    default:
         //        break;
         //}
-        unpressedAmt += 1;
-        switch (unpressedAmt)
-        {
-            case 0:
-                break;
-            case 1:
-                nextDoor.GetComponent<Renderer>().material = yellowMat;
-                AS.PlayOneShot(yellowSound);
-                break;
-            case 2:
-                nextDoor.GetComponent<Renderer>().material = redMat;
-                AS.PlayOneShot(redSound);
-                break;
-            default:
-                break;
-        }
-        StartCoroutine(resetDoor());
+        //unpressedAmt += 1;
+        //switch (unpressedAmt)
+        //{
+        //    case 0:
+        //        break;
+        //    case 1:
+        //        nextDoor.GetComponent<Renderer>().material = yellowMat;
+        //        AS.PlayOneShot(yellowSound);
+        //        break;
+        //    case 2:
+        //        nextDoor.GetComponent<Renderer>().material = redMat;
+        //        AS.PlayOneShot(redSound);
+        //        break;
+        //    default:
+        //        break;
+        //}
+        //StartCoroutine(resetDoor());
     }
 
     IEnumerator resetDoor()

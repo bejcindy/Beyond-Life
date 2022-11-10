@@ -5,33 +5,18 @@ using UnityEngine;
 public class CurvePlayerController : MonoBehaviour
 {
     public float speed;
-    float x, z;
-    float rotationX;
     public float lookSpeed = 5.0f;
-    public float lookXLimit = 45.0f;
-    public float g;
     public Transform[] legPos;
-    public Transform cam;
 
     bool[] groundCheck;
     Rigidbody rb;
-
-    bool offground;
-    bool parallelToGround;
-    Vector3 currentDirection;
-    Vector3 zeroX, zeroY, zeroZ;
-    bool zX, zY, zZ;
-    bool activeAxisX;
-    float rot;
-    Vector3 realUp;
-
+    float x, z;
+    float g = -9.18f;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        parallelToGround = true;
-        //legPos = new Transform[4];
         groundCheck = new bool[4];
         
     }
@@ -41,21 +26,17 @@ public class CurvePlayerController : MonoBehaviour
     {
         x = Input.GetAxisRaw("Horizontal");
         z = Input.GetAxisRaw("Vertical");
-        //Debug.Log(transform.up);
         Vector3 direction = (transform.forward * z + transform.right * x).normalized;
-        //zeroY = new Vector3(direction.x, 0, direction.z);
-        //zeroZ = new Vector3(direction.x, direction.y, 0);
-        //zeroX = new Vector3(0, direction.y, direction.z);
-
         rb.velocity = direction * speed;
+        transform.Rotate(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
 
         RaycastHit hit;
         if (Physics.Raycast(transform.position, -transform.up, out hit, 3))
         {
             Physics.gravity = hit.normal * g;
-            offground = false;
         }
 
+        //Using four corners of the robot to detect whether it's falling or not
         for (int i = 0; i < legPos.Length; i++)
         {
             RaycastHit h;
@@ -69,20 +50,11 @@ public class CurvePlayerController : MonoBehaviour
                 groundCheck[i] = false;
             }
         }
-        //Debug.DrawRay(legPos[0].position, -transform.up, Color.blue);
-        //Debug.Log(groundCheck[0] + " " + groundCheck[1] + " " + groundCheck[2] + " " + groundCheck[3] + " ");
+        //Add extra force to robot because falling speed is too slow under regular gravity
         if (!groundCheck[0] && !groundCheck[1] && !groundCheck[2] && !groundCheck[3])
         {
             rb.AddForce(-transform.up * -g * 4000 * Time.deltaTime, ForceMode.Acceleration);
-            //Debug.Log("here");
         }
-        
-
-        transform.Rotate(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
-
-
-
-
     }
 
 
@@ -93,14 +65,12 @@ public class CurvePlayerController : MonoBehaviour
             Vector3 newUp;
             RaycastHit hit;
             if (Physics.Raycast(transform.position, -transform.up, out hit, 3))
-            {
-                
+            {                
                 newUp = hit.normal;
                 Vector3 left = Vector3.Cross(transform.forward, newUp);
                 Vector3 newForward = Vector3.Cross(newUp, left);
                 Quaternion newRotation = Quaternion.LookRotation(newForward, newUp);
-                transform.rotation = newRotation;
-                
+                transform.rotation = newRotation;                
             }
         }
     }

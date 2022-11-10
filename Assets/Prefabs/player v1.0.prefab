@@ -1,49 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &442292103087773338
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 442292103087773337}
-  - component: {fileID: 442292103087773336}
-  m_Layer: 0
-  m_Name: Cam Pos
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &442292103087773337
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 442292103087773338}
-  m_LocalRotation: {x: 0.17364816, y: 0, z: 0, w: 0.9848078}
-  m_LocalPosition: {x: 0, y: 3, z: -5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 119889846867485379}
-  m_RootOrder: 12
-  m_LocalEulerAnglesHint: {x: 20, y: 0, z: 0}
---- !u!114 &442292103087773336
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 442292103087773338}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae5b16eb405f2420fab12613ea58888c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &442292103093296019
 GameObject:
   m_ObjectHideFlags: 0
@@ -313,20 +269,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8180f26a47974118861082545e6e4b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  t: 5
   player: {fileID: 119889846867485379}
-  waitForCurve: 0
-  targetPos: {fileID: 442292103087773337}
+  targetPos: {fileID: 0}
   offset: {x: 0, y: 3, z: -5}
   wakeUp: 0
-  horizontal: 0
-  vertical: 0
-  reset: 0
-  camSpeed: 10000
-  rotSpeed: 10000
-  regularRSpeed: 1
-  jumping: 0
-  previousPos: {x: 0, y: 0, z: 0}
+  camUpperLimit: 500
+  camLowerLimit: -15
 --- !u!1 &442292103524429799
 GameObject:
   m_ObjectHideFlags: 0
@@ -423,7 +371,7 @@ Transform:
   - {fileID: 442292103093296018}
   - {fileID: 442292103473041734}
   m_Father: {fileID: 119889846867485379}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &442292104103396648
 PrefabInstance:

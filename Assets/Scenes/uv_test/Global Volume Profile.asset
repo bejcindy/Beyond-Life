@@ -29,13 +29,13 @@ MonoBehaviour:
   active: 1
   threshold:
     m_OverrideState: 1
-    m_Value: 0.69
+    m_Value: 0.71
   intensity:
     m_OverrideState: 1
-    m_Value: 0.54
+    m_Value: 1.23
   scatter:
     m_OverrideState: 1
-    m_Value: 0.766
+    m_Value: 0.92
   clamp:
     m_OverrideState: 0
     m_Value: 65472
@@ -46,8 +46,8 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 0
   skipIterations:
-    m_OverrideState: 0
-    m_Value: 1
+    m_OverrideState: 1
+    m_Value: 4
   dirtTexture:
     m_OverrideState: 0
     m_Value: {fileID: 0}

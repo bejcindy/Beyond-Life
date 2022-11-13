@@ -531,11 +531,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   lookSpeed: 5
-  lookXLimit: 45
-  g: -9.81
   legPos:
   - {fileID: 442292103208721986}
   - {fileID: 442292103524429798}
   - {fileID: 442292103093296018}
   - {fileID: 442292103473041734}
-  cam: {fileID: 442292103501346840}

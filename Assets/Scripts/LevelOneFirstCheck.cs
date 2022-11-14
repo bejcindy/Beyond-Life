@@ -7,6 +7,8 @@ public class LevelOneFirstCheck   : MonoBehaviour
     public GameObject player;
     public GameObject checkKey;
     public GameObject mainTrack;
+
+    public GameObject playerTile;
     //public GameObject[] cpLights;
     //public GameObject wakeUpLogic;
 
@@ -48,7 +50,6 @@ public class LevelOneFirstCheck   : MonoBehaviour
         //pressCDVal = pressCD;
         AS = GetComponent<AudioSource>();
         currentMat = greenMat;
-        mainTrack = GameObject.Find("MainTrack");
     }
 
     // Update is called once per frame
@@ -150,8 +151,10 @@ public class LevelOneFirstCheck   : MonoBehaviour
         if (failedFirstCheck)
         {
             Debug.Log("you failed first check");
-            mainTrack.GetComponent<Animator>().enabled = false;
+            mainTrack.GetComponent<Animator>().speed = 0;
+            playerTile.SetActive(false);
             player.transform.parent = myTunnel.transform;
+            //player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationX;
             myTunnel.GetComponent<Animator>().enabled = true;
             inSecondCheck = true;
             checkKey.SetActive(true);
@@ -166,7 +169,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
     void resumePlayer()
     {
         player.transform.parent = mainTrack.transform;
-        mainTrack.GetComponent<Animator>().enabled = true;
+        mainTrack.GetComponent<Animator>().speed = 1;
     }
     IEnumerator resetDoor()
     {

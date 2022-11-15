@@ -26,7 +26,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
     //new stuff
     public bool keyPressed = false;
     public GameObject myTunnel;
-    public GameObject nextDoor;
+    public GameObject myLights;
     public Material currentMat;
 
 
@@ -82,39 +82,58 @@ public class LevelOneFirstCheck   : MonoBehaviour
             //    }
 
             //}
-            if (Input.GetKey(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 holdTime -= Time.deltaTime * holdTimeSpeed;
+                myLights.GetComponent<Animator>().enabled = true;
+                myLights.GetComponent<Animator>().speed = 0.1f;
+                if(myLights.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
+                {
+                    myLights.GetComponent<AudioSource>().enabled = true;
+                    myLights.GetComponent<AudioSource>().Play();
+                }
+
                 Debug.Log("pressing and holding E");
             }
 
             if (Input.GetKeyUp(KeyCode.E))
             {
-                if(holdTime > 0)
-                {
-                    Debug.Log("you failed second check");
-                    failedSecondCheck = true;
-                }
+                //if(holdTime > 0)
+                //{
+                //    Debug.Log("you failed second check");
+                //    failedSecondCheck = true;
+                //}
+                myLights.GetComponent<Animator>().speed = 0;
+                myLights.GetComponent<AudioSource>().Pause();
 
             }
 
             if(tunnelAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
             {
-                if(holdTime <= 0)
-                {
-                    if (failedSecondCheck)
-                    {
-                        triggerDropPlayer();
-                    }
-                    else
-                    {
-                        resumePlayer();
-                    }
-                }
-                else
+                //if(holdTime <= 0)
+                //{
+                //    if (failedSecondCheck)
+                //    {
+                //        triggerDropPlayer();
+                //    }
+                //    else
+                //    {
+                //        resumePlayer();
+                //    }
+                //}
+                //else
+                //{
+                //    failedSecondCheck = true;
+                //    triggerDropPlayer();
+                //}
+                if (myLights.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
                 {
                     failedSecondCheck = true;
                     triggerDropPlayer();
+                }
+                else
+                {
+                    resumePlayer();
                 }
                 checkKey.SetActive(false);
             }
@@ -208,9 +227,5 @@ public class LevelOneFirstCheck   : MonoBehaviour
 
 
     }
-    IEnumerator resetDoor()
-    {
-        yield return new WaitForSeconds(5.0f);
-        nextDoor.GetComponent<Renderer>().material = greenMat;
-    }
+
 }

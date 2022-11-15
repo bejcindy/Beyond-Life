@@ -27,6 +27,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
     public bool keyPressed = false;
     public GameObject myTunnel;
     public GameObject myLights;
+    public GameObject buttonSound;
     public Material currentMat;
 
 
@@ -38,12 +39,12 @@ public class LevelOneFirstCheck   : MonoBehaviour
 
     Animator tunnelAnim;
 
-    [SerializeField] Material greenMat;
-    [SerializeField] Material yellowMat;
-    [SerializeField] Material redMat;
-    [SerializeField] AudioClip greenSound;
-    [SerializeField] AudioClip yellowSound;
-    [SerializeField] AudioClip redSound;
+    //[SerializeField] Material greenMat;
+    //[SerializeField] Material yellowMat;
+    //[SerializeField] Material redMat;
+    //[SerializeField] AudioClip greenSound;
+    //[SerializeField] AudioClip yellowSound;
+    //[SerializeField] AudioClip redSound;
 
     AudioSource AS;
     // Start is called before the first frame update
@@ -51,7 +52,8 @@ public class LevelOneFirstCheck   : MonoBehaviour
     {
         //pressCDVal = pressCD;
         AS = GetComponent<AudioSource>();
-        currentMat = greenMat;
+        buttonSound = gameObject.transform.GetChild(0).gameObject;
+        //currentMat = greenMat;
 
         tunnelAnim = myTunnel.transform.parent.gameObject.GetComponent<Animator>();
     }
@@ -67,6 +69,11 @@ public class LevelOneFirstCheck   : MonoBehaviour
                 Debug.Log("passing check");
                 keyPressed = true;
                 myLights.GetComponent<Animator>().SetBool("Checked", true);
+                buttonSound.GetComponent<AudioSource>().enabled = true;
+            }
+            if (Input.GetKeyUp(KeyCode.E))
+            {
+                buttonSound.GetComponent<AudioSource>().enabled = false;
             }
         }
 

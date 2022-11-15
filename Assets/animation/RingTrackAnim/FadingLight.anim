@@ -21,9 +21,9 @@ AnimationClip:
   - curve:
     - time: 0
       value: {fileID: 2100000, guid: 00fc9f4382c4eba4798b11406bd56c4d, type: 2}
-    - time: 0.8333333
+    - time: 0.25
       value: {fileID: 2100000, guid: 5600c3bca19888a4fbf6bfb078859663, type: 2}
-    - time: 1.6666666
+    - time: 0.5
       value: {fileID: 2100000, guid: 9e13412d1d30f9144a7a0f4304879a32, type: 2}
     attribute: m_Materials.Array.data[0]
     path: gate_unit.001
@@ -32,9 +32,9 @@ AnimationClip:
   - curve:
     - time: 0
       value: {fileID: 2100000, guid: 00fc9f4382c4eba4798b11406bd56c4d, type: 2}
-    - time: 1.6666666
+    - time: 0.5
       value: {fileID: 2100000, guid: 5600c3bca19888a4fbf6bfb078859663, type: 2}
-    - time: 2.5
+    - time: 0.73333335
       value: {fileID: 2100000, guid: 9e13412d1d30f9144a7a0f4304879a32, type: 2}
     attribute: m_Materials.Array.data[0]
     path: gate_unit.007
@@ -43,9 +43,9 @@ AnimationClip:
   - curve:
     - time: 0
       value: {fileID: 2100000, guid: 00fc9f4382c4eba4798b11406bd56c4d, type: 2}
-    - time: 2.5
+    - time: 0.73333335
       value: {fileID: 2100000, guid: 5600c3bca19888a4fbf6bfb078859663, type: 2}
-    - time: 3.3333333
+    - time: 0.98333335
       value: {fileID: 2100000, guid: 9e13412d1d30f9144a7a0f4304879a32, type: 2}
     attribute: m_Materials.Array.data[0]
     path: gate_unit.006
@@ -54,9 +54,9 @@ AnimationClip:
   - curve:
     - time: 0
       value: {fileID: 2100000, guid: 00fc9f4382c4eba4798b11406bd56c4d, type: 2}
-    - time: 3.3333333
+    - time: 0.98333335
       value: {fileID: 2100000, guid: 5600c3bca19888a4fbf6bfb078859663, type: 2}
-    - time: 4.1666665
+    - time: 1.2333333
       value: {fileID: 2100000, guid: 9e13412d1d30f9144a7a0f4304879a32, type: 2}
     attribute: m_Materials.Array.data[0]
     path: gate_unit.005
@@ -65,9 +65,9 @@ AnimationClip:
   - curve:
     - time: 0
       value: {fileID: 2100000, guid: 00fc9f4382c4eba4798b11406bd56c4d, type: 2}
-    - time: 4.1666665
+    - time: 1.2333333
       value: {fileID: 2100000, guid: 5600c3bca19888a4fbf6bfb078859663, type: 2}
-    - time: 5
+    - time: 1.4833333
       value: {fileID: 2100000, guid: 9e13412d1d30f9144a7a0f4304879a32, type: 2}
     attribute: m_Materials.Array.data[0]
     path: gate_unit.003
@@ -136,12 +136,12 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 5.016667
+    m_StopTime: 1.5
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
     m_HasAdditiveReferencePose: 0
-    m_LoopTime: 1
+    m_LoopTime: 0
     m_LoopBlend: 0
     m_LoopBlendOrientation: 0
     m_LoopBlendPositionY: 0

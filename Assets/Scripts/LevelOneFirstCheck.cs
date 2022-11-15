@@ -66,6 +66,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
             {
                 Debug.Log("passing check");
                 keyPressed = true;
+                myLights.GetComponent<Animator>().SetBool("Checked", true);
             }
         }
 
@@ -84,8 +85,9 @@ public class LevelOneFirstCheck   : MonoBehaviour
             //}
             if (Input.GetKeyDown(KeyCode.E))
             {
-                holdTime -= Time.deltaTime * holdTimeSpeed;
-                myLights.GetComponent<Animator>().enabled = true;
+                //holdTime -= Time.deltaTime * holdTimeSpeed;
+                //myLights.GetComponent<Animator>().enabled = true;
+                myLights.GetComponent<Animator>().SetBool("Charging", true);
                 myLights.GetComponent<Animator>().speed = 0.1f;
                 if(myLights.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
                 {
@@ -137,6 +139,13 @@ public class LevelOneFirstCheck   : MonoBehaviour
                 }
                 checkKey.SetActive(false);
             }
+            else
+            {
+                if (myLights.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+                {
+                    checkKey.SetActive(false);
+                }
+            }
 
 
             //if(holdTime <= 0)
@@ -169,6 +178,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
             //wakeUpLogic.SetActive(true);
             inCheck = true;
             checkKey.SetActive(true);
+            myLights.GetComponent<Animator>().SetBool("Fading", true);
         }
 
     }

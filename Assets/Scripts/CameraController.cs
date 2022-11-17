@@ -11,6 +11,7 @@ public class CameraController : MonoBehaviour
     public bool wakeUp;
     public float camUpperLimit = 500f;
     public float camLowerLimit = -15f;
+    public bool Level1End;
 
     float verticalMove;
     Vector3 moveTarget;
@@ -34,10 +35,19 @@ public class CameraController : MonoBehaviour
         verticalMove = Mathf.Clamp(-(Input.mousePosition.y - Screen.height *.75f), camLowerLimit, camUpperLimit);
 
         moveTarget = new Vector3(0, 1f + verticalMove * 0.01f, Mathf.Clamp( (-5 - verticalMove * 0.03f),-15,-3));
-        
-        transform.localPosition = Vector3.Lerp(transform.localPosition, moveTarget, Time.deltaTime * camMoveSpeed);
-        Vector3 relativePos = (player.position + camLookOffset) - transform.position;
-        Quaternion toRotation = Quaternion.LookRotation(relativePos);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, camRotSpeed * Time.deltaTime);
+
+        if (!Level1End)
+        {
+            transform.localPosition = Vector3.Lerp(transform.localPosition, moveTarget, Time.deltaTime * camMoveSpeed);
+            Vector3 relativePos = (player.position + camLookOffset) - transform.position;
+            Quaternion toRotation = Quaternion.LookRotation(relativePos);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, camRotSpeed * Time.deltaTime);
+        }
+        else
+        {
+            Vector3 topOfPlayer = new Vector3(0, 1f, 0);
+            transform.localPosition = Vector3.Lerp(transform.localPosition, topOfPlayer, Time.deltaTime);
+            
+        }
     }
 }

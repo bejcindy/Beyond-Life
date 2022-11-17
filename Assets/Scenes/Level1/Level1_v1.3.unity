@@ -4849,13 +4849,14 @@ MonoBehaviour:
   player: {fileID: 784259115963846827}
   checkKey: {fileID: 887983147}
   mainTrack: {fileID: 5493884568339386231}
-  playerTile: {fileID: 0}
+  playerTile: {fileID: 2476724599741541736}
   inCheck: 0
   inSecondCheck: 0
   holdTime: 8
   holdFailCountDown: 2
   holdTimeSpeed: 2
   keyPressed: 0
+  secondKeyPressed: 0
   myTunnel: {fileID: 387355266}
   myLights: {fileID: 1809016853}
   buttonSound: {fileID: 0}
@@ -5386,13 +5387,14 @@ MonoBehaviour:
   player: {fileID: 784259115963846827}
   checkKey: {fileID: 887983147}
   mainTrack: {fileID: 5493884568339386231}
-  playerTile: {fileID: 0}
+  playerTile: {fileID: 2476724599741541736}
   inCheck: 0
   inSecondCheck: 0
   holdTime: 8
   holdFailCountDown: 2
   holdTimeSpeed: 2
   keyPressed: 0
+  secondKeyPressed: 0
   myTunnel: {fileID: 316833203}
   myLights: {fileID: 1790710955}
   buttonSound: {fileID: 0}
@@ -8228,13 +8230,14 @@ MonoBehaviour:
   player: {fileID: 784259115963846827}
   checkKey: {fileID: 887983147}
   mainTrack: {fileID: 5493884568339386231}
-  playerTile: {fileID: 0}
+  playerTile: {fileID: 2476724599741541736}
   inCheck: 0
   inSecondCheck: 0
   holdTime: 8
   holdFailCountDown: 2
   holdTimeSpeed: 2
   keyPressed: 0
+  secondKeyPressed: 0
   myTunnel: {fileID: 1637595813}
   myLights: {fileID: 1626661383}
   buttonSound: {fileID: 0}
@@ -8927,13 +8930,14 @@ MonoBehaviour:
   player: {fileID: 784259115963846827}
   checkKey: {fileID: 887983147}
   mainTrack: {fileID: 5493884568339386231}
-  playerTile: {fileID: 0}
+  playerTile: {fileID: 2476724599741541736}
   inCheck: 0
   inSecondCheck: 0
   holdTime: 8
   holdFailCountDown: 2
   holdTimeSpeed: 2
   keyPressed: 0
+  secondKeyPressed: 0
   myTunnel: {fileID: 347577078}
   myLights: {fileID: 1362758278}
   buttonSound: {fileID: 0}
@@ -9999,13 +10003,14 @@ MonoBehaviour:
   player: {fileID: 784259115963846827}
   checkKey: {fileID: 887983147}
   mainTrack: {fileID: 5493884568339386231}
-  playerTile: {fileID: 0}
+  playerTile: {fileID: 2476724599741541736}
   inCheck: 0
   inSecondCheck: 0
   holdTime: 8
   holdFailCountDown: 2
   holdTimeSpeed: 2
   keyPressed: 0
+  secondKeyPressed: 0
   myTunnel: {fileID: 1596864831}
   myLights: {fileID: 1302351024}
   buttonSound: {fileID: 0}
@@ -10303,13 +10308,14 @@ MonoBehaviour:
   player: {fileID: 784259115963846827}
   checkKey: {fileID: 887983147}
   mainTrack: {fileID: 5493884568339386231}
-  playerTile: {fileID: 0}
+  playerTile: {fileID: 2476724599741541736}
   inCheck: 0
   inSecondCheck: 0
   holdTime: 8
   holdFailCountDown: 2
   holdTimeSpeed: 2
   keyPressed: 0
+  secondKeyPressed: 0
   myTunnel: {fileID: 193836675}
   myLights: {fileID: 633640133}
   buttonSound: {fileID: 0}
@@ -10870,13 +10876,14 @@ MonoBehaviour:
   player: {fileID: 784259115963846827}
   checkKey: {fileID: 887983147}
   mainTrack: {fileID: 5493884568339386231}
-  playerTile: {fileID: 0}
+  playerTile: {fileID: 2476724599741541736}
   inCheck: 0
   inSecondCheck: 0
   holdTime: 8
   holdFailCountDown: 2
   holdTimeSpeed: 2
   keyPressed: 0
+  secondKeyPressed: 0
   myTunnel: {fileID: 43575829}
   myLights: {fileID: 2117015974}
   buttonSound: {fileID: 0}
@@ -11266,13 +11273,14 @@ MonoBehaviour:
   player: {fileID: 784259115963846827}
   checkKey: {fileID: 887983147}
   mainTrack: {fileID: 5493884568339386231}
-  playerTile: {fileID: 0}
+  playerTile: {fileID: 2476724599741541736}
   inCheck: 0
   inSecondCheck: 0
   holdTime: 8
   holdFailCountDown: 2
   holdTimeSpeed: 2
   keyPressed: 0
+  secondKeyPressed: 0
   myTunnel: {fileID: 1381654497}
   myLights: {fileID: 65189368}
   buttonSound: {fileID: 0}
@@ -13479,6 +13487,7 @@ GameObject:
   - component: {fileID: 7360132891557952399}
   - component: {fileID: 5474216767822534597}
   - component: {fileID: 1062591028233560815}
+  - component: {fileID: 7360132891557952400}
   m_Layer: 0
   m_Name: halo2_player_tile
   m_TagString: Untagged
@@ -15157,14 +15166,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5080425594960696344}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+  m_LocalRotation: {x: -0.70710677, y: -0.00012338163, z: 0.00012338163, w: 0.70710677}
   m_LocalPosition: {x: 2.4572732, y: 38.278137, z: 63.419994}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2960209976479496146}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -89.98, y: -90, z: 90}
 --- !u!23 &1623194624479865582
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -16193,6 +16202,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2960209976479496146}
+  - component: {fileID: 2960209976479496147}
   m_Layer: 0
   m_Name: slide_door
   m_TagString: Untagged
@@ -16868,6 +16878,7 @@ GameObject:
   - component: {fileID: 7647083380284899083}
   - component: {fileID: 17627318672671632}
   - component: {fileID: 1479966704356274537}
+  - component: {fileID: 7647083380284899084}
   m_Layer: 0
   m_Name: halo2_layer2
   m_TagString: Untagged
@@ -17093,6 +17104,26 @@ Transform:
   m_Father: {fileID: 1687544803061293850}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &2960209976479496147
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2476724599741541736}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a41f4b6aefbc0024a9091ec9b76aa6aa, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!23 &3005967616055647840
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -19718,6 +19749,7 @@ GameObject:
   - component: {fileID: 1618825408379753907}
   - component: {fileID: 8388795963099058755}
   - component: {fileID: 922768227127237046}
+  - component: {fileID: 8388795963099058756}
   m_Layer: 0
   m_Name: halo2_player_tile.002
   m_TagString: Untagged
@@ -21782,14 +21814,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8612411992314475579}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+  m_LocalRotation: {x: -0.70710677, y: 0.00012338163, z: -0.00012338163, w: 0.70710677}
   m_LocalPosition: {x: -2.458583, y: 38.278137, z: 63.41999}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2960209976479496146}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -89.98, y: 90, z: -90}
 --- !u!4 &6602452043644960555
 Transform:
   m_ObjectHideFlags: 0
@@ -22358,6 +22390,20 @@ Transform:
   m_Father: {fileID: 2960209976479496146}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &7360132891557952400
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 375127302570392830}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2907301725745156259, guid: 21b13d5475c3e9545aeea3427758a3d0, type: 3}
 --- !u!1 &7360669958308950162
 GameObject:
   m_ObjectHideFlags: 0
@@ -22584,6 +22630,20 @@ Transform:
   m_Father: {fileID: 7639840583556999608}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &7647083380284899084
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2660313582186617048}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 5300041413757036644, guid: 0f7364e15c55b0e4084232007320c62d, type: 3}
 --- !u!23 &7648460281902521252
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -23565,6 +23625,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5080425594960696344}
   m_Mesh: {fileID: -9142170961721766516, guid: 21b13d5475c3e9545aeea3427758a3d0, type: 3}
+--- !u!64 &8388795963099058756
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5080425594960696344}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -9142170961721766516, guid: 21b13d5475c3e9545aeea3427758a3d0, type: 3}
 --- !u!1 &8421109894782271463
 GameObject:
   m_ObjectHideFlags: 0
@@ -23692,6 +23766,7 @@ GameObject:
   - component: {fileID: 6582302507660634292}
   - component: {fileID: 6719439484081800448}
   - component: {fileID: 4904194087375620356}
+  - component: {fileID: 8612411992314475580}
   m_Layer: 0
   m_Name: halo2_player_tile.001
   m_TagString: Untagged
@@ -23699,6 +23774,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!64 &8612411992314475580
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8612411992314475579}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 1700089910208872499, guid: 21b13d5475c3e9545aeea3427758a3d0, type: 3}
 --- !u!1 &8616726160418357088
 GameObject:
   m_ObjectHideFlags: 0

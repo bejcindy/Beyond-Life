@@ -51,7 +51,7 @@ public class CurvePlayerController : MonoBehaviour
         }
         else
         {
-            Quaternion toRotation = Quaternion.LookRotation(Vector3.zero);
+            Quaternion toRotation = Quaternion.LookRotation(-transform.position);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, Time.deltaTime*10f);
         }
         

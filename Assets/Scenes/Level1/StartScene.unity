@@ -287,7 +287,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 2096896
+    rgba: 4280286976
   m_fontColor: {r: 0, g: 1, b: 0.12156868, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -940,7 +940,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startButton: {fileID: 0}
   wakeUpMaster: {fileID: 0}
-  buttonSound: {fileID: 8300000, guid: f566a6c3509f2234e9d52ffb771eb9d9, type: 3}
+  buttonSound: {fileID: 8300000, guid: 4d176530f205c484c90cc938ed82b7de, type: 3}
   mainTrack: {fileID: 0}
   ambienceAS: {fileID: 0}
   pressWaitTime: 5

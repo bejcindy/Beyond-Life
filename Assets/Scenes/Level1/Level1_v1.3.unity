@@ -5478,8 +5478,8 @@ MonoBehaviour:
   currentMat: {fileID: 0}
   failedFirstCheck: 0
   failedSecondCheck: 0
-  chargingSound: {fileID: 0}
-  failedSound: {fileID: 0}
+  chargingSound: {fileID: 8300000, guid: 24e94f08d5b239842bbd4b6d87d00d1d, type: 3}
+  failedSound: {fileID: 8300000, guid: d3e30aee5d1fffe47b08158cf3faa59f, type: 3}
 --- !u!65 &797133344
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9310,8 +9310,8 @@ MonoBehaviour:
   currentMat: {fileID: 0}
   failedFirstCheck: 0
   failedSecondCheck: 0
-  chargingSound: {fileID: 0}
-  failedSound: {fileID: 0}
+  chargingSound: {fileID: 8300000, guid: 24e94f08d5b239842bbd4b6d87d00d1d, type: 3}
+  failedSound: {fileID: 8300000, guid: d3e30aee5d1fffe47b08158cf3faa59f, type: 3}
 --- !u!65 &1436186195
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9993,8 +9993,8 @@ MonoBehaviour:
   currentMat: {fileID: 0}
   failedFirstCheck: 0
   failedSecondCheck: 0
-  chargingSound: {fileID: 0}
-  failedSound: {fileID: 0}
+  chargingSound: {fileID: 8300000, guid: 24e94f08d5b239842bbd4b6d87d00d1d, type: 3}
+  failedSound: {fileID: 8300000, guid: d3e30aee5d1fffe47b08158cf3faa59f, type: 3}
 --- !u!65 &1484063458
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11049,8 +11049,8 @@ MonoBehaviour:
   currentMat: {fileID: 0}
   failedFirstCheck: 0
   failedSecondCheck: 0
-  chargingSound: {fileID: 0}
-  failedSound: {fileID: 0}
+  chargingSound: {fileID: 8300000, guid: 24e94f08d5b239842bbd4b6d87d00d1d, type: 3}
+  failedSound: {fileID: 8300000, guid: d3e30aee5d1fffe47b08158cf3faa59f, type: 3}
 --- !u!65 &1674440057
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11325,8 +11325,8 @@ MonoBehaviour:
   currentMat: {fileID: 0}
   failedFirstCheck: 0
   failedSecondCheck: 0
-  chargingSound: {fileID: 0}
-  failedSound: {fileID: 0}
+  chargingSound: {fileID: 8300000, guid: 24e94f08d5b239842bbd4b6d87d00d1d, type: 3}
+  failedSound: {fileID: 8300000, guid: d3e30aee5d1fffe47b08158cf3faa59f, type: 3}
 --- !u!65 &1783533812
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11866,8 +11866,8 @@ MonoBehaviour:
   currentMat: {fileID: 0}
   failedFirstCheck: 0
   failedSecondCheck: 0
-  chargingSound: {fileID: 0}
-  failedSound: {fileID: 0}
+  chargingSound: {fileID: 8300000, guid: 24e94f08d5b239842bbd4b6d87d00d1d, type: 3}
+  failedSound: {fileID: 8300000, guid: d3e30aee5d1fffe47b08158cf3faa59f, type: 3}
 --- !u!65 &1809468939
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12235,8 +12235,8 @@ MonoBehaviour:
   currentMat: {fileID: 0}
   failedFirstCheck: 0
   failedSecondCheck: 0
-  chargingSound: {fileID: 0}
-  failedSound: {fileID: 0}
+  chargingSound: {fileID: 8300000, guid: 24e94f08d5b239842bbd4b6d87d00d1d, type: 3}
+  failedSound: {fileID: 8300000, guid: d3e30aee5d1fffe47b08158cf3faa59f, type: 3}
 --- !u!65 &1916160428
 BoxCollider:
   m_ObjectHideFlags: 0

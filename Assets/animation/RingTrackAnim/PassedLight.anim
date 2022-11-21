@@ -63,6 +63,15 @@ AnimationClip:
     path: gate_unit.001
     classID: 23
     script: {fileID: 0}
+  - curve:
+    - time: 0
+      value: {fileID: 2100000, guid: 00fc9f4382c4eba4798b11406bd56c4d, type: 2}
+    - time: 1
+      value: {fileID: 2100000, guid: 00fc9f4382c4eba4798b11406bd56c4d, type: 2}
+    attribute: m_Materials.Array.data[0]
+    path: gate_unit.0030
+    classID: 23
+    script: {fileID: 0}
   m_SampleRate: 60
   m_WrapMode: 0
   m_Bounds:
@@ -105,7 +114,16 @@ AnimationClip:
       typeID: 23
       customType: 21
       isPPtrCurve: 1
+    - serializedVersion: 2
+      path: 752200187
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 23
+      customType: 21
+      isPPtrCurve: 1
     pptrCurveMapping:
+    - {fileID: 2100000, guid: 00fc9f4382c4eba4798b11406bd56c4d, type: 2}
+    - {fileID: 2100000, guid: 00fc9f4382c4eba4798b11406bd56c4d, type: 2}
     - {fileID: 2100000, guid: 00fc9f4382c4eba4798b11406bd56c4d, type: 2}
     - {fileID: 2100000, guid: 00fc9f4382c4eba4798b11406bd56c4d, type: 2}
     - {fileID: 2100000, guid: 00fc9f4382c4eba4798b11406bd56c4d, type: 2}

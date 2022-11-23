@@ -7261,6 +7261,90 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1159840866}
   m_Mesh: {fileID: -2452726246885103411, guid: 2631abaee3ec2354c8f6276b91552b9d, type: 3}
+--- !u!1001 &1176194917
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 681e0aea1b5ec6444a919092b675c802, type: 3}
+      propertyPath: m_RootOrder
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 681e0aea1b5ec6444a919092b675c802, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.0017418027
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 681e0aea1b5ec6444a919092b675c802, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 42.1203
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 681e0aea1b5ec6444a919092b675c802, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.0012691229
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 681e0aea1b5ec6444a919092b675c802, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 681e0aea1b5ec6444a919092b675c802, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 681e0aea1b5ec6444a919092b675c802, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 681e0aea1b5ec6444a919092b675c802, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 681e0aea1b5ec6444a919092b675c802, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 681e0aea1b5ec6444a919092b675c802, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 681e0aea1b5ec6444a919092b675c802, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -5754084199372789682, guid: 681e0aea1b5ec6444a919092b675c802, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 681e0aea1b5ec6444a919092b675c802, type: 3}
+      propertyPath: m_Name
+      value: wall_collider
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 681e0aea1b5ec6444a919092b675c802, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 681e0aea1b5ec6444a919092b675c802, type: 3}
+--- !u!1 &1176194918 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 681e0aea1b5ec6444a919092b675c802, type: 3}
+  m_PrefabInstance: {fileID: 1176194917}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1176194919
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1176194918}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3564409797083352372, guid: 681e0aea1b5ec6444a919092b675c802, type: 3}
 --- !u!1001 &1182551662
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16863,7 +16947,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d21d4dfc8691d9d4d8c69e451f081214, type: 2}
+  - {fileID: 8179950471607230371, guid: 3a9d2b54b6400b846b18f4328ce408a2, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

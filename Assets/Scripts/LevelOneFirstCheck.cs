@@ -9,6 +9,8 @@ public class LevelOneFirstCheck   : MonoBehaviour
     public GameObject mainTrack;
 
     public GameObject playerTile;
+
+    public GameObject spawnedBall;
     //public GameObject wakeUpLogic;
 
     public bool inCheck = false;
@@ -38,6 +40,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
 
     public AudioClip chargingSound;
     public AudioClip failedSound;
+    public AudioClip ventCloseClip;
 
     Animator tunnelAnim;
     Animator checkAnim;
@@ -150,11 +153,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
             lightAnim.SetBool("Fading", true);
         }
 
-        //if(coll.gameObject.tag == "NPC")
-        //{
-        //    myLights.GetComponent<Animator>().enabled = true;
-        //    myLights.GetComponent<Animator>().SetBool("Fading", true);
-        //}
+
 
     }
 
@@ -177,10 +176,11 @@ public class LevelOneFirstCheck   : MonoBehaviour
             StartCoroutine(enterSecondCheck());
         }
 
-        //if(other.gameObject.tag == "NPC")
-        //{
-        //    myLights.GetComponent<Animator>().SetBool("Checked", true);
-        //}
+        if (other.gameObject.tag == "NPC")
+        {
+            Vector3 spawnPos = new Vector3(myTunnel.transform.position.x, myTunnel.transform.position.y - 5.0f, myTunnel.transform.position.z);
+            Instantiate(spawnedBall, spawnPos, Quaternion.identity);
+        }
     }
 
     public IEnumerator enterSecondCheck()
@@ -217,7 +217,8 @@ public class LevelOneFirstCheck   : MonoBehaviour
         }
         lightAS.loop = true;
         playerTile.GetComponent<Animator>().enabled = true;
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(4.0f);
+        playerTile.GetComponent<AudioSource>().PlayOneShot(ventCloseClip);
         lightAS.enabled = false;
         player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotationZ
                                                     | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationX;

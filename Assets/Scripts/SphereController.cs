@@ -20,8 +20,10 @@ public class SphereController : MonoBehaviour
     GameObject player;
     bool nearPlayer;
 
-    float minDist = 15f;
+    float minDist = 5f;
     float dist;
+    float leftDist, rightDist;
+    int multiplier;
 
     // Start is called before the first frame update
     void Start()
@@ -32,18 +34,47 @@ public class SphereController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //transform.rotation=transform.LookAt
         //dodge player
-        if (Vector3.Distance(transform.position, player.transform.position) < minDist)
+        if (Vector3.Distance(transform.position, player.transform.position) < minDist||Mathf.Approximately(Vector3.Distance(transform.position, player.transform.position),minDist))
         {
             nearPlayer = true;
-            transform.RotateAround(player.transform.position, Vector3.up, controledSpeed * Time.deltaTime);
-            //decide go left or right to player
-            //player can push the ball off the ground before it goes full circle
+
+            Vector3 direction = (transform.position - player.transform.position).normalized;
+            Vector3 directionZeroY = new Vector3(direction.x, 0, direction.y);
+            
+            transform.position = player.transform.position + direction * minDist;
+
+            transform.RotateAround(player.transform.position, multiplier* Vector3.up, controledSpeed * Time.deltaTime);
+            
         }
         else
         {
             nearPlayer = false;
         }
+
+        transform.LookAt(Vector3.zero);
+        //decide go left or right to player
+        //player cann't push the ball off the ground before it goes full circle
+        RaycastHit leftH;
+        if (Physics.Raycast(transform.position, -transform.forward, out leftH, Mathf.Infinity))
+        {
+            leftDist = leftH.distance;
+        }
+        RaycastHit rightH;
+        if (Physics.Raycast(transform.position, transform.forward , out rightH, Mathf.Infinity))
+        {
+            rightDist = rightH.distance;
+        }
+        if (leftDist < rightDist)
+        {
+            multiplier = -1;
+        }
+        else
+        {
+            multiplier = 1;
+        }
+        //Debug.Log(leftDist + "left hit "+leftH.collider.gameObject +"; "+ rightDist+ "right hit " + rightH.collider.gameObject);
 
         if (nearPlayer)
         {

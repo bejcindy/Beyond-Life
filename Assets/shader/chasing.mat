@@ -174,12 +174,12 @@ Material:
     - _TRANSPARENCY: 0
     - _WorkflowMode: 1
     - _ZWrite: 0
-    - _fresnelPower: 0
+    - _fresnelPower: 0.11
     - _glowSpread: 1.06
     m_Colors:
     - _BASE_COLOR: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0, g: 66.00507, b: 22.837343, a: 1}
+    - _Color: {r: 33.228455, g: 66.00507, b: 0, a: 1}
     - _EMISSION_COLOR: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _REFLECTIONS_COLOR: {r: 1, g: 1, b: 1, a: 1}

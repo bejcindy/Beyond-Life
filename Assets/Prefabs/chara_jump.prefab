@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7645403456155725018}
   - component: {fileID: 3807103706278946664}
   - component: {fileID: 986463934005548762}
-  - component: {fileID: 7645403456155725017}
   m_Layer: 0
   m_Name: nail
   m_TagString: Untagged
@@ -84,26 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!95 &7645403456155725017
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 14434290001943866}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ec106de558c476e4b9ffd8e9a6b4df1d, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &458140008010589422
 GameObject:
   m_ObjectHideFlags: 0
@@ -115,7 +94,6 @@ GameObject:
   - component: {fileID: 7951370737890782887}
   - component: {fileID: 7902956019221506598}
   - component: {fileID: 3101825149438681239}
-  - component: {fileID: 7951370737890782886}
   m_Layer: 0
   m_Name: Cylinder.006
   m_TagString: Untagged
@@ -188,26 +166,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!95 &7951370737890782886
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 458140008010589422}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 29cd5a12cba1d3347ad4eccb62f9ab06, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &909221747615282211
 GameObject:
   m_ObjectHideFlags: 0
@@ -219,7 +177,6 @@ GameObject:
   - component: {fileID: 2739302928384231469}
   - component: {fileID: 6537206058153682161}
   - component: {fileID: 3640367547534871086}
-  - component: {fileID: 6537206058153682160}
   m_Layer: 0
   m_Name: Cylinder.016
   m_TagString: Untagged
@@ -292,26 +249,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!95 &6537206058153682160
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 909221747615282211}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 891cc953cd27b474bb494daf61ee6b59, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1276853508644760528
 GameObject:
   m_ObjectHideFlags: 0
@@ -323,7 +260,6 @@ GameObject:
   - component: {fileID: 2107379385542400874}
   - component: {fileID: 5515799379147862077}
   - component: {fileID: 6860025062488592445}
-  - component: {fileID: 6860025062488592444}
   m_Layer: 0
   m_Name: Cylinder.002
   m_TagString: Untagged
@@ -397,26 +333,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!95 &6860025062488592444
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1276853508644760528}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 41ff1fbfffe4af548ab36a4925882805, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1876788147907826031
 GameObject:
   m_ObjectHideFlags: 0
@@ -428,7 +344,6 @@ GameObject:
   - component: {fileID: 7564790792091639222}
   - component: {fileID: 8730721478629588961}
   - component: {fileID: 6713522710868893758}
-  - component: {fileID: 6713522710868893757}
   m_Layer: 0
   m_Name: Cylinder.015
   m_TagString: Untagged
@@ -501,26 +416,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!95 &6713522710868893757
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1876788147907826031}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: dc1654e4e9567064e8b341cf7c85eefa, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2314880393800220185
 GameObject:
   m_ObjectHideFlags: 0
@@ -530,7 +425,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2314880393800220184}
-  - component: {fileID: 2314880393800220167}
   m_Layer: 0
   m_Name: nail_rotate
   m_TagString: Untagged
@@ -554,26 +448,6 @@ Transform:
   m_Father: {fileID: 3799912323551947565}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &2314880393800220167
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2314880393800220185}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 23bb431d091e4414ebe9c335ab221b7c, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2314880394421484808
 GameObject:
   m_ObjectHideFlags: 0
@@ -583,7 +457,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2314880394421485047}
-  - component: {fileID: 2314880394421485046}
   m_Layer: 0
   m_Name: skin
   m_TagString: Untagged
@@ -610,26 +483,6 @@ Transform:
   m_Father: {fileID: 3799912323551947565}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &2314880394421485046
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2314880394421484808}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9218b52f92b279347918e1cc52db7012, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4072674109753534652
 GameObject:
   m_ObjectHideFlags: 0
@@ -641,7 +494,6 @@ GameObject:
   - component: {fileID: 5431906453435133725}
   - component: {fileID: 1752870840849091653}
   - component: {fileID: 1370106932628022451}
-  - component: {fileID: 5431906453435133724}
   m_Layer: 0
   m_Name: Cylinder.004
   m_TagString: Untagged
@@ -714,26 +566,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!95 &5431906453435133724
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4072674109753534652}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6beb3c600ba6fd74bbdfd687743da71e, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4080140300478302393
 GameObject:
   m_ObjectHideFlags: 0
@@ -745,7 +577,6 @@ GameObject:
   - component: {fileID: 2148706059603596997}
   - component: {fileID: 3016150401769306182}
   - component: {fileID: 2912779420551784551}
-  - component: {fileID: 2148706059603596996}
   m_Layer: 0
   m_Name: Cylinder.018
   m_TagString: Untagged
@@ -818,26 +649,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!95 &2148706059603596996
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4080140300478302393}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: eb0375e3c90fe0d4ca54400195f08265, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4609382045569855895
 GameObject:
   m_ObjectHideFlags: 0
@@ -970,7 +781,6 @@ GameObject:
   - component: {fileID: 7977405637470477847}
   - component: {fileID: 734433176151219415}
   - component: {fileID: 5843238121080022140}
-  - component: {fileID: 5843238121080022139}
   m_Layer: 0
   m_Name: head
   m_TagString: Untagged
@@ -1044,26 +854,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!95 &5843238121080022139
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4977027961636023797}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 93ee0fc0d3462134da149eecfec88f80, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7590725543350740448
 GameObject:
   m_ObjectHideFlags: 0
@@ -1075,7 +865,6 @@ GameObject:
   - component: {fileID: 6924519374318008328}
   - component: {fileID: 5402491069174260883}
   - component: {fileID: 4860693313983974901}
-  - component: {fileID: 5402491069174260882}
   m_Layer: 0
   m_Name: ears
   m_TagString: Untagged
@@ -1148,26 +937,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!95 &5402491069174260882
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7590725543350740448}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 515d3ed765d5e7549a8d34e03d62114d, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8682397870766993867
 GameObject:
   m_ObjectHideFlags: 0
@@ -1179,7 +948,6 @@ GameObject:
   - component: {fileID: 5996285512926215432}
   - component: {fileID: 2454364229692378073}
   - component: {fileID: 4548090079117767933}
-  - component: {fileID: 5996285512926215671}
   m_Layer: 0
   m_Name: Cylinder.017
   m_TagString: Untagged
@@ -1252,26 +1020,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!95 &5996285512926215671
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8682397870766993867}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e9395b7fcd82b224dbd1d5200b4384db, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8910786777068818966
 GameObject:
   m_ObjectHideFlags: 0

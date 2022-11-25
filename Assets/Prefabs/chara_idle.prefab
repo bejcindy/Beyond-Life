@@ -795,7 +795,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5904178050332217733}
-  - component: {fileID: 5904178050332217732}
   m_Layer: 0
   m_Name: skin
   m_TagString: Untagged
@@ -823,26 +822,6 @@ Transform:
   m_Father: {fileID: 2279361731112093453}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &5904178050332217732
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5904178050332217734}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9218b52f92b279347918e1cc52db7012, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6008920751872384491
 GameObject:
   m_ObjectHideFlags: 0

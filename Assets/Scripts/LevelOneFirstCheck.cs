@@ -182,11 +182,11 @@ public class LevelOneFirstCheck   : MonoBehaviour
             StartCoroutine(enterSecondCheck());
         }
 
-        //if (other.gameObject.tag == "NPC")
-        //{
-        //    Vector3 spawnPos = new Vector3(myTunnel.transform.position.x, myTunnel.transform.position.y - 5.0f, myTunnel.transform.position.z);
-        //    Instantiate(spawnedBall, spawnPos, Quaternion.identity);
-        //}
+        if (other.gameObject.tag == "NPC")
+        {
+            Vector3 spawnPos = new Vector3(myTunnel.transform.position.x, myTunnel.transform.position.y - 3.5f, myTunnel.transform.position.z);
+            Instantiate(spawnedBall, spawnPos, Quaternion.identity);
+        }
     }
 
     public IEnumerator enterSecondCheck()

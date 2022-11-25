@@ -78,6 +78,12 @@ public class LevelOneFirstCheck   : MonoBehaviour
 
                 checkAnim.SetBool("FirstPress", true);
             }
+
+            if (Input.GetKeyUp(KeyCode.E))
+            {
+                checkAnim.SetBool("ButtonUp", true);
+                checkAnim.SetBool("FirstPress", false);
+            }
             if (!buttonSound.GetComponent<AudioSource>().isPlaying)
             {
                 buttonSound.GetComponent<AudioSource>().enabled = false;
@@ -176,11 +182,11 @@ public class LevelOneFirstCheck   : MonoBehaviour
             StartCoroutine(enterSecondCheck());
         }
 
-        if (other.gameObject.tag == "NPC")
-        {
-            Vector3 spawnPos = new Vector3(myTunnel.transform.position.x, myTunnel.transform.position.y - 5.0f, myTunnel.transform.position.z);
-            Instantiate(spawnedBall, spawnPos, Quaternion.identity);
-        }
+        //if (other.gameObject.tag == "NPC")
+        //{
+        //    Vector3 spawnPos = new Vector3(myTunnel.transform.position.x, myTunnel.transform.position.y - 5.0f, myTunnel.transform.position.z);
+        //    Instantiate(spawnedBall, spawnPos, Quaternion.identity);
+        //}
     }
 
     public IEnumerator enterSecondCheck()
@@ -217,11 +223,12 @@ public class LevelOneFirstCheck   : MonoBehaviour
         }
         lightAS.loop = true;
         playerTile.GetComponent<Animator>().enabled = true;
-        yield return new WaitForSeconds(4.0f);
-        playerTile.GetComponent<AudioSource>().PlayOneShot(ventCloseClip);
-        lightAS.enabled = false;
         player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotationZ
                                                     | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationX;
+        yield return new WaitForSeconds(3.0f);
+        playerTile.GetComponent<AudioSource>().PlayOneShot(ventCloseClip);
+        lightAS.enabled = false;
+        
 
 
 

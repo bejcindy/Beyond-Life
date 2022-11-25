@@ -8,6 +8,8 @@ TagManager:
   - Curve
   - Checkpoint
   - NPC
+  - BelowCheckPoint
+  - Wall
   layers:
   - Default
   - TransparentFX

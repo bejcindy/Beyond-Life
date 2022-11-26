@@ -20,7 +20,7 @@ public class SphereController : MonoBehaviour
     GameObject player;
     bool nearPlayer;
 
-    float minDist = 5f;
+    float minDist = 3f;
     float dist;
     float leftDist, rightDist;
     int multiplier;

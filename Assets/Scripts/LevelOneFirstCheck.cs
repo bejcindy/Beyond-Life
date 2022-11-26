@@ -184,7 +184,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
 
         if (other.gameObject.tag == "NPC")
         {
-            Vector3 spawnPos = new Vector3(myTunnel.transform.position.x, myTunnel.transform.position.y - 3.5f, myTunnel.transform.position.z);
+            Vector3 spawnPos = new Vector3(myTunnel.transform.position.x, myTunnel.transform.position.y - 4.5f, myTunnel.transform.position.z);
             Instantiate(spawnedBall, spawnPos, Quaternion.identity);
         }
     }

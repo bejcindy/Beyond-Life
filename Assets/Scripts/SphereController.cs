@@ -94,6 +94,7 @@ public class SphereController : MonoBehaviour
         }
         else
         {
+            Debug.Log("completed a full circle");
             //raycast down, if no ground below then move y axis; otherwise only move x and z
             RaycastHit h;
             if (Physics.Raycast(transform.position, -Vector3.up, out h, 3))

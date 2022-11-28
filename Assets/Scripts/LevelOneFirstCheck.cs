@@ -253,7 +253,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
         if (other.gameObject.tag == "NPC")
         {
             other.gameObject.GetComponent<LevelOneNPC>().spawnGauge += 1;
-            if(other.gameObject.GetComponent<LevelOneNPC>().spawnGauge == 4)
+            if(other.gameObject.GetComponent<LevelOneNPC>().spawnGauge == 5)
             {
                 other.gameObject.GetComponent<LevelOneNPC>().spawnGauge = 0;
                 float xPosDif = Random.Range(-1, 1);

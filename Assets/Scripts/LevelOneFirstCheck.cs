@@ -93,22 +93,22 @@ public class LevelOneFirstCheck   : MonoBehaviour
             }
         }
 
+
+        //rolling tunnel check
         if (inSecondCheck)
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                
+               //start light charging up animation
                 lightAnim.SetBool("Charging", true);
+
                 secondKeyPressed = true;
                 lightAnim.speed = 0.1f;
+
                 if(lightAnim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
                 {
-                    lightAS.clip = chargingSound;
-                    lightAS.enabled = true;
                     lightAS.Play();
                 }
-
-                Debug.Log("pressing and holding E");
             }
 
             if (Input.GetKeyUp(KeyCode.E))
@@ -118,10 +118,12 @@ public class LevelOneFirstCheck   : MonoBehaviour
 
             }
 
+            //when tunnel is done rolling for one cycle 
             if(tunnelAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
             {
+                checkKey.SetActive(false);
 
-
+                //if the light animation hasnt played fully or no key is pressed
                 if (lightAnim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1 || !secondKeyPressed)
                 {
                     failedSecondCheck = true;
@@ -131,7 +133,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
                 {
                     resumePlayer();
                 }
-                checkKey.SetActive(false);
+                
             }
             else
             {
@@ -139,13 +141,14 @@ public class LevelOneFirstCheck   : MonoBehaviour
                    lightAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1 && secondKeyPressed)
                 {
                     checkKey.SetActive(false);
-                    Debug.Log("faklse now");
                 }
             }
 
 
         }
 
+
+        //play shaking animation when player is still stuck on track
         if (player.GetComponent<CurvePlayerController>().onTrack)
         {
             if (Input.GetKeyDown(KeyCode.W))
@@ -206,13 +209,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
             }
         }
 
-        //if (playerAnim.isActiveAndEnabled)
-        //{
-        //    if(playerAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
-        //    {
-        //        playerAnim.enabled = false;
-        //    }
-        //}
+
         
     }  
 
@@ -223,7 +220,6 @@ public class LevelOneFirstCheck   : MonoBehaviour
             //wakeUpLogic.SetActive(true);
             inCheck = true;
             checkKey.SetActive(true);
-            lightAnim.enabled = true;
             lightAnim.SetBool("Fading", true);
         }
 
@@ -235,13 +231,13 @@ public class LevelOneFirstCheck   : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            Debug.Log("checking if multiple checks");
             checkAnim.SetBool("FirstPress", false);
             checkKey.SetActive(false);
             inCheck = false;
             if (!keyPressed)
             {
                 failedFirstCheck = true;
+                lightAnim.SetBool("Fading", false);
             }
             else
             {
@@ -273,7 +269,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
             //playerTile.SetActive(false);
             player.transform.parent = myTunnel.transform;
             playerTile.transform.parent = myTunnel.transform;
-            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY ;
+            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             GetComponent<BoxCollider>().enabled = false;
             yield return new WaitForSeconds(1.0f);
             checkKey.SetActive(true);
@@ -288,18 +284,18 @@ public class LevelOneFirstCheck   : MonoBehaviour
     IEnumerator triggerDropPlayer()
     {
         player.GetComponent<CurvePlayerController>().onTrack = false;
+        playerAnim.enabled = true;
         inSecondCheck = false;
-        player.transform.parent = null;
         lightAnim.speed = 1;
         lightAnim.SetBool("SecondFail", true);
         lightAS.clip = failedSound;
-        lightAS.enabled = true;
         if (!lightAS.isPlaying)
         {
             lightAS.Play();
         }
         lightAS.loop = true;
         playerTile.GetComponent<Animator>().enabled = true;
+        player.transform.parent = null;
         player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotationZ
                                                     | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationX;
         yield return new WaitForSeconds(3.5f);
@@ -347,7 +343,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
         lightAnim.SetBool("Charging", false);
         lightAnim.SetBool("Fading", false);
         lightAnim.SetBool("SecondFail", false);
-        lightAnim.enabled = false;
+        //lightAnim.enabled = false;
         tunnelAnim.enabled = false;
         playerTile.transform.parent = mainTrack.transform;
         mainTrack.GetComponent<Animator>().speed = 1;

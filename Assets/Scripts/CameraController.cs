@@ -45,7 +45,7 @@ public class CameraController : MonoBehaviour
         }
         else
         {
-            Vector3 topOfPlayer = new Vector3(0, 1f, 0);
+            Vector3 topOfPlayer = new Vector3(0, 1.5f, 0);
             transform.localPosition = Vector3.Lerp(transform.localPosition, topOfPlayer, Time.deltaTime);
             
         }

@@ -7,6 +7,7 @@ public class CurvePlayerController : MonoBehaviour
     public float speed;
     public float lookSpeed = 5.0f;
     public Transform[] legPos;
+    public bool onTrack = true;
 
     bool isLevel1;
     bool[] groundCheck;

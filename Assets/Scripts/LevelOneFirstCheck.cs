@@ -16,6 +16,8 @@ public class LevelOneFirstCheck   : MonoBehaviour
     public bool inCheck = false;
     public bool inSecondCheck = false;
 
+    public bool onTrack = true;
+
     //public float holdTime = 10.0f;
     //public float holdFailCountDown = 2.0f;
     //public float holdTimeSpeed = 2.0f;
@@ -45,6 +47,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
     Animator tunnelAnim;
     Animator checkAnim;
     Animator lightAnim;
+    Animator playerAnim;
     AudioSource AS;
     AudioSource lightAS;
 
@@ -56,7 +59,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
         AS = GetComponent<AudioSource>();
         lightAS = myLights.GetComponent<AudioSource>();
         lightAnim = myLights.GetComponent<Animator>();
-        
+        playerAnim = player.GetComponent<Animator>();
         buttonSound = gameObject.transform.GetChild(0).gameObject;
 
         tunnelAnim = myTunnel.transform.parent.gameObject.GetComponent<Animator>();
@@ -143,8 +146,73 @@ public class LevelOneFirstCheck   : MonoBehaviour
 
         }
 
+        if (player.GetComponent<CurvePlayerController>().onTrack)
+        {
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                if (!playerAnim.isActiveAndEnabled)
+                {
+                    Debug.Log("trigger player anim");
+                    playerAnim.enabled = true;
+                }
+                else
+                {
+                    playerAnim.Play("chara_idle", 0, 0);
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                if (!playerAnim.isActiveAndEnabled)
+                {
+                    playerAnim.enabled = true;
+                }
+                else
+                {
+                    playerAnim.Play("chara_idle", 0, 0);
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                if (!playerAnim.isActiveAndEnabled)
+                {
+                    playerAnim.enabled = true;
+                }
+                else
+                {
+                    playerAnim.Play("chara_idle", 0, 0);
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                if (!playerAnim.isActiveAndEnabled)
+                {
+                    playerAnim.enabled = true;
+                }
+                else
+                {
+                    playerAnim.Play("chara_idle", 0, 0);
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                if (!playerAnim.isActiveAndEnabled)
+                {
+                    playerAnim.enabled = true;
+                }
+                else
+                {
+                    playerAnim.Play("chara_idle", 0, 0);
+                }
+            }
+        }
 
-
+        //if (playerAnim.isActiveAndEnabled)
+        //{
+        //    if(playerAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+        //    {
+        //        playerAnim.enabled = false;
+        //    }
+        //}
         
     }  
 
@@ -219,6 +287,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
 
     IEnumerator triggerDropPlayer()
     {
+        player.GetComponent<CurvePlayerController>().onTrack = false;
         inSecondCheck = false;
         player.transform.parent = null;
         lightAnim.speed = 1;
@@ -233,7 +302,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
         playerTile.GetComponent<Animator>().enabled = true;
         player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotationZ
                                                     | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationX;
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(3.5f);
         playerTile.GetComponent<AudioSource>().PlayOneShot(ventCloseClip);
         lightAS.enabled = false;
         

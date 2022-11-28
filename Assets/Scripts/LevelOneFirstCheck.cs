@@ -184,9 +184,16 @@ public class LevelOneFirstCheck   : MonoBehaviour
 
         if (other.gameObject.tag == "NPC")
         {
-            float xPosDif = Random.Range(-1, 1);
-            Vector3 spawnPos = new Vector3(myTunnel.transform.position.x + xPosDif, myTunnel.transform.position.y - 4.5f, myTunnel.transform.position.z);
-            Instantiate(spawnedBall, spawnPos, Quaternion.identity);
+            other.gameObject.GetComponent<LevelOneNPC>().spawnGauge += 1;
+            if(other.gameObject.GetComponent<LevelOneNPC>().spawnGauge == 4)
+            {
+                other.gameObject.GetComponent<LevelOneNPC>().spawnGauge = 0;
+                float xPosDif = Random.Range(-1, 1);
+                Vector3 spawnPos = new Vector3(myTunnel.transform.position.x + xPosDif, myTunnel.transform.position.y - 4.5f, myTunnel.transform.position.z);
+                Instantiate(spawnedBall, spawnPos, Quaternion.identity);
+
+            }
+
         }
     }
 

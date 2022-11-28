@@ -284,7 +284,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
     IEnumerator triggerDropPlayer()
     {
         player.GetComponent<CurvePlayerController>().onTrack = false;
-        playerAnim.enabled = false;
+        playerAnim.enabled = true;
         inSecondCheck = false;
         lightAnim.speed = 1;
         lightAnim.SetBool("SecondFail", true);

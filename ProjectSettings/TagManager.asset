@@ -10,6 +10,7 @@ TagManager:
   - NPC
   - BelowCheckPoint
   - Wall
+  - Core
   layers:
   - Default
   - TransparentFX

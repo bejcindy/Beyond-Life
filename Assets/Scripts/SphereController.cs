@@ -78,7 +78,7 @@ public class SphereController : MonoBehaviour
 
         if (nearPlayer)
         {
-            controledSpeed = 50f;
+            controledSpeed = 100f;
         }
         else
         {
@@ -111,7 +111,7 @@ public class SphereController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("hit");
+        //Debug.Log("hit");
         if (other.CompareTag("BelowCheckPoint")) 
         {
             hitCounter++;
@@ -125,5 +125,14 @@ public class SphereController : MonoBehaviour
                 finishedCircle = true;
             }
         }
+        if (other.CompareTag("Core"))
+        {
+            Die();
+        }
+    }
+    IEnumerator Die()
+    {
+        yield return new WaitForSeconds(1f);
+        Destroy(gameObject);
     }
 }

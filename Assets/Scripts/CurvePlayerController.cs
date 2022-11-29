@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CurvePlayerController : MonoBehaviour
 {
@@ -136,7 +137,18 @@ public class CurvePlayerController : MonoBehaviour
                 transform.rotation = newRotation;                
             }
         }
+        
     }
-
-    
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Core"))
+        {
+            SceneTransition("Level2.0");
+        }
+    }
+    IEnumerator SceneTransition(string sceneName)
+    {
+        yield return new WaitForSeconds(.5f);
+        SceneManager.LoadScene(sceneName);
+    }
 }

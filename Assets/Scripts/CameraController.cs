@@ -15,15 +15,15 @@ public class CameraController : MonoBehaviour
 
     float verticalMove;
     Vector3 moveTarget;
-    Vector3 camLookOffset;
+    public Vector3 camLookOffset = new Vector3(0, .5f, 0);
     Camera cam;
-    float camMoveSpeed = 20f;
-    float camRotSpeed = 20f;
+    float camMoveSpeed = 200f;
+    float camRotSpeed = 200f;
 
     // Start is called before the first frame update
     void Start()
     {
-        camLookOffset = new Vector3(0, 1, 0);
+        //camLookOffset = new Vector3(0, 1, 0);
         cam = GetComponent<Camera>();
         cam.fieldOfView = 50;
     }

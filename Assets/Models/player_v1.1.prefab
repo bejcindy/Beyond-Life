@@ -302,6 +302,7 @@ MonoBehaviour:
   camUpperLimit: 500
   camLowerLimit: -15
   Level1End: 0
+  camLookOffset: {x: 0, y: 0.5, z: 0}
 --- !u!114 &6833385978198642172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1293,6 +1294,7 @@ MonoBehaviour:
   camUpperLimit: 500
   camLowerLimit: -15
   Level1End: 0
+  camLookOffset: {x: 0, y: 0.5, z: 0}
 --- !u!114 &6181693215218119678
 MonoBehaviour:
   m_ObjectHideFlags: 0

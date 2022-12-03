@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class WakeUp : MonoBehaviour
 {
     public Image blackImage;
-    public GameObject J;
+    public GameObject checkKey;
 
     public GameObject player;
     public GameObject ringTrack;
@@ -35,6 +35,8 @@ public class WakeUp : MonoBehaviour
     [SerializeField] bool eyesOpen = false;
     public bool offTrack = false;
 
+    public string currentKey;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -50,26 +52,26 @@ public class WakeUp : MonoBehaviour
         //Press Button to Wake Up
         if (!mouseWakeUp)
         {
-            if (J.activeSelf)
+            if (checkKey.activeSelf)
             {
-                if (Input.GetKeyDown(KeyCode.E))
+                if (Input.GetKeyDown(LevelOneFirstCheck.currentKey))
                 {
                     //if player hasn't gained full view yet
                     if (!eyesOpen)
                     {
 
                         newAlpha = blackImage.color.a - alphaDiff;
-                        alphaDiff += 0.05f;
+                        //alphaDiff += 0.05f;
                         iPressedTimes += 1;
 
                         //Pressed J 4 times
-                        if (iPressedTimes == 4)
-                        {
-                            newAlpha = 0;
-                            eyesOpen = true;
-                            //activatePlayer();
+                        //if (iPressedTimes == 4)
+                        //{
+                        //    newAlpha = 0;
+                        //    eyesOpen = true;
+                        //    //activatePlayer();
 
-                        }
+                        //}
 
                         blackImage.color = new Color(0, 0, 0, blackImage.color.a - wakeSpeed);
 
@@ -83,7 +85,7 @@ public class WakeUp : MonoBehaviour
                         }
                     }
                     t = 0;
-                    J.SetActive(false);
+                    checkKey.SetActive(false);
                 }
             }
             if (fallingAsleep)
@@ -144,7 +146,7 @@ public class WakeUp : MonoBehaviour
         Camera.main.GetComponent<CameraController>().enabled = true;
         Camera.main.GetComponent<CameraController>().wakeUp = true;
         ringTrack.GetComponent<Animator>().speed = 1;
-        J.SetActive(false);
+        checkKey.SetActive(false);
         
     }
 

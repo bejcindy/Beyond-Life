@@ -1,6 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using System.IO;
+using UnityEngine.UI;
+using TMPro;
 
 public class LevelOneFirstCheck   : MonoBehaviour
 {
@@ -11,6 +15,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
     public GameObject playerTile;
 
     public GameObject spawnedBall;
+    public WakeUp wakeUpMaster;
     //public GameObject wakeUpLogic;
 
     public bool inCheck = false;
@@ -51,11 +56,16 @@ public class LevelOneFirstCheck   : MonoBehaviour
     AudioSource AS;
     AudioSource lightAS;
 
+    public static string codeKeys = "01100110011100100110010101100101";
+    public static int codeIndex = 0;
+    public static string currentKey;
+
 
 
     // Start is called before the first frame update
     void Start()
     {
+        LevelOneFirstCheck.currentKey = Char.ToString(codeKeys[codeIndex]);
         AS = GetComponent<AudioSource>();
         lightAS = myLights.GetComponent<AudioSource>();
         lightAnim = myLights.GetComponent<Animator>();
@@ -69,20 +79,23 @@ public class LevelOneFirstCheck   : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        LevelOneFirstCheck.currentKey = Char.ToString(LevelOneFirstCheck.codeKeys[LevelOneFirstCheck.codeIndex]);
+        Debug.Log(LevelOneFirstCheck.codeIndex);
         if (inCheck)
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(currentKey)) 
             {
+                inCheck = false;
                 Debug.Log("passing check");
                 keyPressed = true;
                 lightAnim.SetBool("Checked", true);
-                buttonSound.GetComponent<AudioSource>().enabled = true;
-
                 checkAnim.SetBool("FirstPress", true);
+                buttonSound.GetComponent<AudioSource>().enabled = true;
+                StartCoroutine(trackDash());
+                
             }
 
-            if (Input.GetKeyUp(KeyCode.E))
+            if (Input.GetKeyUp(currentKey))
             {
                 checkAnim.SetBool("ButtonUp", true);
                 checkAnim.SetBool("FirstPress", false);
@@ -219,6 +232,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
         {
             //wakeUpLogic.SetActive(true);
             inCheck = true;
+            checkKey.GetComponent<TextMeshProUGUI>().text = LevelOneFirstCheck.currentKey;
             checkKey.SetActive(true);
             lightAnim.SetBool("Fading", true);
         }
@@ -231,9 +245,9 @@ public class LevelOneFirstCheck   : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
+            LevelOneFirstCheck.codeIndex++;
             checkAnim.SetBool("FirstPress", false);
             checkKey.SetActive(false);
-            inCheck = false;
             if (!keyPressed)
             {
                 failedFirstCheck = true;
@@ -252,13 +266,20 @@ public class LevelOneFirstCheck   : MonoBehaviour
             if(other.gameObject.GetComponent<LevelOneNPC>().spawnGauge == 5)
             {
                 other.gameObject.GetComponent<LevelOneNPC>().spawnGauge = 0;
-                float xPosDif = Random.Range(-1, 1);
+                float xPosDif = UnityEngine.Random.Range(-1, 1);
                 Vector3 spawnPos = new Vector3(myTunnel.transform.position.x + xPosDif, myTunnel.transform.position.y - 4.5f, myTunnel.transform.position.z);
                 Instantiate(spawnedBall, spawnPos, Quaternion.identity);
 
             }
 
         }
+    }
+
+    IEnumerator trackDash()
+    {
+        mainTrack.GetComponent<Animator>().speed = 2;
+        yield return new WaitForSeconds(1.0f);
+        mainTrack.GetComponent<Animator>().speed = 1;
     }
 
     public IEnumerator enterSecondCheck()

@@ -36,6 +36,7 @@ public class WakeUp : MonoBehaviour
     public bool offTrack = false;
 
     public string currentKey;
+    public int pressAmt = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -56,10 +57,10 @@ public class WakeUp : MonoBehaviour
             {
                 if (Input.GetKeyDown(LevelOneFirstCheck.currentKey))
                 {
+                    pressAmt += 1;
                     //if player hasn't gained full view yet
                     if (!eyesOpen)
                     {
-
                         newAlpha = blackImage.color.a - alphaDiff;
                         //alphaDiff += 0.05f;
                         iPressedTimes += 1;

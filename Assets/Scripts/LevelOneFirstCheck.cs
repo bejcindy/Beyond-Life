@@ -89,6 +89,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
                 Debug.Log("passing check");
                 keyPressed = true;
                 lightAnim.SetBool("Checked", true);
+                lightAnim.SetBool("Fading", false);
                 checkAnim.SetBool("FirstPress", true);
                 buttonSound.GetComponent<AudioSource>().enabled = true;
                 StartCoroutine(trackDash());
@@ -277,7 +278,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
 
     IEnumerator trackDash()
     {
-        mainTrack.GetComponent<Animator>().speed = 2;
+        mainTrack.GetComponent<Animator>().speed = 3;
         yield return new WaitForSeconds(1.0f);
         mainTrack.GetComponent<Animator>().speed = 1;
     }

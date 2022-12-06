@@ -48,6 +48,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
     public AudioClip chargingSound;
     public AudioClip failedSound;
     public AudioClip ventCloseClip;
+    public AudioClip buttonCheck;
 
     Animator tunnelAnim;
     Animator checkAnim;
@@ -55,10 +56,18 @@ public class LevelOneFirstCheck   : MonoBehaviour
     Animator playerAnim;
     AudioSource AS;
     AudioSource lightAS;
+    AudioSource tunnelButtonAS;
 
     public static string codeKeys = "01100110011100100110010101100101";
     public static int codeIndex = 0;
     public static string currentKey;
+
+    public GameObject tunnelCheckKey;
+    public KeyCode tunnelKey;
+    public int tunnelKeyAmt;
+    public char tunnelChar;
+    public float tunnelThreshold;
+    int tnHelper = 1;
 
 
 
@@ -68,6 +77,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
         LevelOneFirstCheck.currentKey = Char.ToString(codeKeys[codeIndex]);
         AS = GetComponent<AudioSource>();
         lightAS = myLights.GetComponent<AudioSource>();
+        tunnelButtonAS = tunnelCheckKey.GetComponent<AudioSource>();
         lightAnim = myLights.GetComponent<Animator>();
         playerAnim = player.GetComponent<Animator>();
         buttonSound = gameObject.transform.GetChild(0).gameObject;
@@ -80,7 +90,6 @@ public class LevelOneFirstCheck   : MonoBehaviour
     void Update()
     {
         LevelOneFirstCheck.currentKey = Char.ToString(LevelOneFirstCheck.codeKeys[LevelOneFirstCheck.codeIndex]);
-        Debug.Log(LevelOneFirstCheck.codeIndex);
         if (inCheck)
         {
             if (Input.GetKeyDown(currentKey)) 
@@ -111,34 +120,54 @@ public class LevelOneFirstCheck   : MonoBehaviour
         //rolling tunnel check
         if (inSecondCheck)
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(tunnelKey))
             {
                //start light charging up animation
-                lightAnim.SetBool("Charging", true);
-
+                //lightAnim.SetBool("Charging", true);
                 secondKeyPressed = true;
-                lightAnim.speed = 0.1f;
+                tunnelButtonAS.PlayOneShot(buttonCheck);
+                //lightAS.Play();
+                //lightAnim.speed = 1;
 
-                if(lightAnim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
+                //if(lightAnim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
+                //{
+                //    lightAS.Play();
+                //}
+            }
+
+            if (Input.GetKeyUp(tunnelKey))
+            {
+                if (tunnelKeyAmt > 0)
+                {
+                    tunnelKeyAmt -= 1;
+                    tnHelper += 1;
+                }
+
+                
+                tunnelCheckKey.GetComponent<TextMeshProUGUI>().text = new string(tunnelChar, tunnelKeyAmt);
+                //lightAnim.speed = 0;
+                //lightAS.Pause();
+
+            }
+
+            if(tunnelKeyAmt <= 0)
+            {
+                Debug.Log("we should be playing");
+                if (!lightAS.isPlaying)
                 {
                     lightAS.Play();
                 }
-            }
-
-            if (Input.GetKeyUp(KeyCode.E))
-            {
-                lightAnim.speed = 0;
-                lightAS.Pause();
-
+                lightAnim.SetBool("Charging", true);
+                lightAnim.speed = 0.3f;
             }
 
             //when tunnel is done rolling for one cycle 
             if(tunnelAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
             {
-                checkKey.SetActive(false);
+                tunnelCheckKey.SetActive(false);
 
-                //if the light animation hasnt played fully or no key is pressed
-                if (lightAnim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1 || !secondKeyPressed)
+                //if keys not all pressed
+                if (tunnelKeyAmt>0 || !secondKeyPressed)
                 {
                     failedSecondCheck = true;
                     StartCoroutine(triggerDropPlayer());
@@ -151,11 +180,23 @@ public class LevelOneFirstCheck   : MonoBehaviour
             }
             else
             {
-                if (lightAnim.GetCurrentAnimatorClipInfo(0)[0].clip.name == "ChargingLight" &&
-                   lightAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1 && secondKeyPressed)
+                //if (lightAnim.GetCurrentAnimatorClipInfo(0)[0].clip.name == "ChargingLight" &&
+                //   lightAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1 && secondKeyPressed)
+                if(tunnelKeyAmt<=0 && !tunnelButtonAS.isPlaying)
                 {
-                    checkKey.SetActive(false);
+                    tunnelCheckKey.SetActive(false);
                 }
+                //if (lightAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= tunnelThreshold*tnHelper)
+                //{
+                //    lightAnim.speed = 0;
+                //}
+                //Debug.Log("time can play is " + lightAS.clip.length * tunnelThreshold * tnHelper);
+                //Debug.Log("time is at "+ lightAS.time);
+                //if (lightAS.time >= (5f *tunnelThreshold * tnHelper))
+                //{
+                //    Debug.Log("we should pause");
+                //    lightAS.Pause();
+                //}
             }
 
 
@@ -283,18 +324,19 @@ public class LevelOneFirstCheck   : MonoBehaviour
         mainTrack.GetComponent<Animator>().speed = 1;
     }
 
-    public IEnumerator enterSecondCheck()
+    IEnumerator enterSecondCheck()
     {
         if (failedFirstCheck)
         {
             mainTrack.GetComponent<Animator>().speed = 0;
-            //playerTile.SetActive(false);
             player.transform.parent = myTunnel.transform;
             playerTile.transform.parent = myTunnel.transform;
             player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             GetComponent<BoxCollider>().enabled = false;
             yield return new WaitForSeconds(1.0f);
-            checkKey.SetActive(true);
+            //checkKey.SetActive(true);
+            generateTunnelText();
+            tunnelCheckKey.SetActive(true);
             tunnelAnim.enabled = true;
             inSecondCheck = true;
             
@@ -302,7 +344,28 @@ public class LevelOneFirstCheck   : MonoBehaviour
     }
 
 
+    public void generateTunnelText()
+    {
+        int checker = UnityEngine.Random.Range(0, 2);
+        Debug.Log(checker + " is checker number");
+        int amt = UnityEngine.Random.Range(3, 5);
+        tunnelKeyAmt = amt;
+        if (checker == 0)
+        {
+            tunnelCheckKey.GetComponent<TextMeshProUGUI>().text = new string('F', amt);
+            tunnelKey = KeyCode.F;
+            tunnelChar = 'F';
+        }
+        else
+        {
+            tunnelCheckKey.GetComponent<TextMeshProUGUI>().text = new string('T', amt);
+            tunnelKey = KeyCode.T;
+            tunnelChar = 'T';
+        }
+        tunnelThreshold = 1f/amt;
+ 
 
+    }
     IEnumerator triggerDropPlayer()
     {
         player.GetComponent<CurvePlayerController>().onTrack = false;

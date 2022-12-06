@@ -63,11 +63,14 @@ public class LevelOneFirstCheck   : MonoBehaviour
     public static string currentKey;
 
     public GameObject tunnelCheckKey;
+    public GameObject messageInput;
     public KeyCode tunnelKey;
     public int tunnelKeyAmt;
     public char tunnelChar;
     public float tunnelThreshold;
     int tnHelper = 1;
+
+    public bool messageEntered = false;
 
 
 
@@ -109,6 +112,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
             {
                 checkAnim.SetBool("ButtonUp", true);
                 checkAnim.SetBool("FirstPress", false);
+
             }
             if (!buttonSound.GetComponent<AudioSource>().isPlaying)
             {
@@ -265,7 +269,13 @@ public class LevelOneFirstCheck   : MonoBehaviour
         }
 
 
-        
+        if (player.GetComponent<CurvePlayerController>().messageEntered)
+        {
+            player.GetComponent<CurvePlayerController>().messageEntered = false;
+            mainTrack.GetComponent<Animator>().speed = 1;
+            messageInput.SetActive(false);
+            messageInput.GetComponent<TMP_InputField>().text = "";
+        }
     }  
 
     void OnTriggerEnter(Collider coll)
@@ -287,7 +297,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            LevelOneFirstCheck.codeIndex++;
+            
             checkAnim.SetBool("FirstPress", false);
             checkKey.SetActive(false);
             if (!keyPressed)
@@ -297,9 +307,20 @@ public class LevelOneFirstCheck   : MonoBehaviour
             }
             else
             {
-                resetTrack();
+                LevelOneFirstCheck.codeIndex++;
+                player.GetComponent<CurvePlayerController>().levelOneTunnelPassed += 1;
+                if(player.GetComponent<CurvePlayerController>().levelOneTunnelPassed == 8)
+                {
+                    messagePrompt();
+                }
+                else
+                {
+                    resetTrack();
+                }
+                
             }
             StartCoroutine(enterSecondCheck());
+            
         }
 
         if (other.gameObject.tag == "NPC")
@@ -317,11 +338,26 @@ public class LevelOneFirstCheck   : MonoBehaviour
         }
     }
 
+    void messagePrompt()
+    {
+        mainTrack.GetComponent<Animator>().speed = 0;
+        messageInput.SetActive(true);
+        messageInput.GetComponent<TMP_InputField>().ActivateInputField();
+    }
+
     IEnumerator trackDash()
     {
         mainTrack.GetComponent<Animator>().speed = 3;
         yield return new WaitForSeconds(1.0f);
-        mainTrack.GetComponent<Animator>().speed = 1;
+        if(player.GetComponent<CurvePlayerController>().levelOneTunnelPassed == 8)
+        {
+            messagePrompt();
+        }
+        else
+        {
+            mainTrack.GetComponent<Animator>().speed = 1;
+        }
+        
     }
 
     IEnumerator enterSecondCheck()
@@ -400,7 +436,6 @@ public class LevelOneFirstCheck   : MonoBehaviour
     void resumePlayer()
     {
 
-        Debug.Log("done rotating");
         inSecondCheck = false;
         player.transform.parent = mainTrack.transform;
         playerTile.transform.parent = mainTrack.transform;
@@ -419,6 +454,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
 
     void resetTrack()
     {
+        Debug.Log("resetting track");
         GetComponent<BoxCollider>().enabled = true;
         failedFirstCheck = false;
         failedSecondCheck = false;

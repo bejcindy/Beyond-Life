@@ -272,12 +272,18 @@ public class LevelOneFirstCheck   : MonoBehaviour
 
         if (player.GetComponent<CurvePlayerController>().messageEntered)
         {
-            player.GetComponent<CurvePlayerController>().messageEntered = false;
-            mainTrack.GetComponent<Animator>().speed = 1;
-            messageInput.SetActive(false);
-            messageInput.GetComponent<TMP_InputField>().text = "";
+            StartCoroutine(resetLightAfterInput());
         }
     }  
+
+    IEnumerator resetLightAfterInput()
+    {
+        player.GetComponent<CurvePlayerController>().messageEntered = false;
+        mainTrack.GetComponent<Animator>().speed = 1;
+        yield return new WaitForSeconds(0.5f);
+        messageInput.SetActive(false);
+        messageInput.GetComponent<TMP_InputField>().text = "";
+    }
 
     void OnTriggerEnter(Collider coll)
     {
@@ -310,7 +316,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
             {
                 LevelOneFirstCheck.codeIndex++;
                 player.GetComponent<CurvePlayerController>().levelOneTunnelPassed += 1;
-                if(player.GetComponent<CurvePlayerController>().levelOneTunnelPassed == 8)
+                if((player.GetComponent<CurvePlayerController>().levelOneTunnelPassed) % 8 == 0)
                 {
                     messagePrompt();
                 }
@@ -347,15 +353,18 @@ public class LevelOneFirstCheck   : MonoBehaviour
     void messagePrompt()
     {
         mainTrack.GetComponent<Animator>().speed = 0;
+        messageInput.GetComponent<LevelOneSecret>().currentLight = lightAnim;
+        messageInput.GetComponent<LevelOneSecret>().lightAS = lightAS;
         messageInput.SetActive(true);
         messageInput.GetComponent<TMP_InputField>().ActivateInputField();
+        
     }
 
     IEnumerator trackDash()
     {
         mainTrack.GetComponent<Animator>().speed = 3;
         yield return new WaitForSeconds(1.0f);
-        if(player.GetComponent<CurvePlayerController>().levelOneTunnelPassed == 8)
+        if((player.GetComponent<CurvePlayerController>().levelOneTunnelPassed) % 8 == 0)
         {
             messagePrompt();
         }

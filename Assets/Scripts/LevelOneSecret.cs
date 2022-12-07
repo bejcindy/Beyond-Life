@@ -9,6 +9,9 @@ public class LevelOneSecret : MonoBehaviour
     static int enterIndex = 0;
 
     public GameObject player;
+    public Animator currentLight;
+    public AudioSource lightAS;
+    public AudioClip failedSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +47,17 @@ public class LevelOneSecret : MonoBehaviour
         else
         {
             Debug.Log("answer is incorrect");
+            StartCoroutine(failedCheck());
+            
         }
+    }
+
+    IEnumerator failedCheck()
+    {
+        currentLight.SetBool("messageFailed", true);
+        lightAS.PlayOneShot(failedSound);
+        yield return new WaitForSeconds(0.5f);
+
+        currentLight.SetBool("messageFailed", false);
     }
 }

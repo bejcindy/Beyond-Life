@@ -71,7 +71,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
     int tnHelper = 1;
 
     public bool messageEntered = false;
-    public int soulCount = 0;
+    public static int soulCount = 0;
 
 
 
@@ -280,9 +280,11 @@ public class LevelOneFirstCheck   : MonoBehaviour
     {
         player.GetComponent<CurvePlayerController>().messageEntered = false;
         mainTrack.GetComponent<Animator>().speed = 1;
-        yield return new WaitForSeconds(0.5f);
         messageInput.SetActive(false);
         messageInput.GetComponent<TMP_InputField>().text = "";
+        yield return new WaitForSeconds(0.5f);
+        lightAnim.SetBool("messageFailed", false);
+        
     }
 
     void OnTriggerEnter(Collider coll)
@@ -336,12 +338,12 @@ public class LevelOneFirstCheck   : MonoBehaviour
             if(other.gameObject.GetComponent<LevelOneNPC>().spawnGauge == 8)
             {
                 other.gameObject.GetComponent<LevelOneNPC>().spawnGauge = 0;
-                if (soulCount < 9)
+                if (LevelOneFirstCheck.soulCount < 9)
                 {
                     float xPosDif = UnityEngine.Random.Range(-2, 2);
                     Vector3 spawnPos = new Vector3(myTunnel.transform.position.x + xPosDif, myTunnel.transform.position.y - 4.5f, myTunnel.transform.position.z);
                     Instantiate(spawnedBall, spawnPos, Quaternion.identity);
-                    soulCount++;
+                    LevelOneFirstCheck.soulCount++;
                 }
 
 

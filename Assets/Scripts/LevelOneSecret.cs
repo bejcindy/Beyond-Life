@@ -39,6 +39,7 @@ public class LevelOneSecret : MonoBehaviour
         if (answer == Char.ToString(secret[LevelOneSecret.enterIndex]))
         {
             Debug.Log("answer is correct");
+            LevelOneSecret.enterIndex++;
         }
         else
         {

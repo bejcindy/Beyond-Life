@@ -71,6 +71,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
     int tnHelper = 1;
 
     public bool messageEntered = false;
+    public int soulCount = 0;
 
 
 
@@ -326,12 +327,17 @@ public class LevelOneFirstCheck   : MonoBehaviour
         if (other.gameObject.tag == "NPC")
         {
             other.gameObject.GetComponent<LevelOneNPC>().spawnGauge += 1;
-            if(other.gameObject.GetComponent<LevelOneNPC>().spawnGauge == 5)
+            if(other.gameObject.GetComponent<LevelOneNPC>().spawnGauge == 8)
             {
                 other.gameObject.GetComponent<LevelOneNPC>().spawnGauge = 0;
-                float xPosDif = UnityEngine.Random.Range(-1, 1);
-                Vector3 spawnPos = new Vector3(myTunnel.transform.position.x + xPosDif, myTunnel.transform.position.y - 4.5f, myTunnel.transform.position.z);
-                Instantiate(spawnedBall, spawnPos, Quaternion.identity);
+                if (soulCount < 9)
+                {
+                    float xPosDif = UnityEngine.Random.Range(-2, 2);
+                    Vector3 spawnPos = new Vector3(myTunnel.transform.position.x + xPosDif, myTunnel.transform.position.y - 4.5f, myTunnel.transform.position.z);
+                    Instantiate(spawnedBall, spawnPos, Quaternion.identity);
+                    soulCount++;
+                }
+
 
             }
 

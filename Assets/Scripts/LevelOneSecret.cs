@@ -57,7 +57,5 @@ public class LevelOneSecret : MonoBehaviour
         currentLight.SetBool("messageFailed", true);
         lightAS.PlayOneShot(failedSound);
         yield return new WaitForSeconds(0.5f);
-
-        currentLight.SetBool("messageFailed", false);
     }
 }

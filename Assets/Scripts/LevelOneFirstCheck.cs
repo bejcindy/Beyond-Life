@@ -297,7 +297,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            
+            inCheck = false;
             checkAnim.SetBool("FirstPress", false);
             checkKey.SetActive(false);
             if (!keyPressed)

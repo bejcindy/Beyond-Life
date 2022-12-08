@@ -24,11 +24,22 @@ public class SphereController : MonoBehaviour
     float dist;
     float leftDist, rightDist;
     int multiplier;
+    int dirMultiplier;
+    float speedPreset;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        if (Random.Range(0, 100) < 50)
+        {
+            dirMultiplier = -1;
+        }
+        else
+        {
+            dirMultiplier = 1;
+        }
+        speedPreset = Random.Range(5f, 15f);
     }
 
     // Update is called once per frame
@@ -44,8 +55,9 @@ public class SphereController : MonoBehaviour
             Vector3 directionZeroY = new Vector3(direction.x, 0, direction.y);
             
             transform.position = player.transform.position + direction * minDist;
+            Vector3 sameYPos = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
 
-            transform.RotateAround(player.transform.position, multiplier* Vector3.up, controledSpeed * Time.deltaTime);
+            transform.RotateAround(sameYPos, multiplier* Vector3.up, controledSpeed * Time.deltaTime);
             
         }
         else
@@ -78,18 +90,18 @@ public class SphereController : MonoBehaviour
 
         if (nearPlayer)
         {
-            controledSpeed = 100f;
+            controledSpeed = speedPreset * 20;
         }
         else
         {
-            controledSpeed = 10f;
+            controledSpeed = speedPreset;
         }
 
         if (!finishedCircle)
         {
             if (!nearPlayer)
             {
-                transform.RotateAround(Vector3.zero, Vector3.up, controledSpeed * Time.deltaTime);
+                transform.RotateAround(Vector3.zero, Vector3.up, dirMultiplier * controledSpeed * Time.deltaTime);
             }
         }
         else

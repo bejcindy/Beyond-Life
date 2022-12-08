@@ -48,6 +48,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
     public AudioClip chargingSound;
     public AudioClip failedSound;
     public AudioClip ventCloseClip;
+    public AudioClip buttonCheck;
 
     Animator tunnelAnim;
     Animator checkAnim;
@@ -55,10 +56,22 @@ public class LevelOneFirstCheck   : MonoBehaviour
     Animator playerAnim;
     AudioSource AS;
     AudioSource lightAS;
+    AudioSource tunnelButtonAS;
 
     public static string codeKeys = "01100110011100100110010101100101";
     public static int codeIndex = 0;
     public static string currentKey;
+
+    public GameObject tunnelCheckKey;
+    public GameObject messageInput;
+    public KeyCode tunnelKey;
+    public int tunnelKeyAmt;
+    public char tunnelChar;
+    public float tunnelThreshold;
+    int tnHelper = 1;
+
+    public bool messageEntered = false;
+    public static int soulCount = 0;
 
 
 
@@ -68,6 +81,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
         LevelOneFirstCheck.currentKey = Char.ToString(codeKeys[codeIndex]);
         AS = GetComponent<AudioSource>();
         lightAS = myLights.GetComponent<AudioSource>();
+        tunnelButtonAS = tunnelCheckKey.GetComponent<AudioSource>();
         lightAnim = myLights.GetComponent<Animator>();
         playerAnim = player.GetComponent<Animator>();
         buttonSound = gameObject.transform.GetChild(0).gameObject;
@@ -80,7 +94,6 @@ public class LevelOneFirstCheck   : MonoBehaviour
     void Update()
     {
         LevelOneFirstCheck.currentKey = Char.ToString(LevelOneFirstCheck.codeKeys[LevelOneFirstCheck.codeIndex]);
-        Debug.Log(LevelOneFirstCheck.codeIndex);
         if (inCheck)
         {
             if (Input.GetKeyDown(currentKey)) 
@@ -89,6 +102,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
                 Debug.Log("passing check");
                 keyPressed = true;
                 lightAnim.SetBool("Checked", true);
+                lightAnim.SetBool("Fading", false);
                 checkAnim.SetBool("FirstPress", true);
                 buttonSound.GetComponent<AudioSource>().enabled = true;
                 StartCoroutine(trackDash());
@@ -99,6 +113,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
             {
                 checkAnim.SetBool("ButtonUp", true);
                 checkAnim.SetBool("FirstPress", false);
+
             }
             if (!buttonSound.GetComponent<AudioSource>().isPlaying)
             {
@@ -110,34 +125,54 @@ public class LevelOneFirstCheck   : MonoBehaviour
         //rolling tunnel check
         if (inSecondCheck)
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(tunnelKey))
             {
                //start light charging up animation
-                lightAnim.SetBool("Charging", true);
-
+                //lightAnim.SetBool("Charging", true);
                 secondKeyPressed = true;
-                lightAnim.speed = 0.1f;
+                tunnelButtonAS.PlayOneShot(buttonCheck);
+                //lightAS.Play();
+                //lightAnim.speed = 1;
 
-                if(lightAnim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
+                //if(lightAnim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
+                //{
+                //    lightAS.Play();
+                //}
+            }
+
+            if (Input.GetKeyUp(tunnelKey))
+            {
+                if (tunnelKeyAmt > 0)
+                {
+                    tunnelKeyAmt -= 1;
+                    tnHelper += 1;
+                }
+
+                
+                tunnelCheckKey.GetComponent<TextMeshProUGUI>().text = new string(tunnelChar, tunnelKeyAmt);
+                //lightAnim.speed = 0;
+                //lightAS.Pause();
+
+            }
+
+            if(tunnelKeyAmt <= 0)
+            {
+                Debug.Log("we should be playing");
+                if (!lightAS.isPlaying)
                 {
                     lightAS.Play();
                 }
-            }
-
-            if (Input.GetKeyUp(KeyCode.E))
-            {
-                lightAnim.speed = 0;
-                lightAS.Pause();
-
+                lightAnim.SetBool("Charging", true);
+                lightAnim.speed = 0.3f;
             }
 
             //when tunnel is done rolling for one cycle 
             if(tunnelAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
             {
-                checkKey.SetActive(false);
+                tunnelCheckKey.SetActive(false);
 
-                //if the light animation hasnt played fully or no key is pressed
-                if (lightAnim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1 || !secondKeyPressed)
+                //if keys not all pressed
+                if (tunnelKeyAmt>0 || !secondKeyPressed)
                 {
                     failedSecondCheck = true;
                     StartCoroutine(triggerDropPlayer());
@@ -150,11 +185,23 @@ public class LevelOneFirstCheck   : MonoBehaviour
             }
             else
             {
-                if (lightAnim.GetCurrentAnimatorClipInfo(0)[0].clip.name == "ChargingLight" &&
-                   lightAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1 && secondKeyPressed)
+                //if (lightAnim.GetCurrentAnimatorClipInfo(0)[0].clip.name == "ChargingLight" &&
+                //   lightAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1 && secondKeyPressed)
+                if(tunnelKeyAmt<=0 && !tunnelButtonAS.isPlaying)
                 {
-                    checkKey.SetActive(false);
+                    tunnelCheckKey.SetActive(false);
                 }
+                //if (lightAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= tunnelThreshold*tnHelper)
+                //{
+                //    lightAnim.speed = 0;
+                //}
+                //Debug.Log("time can play is " + lightAS.clip.length * tunnelThreshold * tnHelper);
+                //Debug.Log("time is at "+ lightAS.time);
+                //if (lightAS.time >= (5f *tunnelThreshold * tnHelper))
+                //{
+                //    Debug.Log("we should pause");
+                //    lightAS.Pause();
+                //}
             }
 
 
@@ -223,8 +270,22 @@ public class LevelOneFirstCheck   : MonoBehaviour
         }
 
 
-        
+        if (player.GetComponent<CurvePlayerController>().messageEntered)
+        {
+            StartCoroutine(resetLightAfterInput());
+        }
     }  
+
+    IEnumerator resetLightAfterInput()
+    {
+        player.GetComponent<CurvePlayerController>().messageEntered = false;
+        mainTrack.GetComponent<Animator>().speed = 1;
+        messageInput.SetActive(false);
+        messageInput.GetComponent<TMP_InputField>().text = "";
+        yield return new WaitForSeconds(0.5f);
+        lightAnim.SetBool("messageFailed", false);
+        
+    }
 
     void OnTriggerEnter(Collider coll)
     {
@@ -245,7 +306,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            LevelOneFirstCheck.codeIndex++;
+            inCheck = false;
             checkAnim.SetBool("FirstPress", false);
             checkKey.SetActive(false);
             if (!keyPressed)
@@ -255,45 +316,80 @@ public class LevelOneFirstCheck   : MonoBehaviour
             }
             else
             {
-                resetTrack();
+                LevelOneFirstCheck.codeIndex++;
+                player.GetComponent<CurvePlayerController>().levelOneTunnelPassed += 1;
+                if((player.GetComponent<CurvePlayerController>().levelOneTunnelPassed) % 8 == 0)
+                {
+                    messagePrompt();
+                }
+                else
+                {
+                    resetTrack();
+                }
+                
             }
             StartCoroutine(enterSecondCheck());
+            
         }
 
         if (other.gameObject.tag == "NPC")
         {
             other.gameObject.GetComponent<LevelOneNPC>().spawnGauge += 1;
-            if(other.gameObject.GetComponent<LevelOneNPC>().spawnGauge == 5)
+            if(other.gameObject.GetComponent<LevelOneNPC>().spawnGauge == 8)
             {
                 other.gameObject.GetComponent<LevelOneNPC>().spawnGauge = 0;
-                float xPosDif = UnityEngine.Random.Range(-1, 1);
-                Vector3 spawnPos = new Vector3(myTunnel.transform.position.x + xPosDif, myTunnel.transform.position.y - 4.5f, myTunnel.transform.position.z);
-                Instantiate(spawnedBall, spawnPos, Quaternion.identity);
+                if (LevelOneFirstCheck.soulCount < 9)
+                {
+                    float xPosDif = UnityEngine.Random.Range(-2, 2);
+                    Vector3 spawnPos = new Vector3(myTunnel.transform.position.x + xPosDif, myTunnel.transform.position.y - 4.5f, myTunnel.transform.position.z);
+                    Instantiate(spawnedBall, spawnPos, Quaternion.identity);
+                    LevelOneFirstCheck.soulCount++;
+                }
+
 
             }
 
         }
     }
 
-    IEnumerator trackDash()
+    void messagePrompt()
     {
-        mainTrack.GetComponent<Animator>().speed = 2;
-        yield return new WaitForSeconds(1.0f);
-        mainTrack.GetComponent<Animator>().speed = 1;
+        mainTrack.GetComponent<Animator>().speed = 0;
+        messageInput.GetComponent<LevelOneSecret>().currentLight = lightAnim;
+        messageInput.GetComponent<LevelOneSecret>().lightAS = lightAS;
+        messageInput.SetActive(true);
+        messageInput.GetComponent<TMP_InputField>().ActivateInputField();
+        
     }
 
-    public IEnumerator enterSecondCheck()
+    IEnumerator trackDash()
+    {
+        mainTrack.GetComponent<Animator>().speed = 3;
+        yield return new WaitForSeconds(1.0f);
+        if((player.GetComponent<CurvePlayerController>().levelOneTunnelPassed) % 8 == 0)
+        {
+            messagePrompt();
+        }
+        else
+        {
+            mainTrack.GetComponent<Animator>().speed = 1;
+        }
+        
+    }
+
+    IEnumerator enterSecondCheck()
     {
         if (failedFirstCheck)
         {
             mainTrack.GetComponent<Animator>().speed = 0;
-            //playerTile.SetActive(false);
             player.transform.parent = myTunnel.transform;
             playerTile.transform.parent = myTunnel.transform;
             player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             GetComponent<BoxCollider>().enabled = false;
             yield return new WaitForSeconds(1.0f);
-            checkKey.SetActive(true);
+            //checkKey.SetActive(true);
+            generateTunnelText();
+            tunnelCheckKey.SetActive(true);
             tunnelAnim.enabled = true;
             inSecondCheck = true;
             
@@ -301,7 +397,28 @@ public class LevelOneFirstCheck   : MonoBehaviour
     }
 
 
+    public void generateTunnelText()
+    {
+        int checker = UnityEngine.Random.Range(0, 2);
+        Debug.Log(checker + " is checker number");
+        int amt = UnityEngine.Random.Range(3, 5);
+        tunnelKeyAmt = amt;
+        if (checker == 0)
+        {
+            tunnelCheckKey.GetComponent<TextMeshProUGUI>().text = new string('F', amt);
+            tunnelKey = KeyCode.F;
+            tunnelChar = 'F';
+        }
+        else
+        {
+            tunnelCheckKey.GetComponent<TextMeshProUGUI>().text = new string('T', amt);
+            tunnelKey = KeyCode.T;
+            tunnelChar = 'T';
+        }
+        tunnelThreshold = 1f/amt;
+ 
 
+    }
     IEnumerator triggerDropPlayer()
     {
         player.GetComponent<CurvePlayerController>().onTrack = false;
@@ -336,7 +453,6 @@ public class LevelOneFirstCheck   : MonoBehaviour
     void resumePlayer()
     {
 
-        Debug.Log("done rotating");
         inSecondCheck = false;
         player.transform.parent = mainTrack.transform;
         playerTile.transform.parent = mainTrack.transform;
@@ -355,6 +471,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
 
     void resetTrack()
     {
+        Debug.Log("resetting track");
         GetComponent<BoxCollider>().enabled = true;
         failedFirstCheck = false;
         failedSecondCheck = false;

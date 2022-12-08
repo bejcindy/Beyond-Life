@@ -20,6 +20,9 @@ public class CurvePlayerController : MonoBehaviour
     bool cantMove;
     bool cantLook;
 
+    public int levelOneTunnelPassed = 0;
+    public bool messageEntered = false;
+
     // Start is called before the first frame update
     void Start()
     {

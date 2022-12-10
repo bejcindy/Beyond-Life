@@ -152,6 +152,7 @@ public class CurvePlayerController : MonoBehaviour
         {
             if (transform.childCount != 0)
             {
+                transform.GetChild(0).GetComponent<Collider>().enabled = false;
                 transform.GetChild(0).parent = other.gameObject.transform;
                 
             }

@@ -27,7 +27,7 @@ public class SphereController : MonoBehaviour
     int dirMultiplier;
     float speedPreset;
 
-    Vector3 offset = new Vector3(0, 2, 0);
+    Vector3 offset = new Vector3(0, 1, 0);
 
     // Start is called before the first frame update
     void Start()
@@ -47,89 +47,27 @@ public class SphereController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //transform.rotation=transform.LookAt
-        //dodge player
-        if (Vector3.Distance(transform.position, player.transform.position) < minDist||Mathf.Approximately(Vector3.Distance(transform.position, player.transform.position),minDist))
-        {
-            nearPlayer = true;
-
-            Vector3 direction = (transform.position - player.transform.position).normalized;
-            Vector3 directionZeroY = new Vector3(direction.x, 0, direction.y);
-            
-            transform.position = player.transform.position + direction * minDist;
-            Vector3 sameYPos = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
-
-            transform.RotateAround(sameYPos, multiplier* Vector3.up, controledSpeed * Time.deltaTime);
-            
-        }
-        else
-        {
-            nearPlayer = false;
-        }
-
-        transform.LookAt(Vector3.zero);
-        //decide go left or right to player
-        //player cann't push the ball off the ground before it goes full circle
-        RaycastHit leftH;
-        if (Physics.Raycast(transform.position, -transform.forward, out leftH, Mathf.Infinity))
-        {
-            leftDist = leftH.distance;
-        }
-        RaycastHit rightH;
-        if (Physics.Raycast(transform.position, transform.forward , out rightH, Mathf.Infinity))
-        {
-            rightDist = rightH.distance;
-        }
-        if (leftDist < rightDist)
-        {
-            multiplier = -1;
-        }
-        else
-        {
-            multiplier = 1;
-        }
-        //Debug.Log(leftDist + "left hit "+leftH.collider.gameObject +"; "+ rightDist+ "right hit " + rightH.collider.gameObject);
-
+        
         if (nearPlayer)
         {
             //controledSpeed = speedPreset * 20;
-            if (player.transform.childCount < 1)
-            {
+            //if (player.transform.childCount < 1)
+            //{
                 transform.parent = player.transform;
                 transform.localPosition = offset;
-            }
-            
+                controledSpeed = 0;
+                
+            //}
         }
         else
         {
             controledSpeed = speedPreset;
+            transform.RotateAround(Vector3.zero, Vector3.up, dirMultiplier * controledSpeed * Time.deltaTime);
         }
 
-        if (!finishedCircle)
-        {
-            if (!nearPlayer)
-            {
-                transform.RotateAround(Vector3.zero, Vector3.up, dirMultiplier * controledSpeed * Time.deltaTime);
-            }
-        }
-        else
-        {
-            Debug.Log("completed a full circle");
-            //raycast down, if no ground below then move y axis; otherwise only move x and z
-            RaycastHit h;
-            if (Physics.Raycast(transform.position, -Vector3.up, out h, 3))
-            {
-                zeroSameY = new Vector3(0, transform.position.y, 0);
-                transform.position = Vector3.MoveTowards(transform.position, zeroSameY, controledSpeed * Time.deltaTime);
-            }
-            else
-            {
-                transform.position = Vector3.MoveTowards(transform.position, Vector3.zero, controledSpeed * Time.deltaTime);
-            }
-        }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         //Debug.Log("hit");
         if (other.CompareTag("BelowCheckPoint")) 
@@ -148,6 +86,15 @@ public class SphereController : MonoBehaviour
         if (other.CompareTag("Core"))
         {
             Die();
+        }
+        if (other.CompareTag("Player"))
+        {
+            if (player.transform.childCount == 0)
+            {
+                nearPlayer = true;
+            }
+            //nearPlayer = true;
+            //Debug.Log("here");
         }
     }
     IEnumerator Die()

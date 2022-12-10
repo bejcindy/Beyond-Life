@@ -150,12 +150,19 @@ public class CurvePlayerController : MonoBehaviour
         }
         if (other.CompareTag("Receiver"))
         {
-            if (transform.childCount != 0)
+            if (!other.gameObject.GetComponent<L1SoulLock>().hasSoul)
             {
-                transform.GetChild(0).GetComponent<Collider>().enabled = false;
-                transform.GetChild(0).parent = other.gameObject.transform;
-                
+                if (transform.childCount != 10)
+                {
+                    transform.GetChild(10).GetComponent<Collider>().enabled = false;
+                    transform.GetChild(10).GetComponent<SphereController>().enabled = false;
+                    GameObject sphere = transform.GetChild(10).gameObject;
+
+                    sphere.transform.parent = null;
+                    sphere.transform.position = other.transform.position + Vector3.up * 1;
+                }
             }
+
         }
     }
     IEnumerator SceneTransition(string sceneName)

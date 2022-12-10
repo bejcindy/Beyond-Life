@@ -338,7 +338,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
             if(other.gameObject.GetComponent<LevelOneNPC>().spawnGauge == 8)
             {
                 other.gameObject.GetComponent<LevelOneNPC>().spawnGauge = 0;
-                if (LevelOneFirstCheck.soulCount < 9)
+                if (LevelOneFirstCheck.soulCount < 8)
                 {
                     float xPosDif = UnityEngine.Random.Range(-2, 2);
                     Vector3 spawnPos = new Vector3(myTunnel.transform.position.x + xPosDif, myTunnel.transform.position.y - 4.5f, myTunnel.transform.position.z);

@@ -27,7 +27,7 @@ public class SphereController : MonoBehaviour
     int dirMultiplier;
     float speedPreset;
 
-    Vector3 offset = new Vector3(0, 1, 0);
+    Vector3 offset = new Vector3(0, 3, 0);
 
     // Start is called before the first frame update
     void Start()
@@ -89,7 +89,8 @@ public class SphereController : MonoBehaviour
         }
         if (other.CompareTag("Player"))
         {
-            if (player.transform.childCount == 0)
+            //cindy is shabi
+            if (player.transform.childCount == 10)
             {
                 nearPlayer = true;
             }

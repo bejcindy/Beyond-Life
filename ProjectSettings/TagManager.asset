@@ -11,6 +11,7 @@ TagManager:
   - BelowCheckPoint
   - Wall
   - Core
+  - Receiver
   layers:
   - Default
   - TransparentFX

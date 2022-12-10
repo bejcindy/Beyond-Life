@@ -148,6 +148,15 @@ public class CurvePlayerController : MonoBehaviour
         {
             SceneTransition("Level2.0");
         }
+        if (other.CompareTag("Receiver"))
+        {
+            if (transform.childCount != 0)
+            {
+                transform.GetChild(0).GetComponent<Collider>().enabled = false;
+                transform.GetChild(0).parent = other.gameObject.transform;
+                
+            }
+        }
     }
     IEnumerator SceneTransition(string sceneName)
     {

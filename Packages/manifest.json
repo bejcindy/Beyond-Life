@@ -2,6 +2,7 @@
   "dependencies": {
     "com.coffee.softmask-for-ugui": "https://github.com/mob-sakai/SoftMaskForUGUI.git",
     "com.unity.ai.navigation": "1.0.0-exp.4",
+    "com.unity.cinemachine": "2.8.9",
     "com.unity.collab-proxy": "1.17.2",
     "com.unity.feature.development": "1.0.1",
     "com.unity.ide.rider": "3.0.15",

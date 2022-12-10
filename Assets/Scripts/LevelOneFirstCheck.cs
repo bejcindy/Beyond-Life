@@ -73,6 +73,9 @@ public class LevelOneFirstCheck   : MonoBehaviour
     public bool messageEntered = false;
     public static int soulCount = 0;
 
+    public GameObject lockedCam;
+    public GameObject mainCam;
+
 
 
     // Start is called before the first frame update
@@ -438,6 +441,8 @@ public class LevelOneFirstCheck   : MonoBehaviour
                                                     | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationX;
         yield return new WaitForSeconds(3.5f);
         playerTile.GetComponent<AudioSource>().PlayOneShot(ventCloseClip);
+        mainCam.SetActive(true);
+        lockedCam.SetActive(false);
         lightAS.enabled = false;
         
 
@@ -447,7 +452,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
         resetTrack();
         GetComponent<BoxCollider>().enabled = true;
         player.GetComponent<CurvePlayerController>().enabled = true;
-        Camera.main.GetComponent<CameraController>().enabled = true;
+        //Camera.main.GetComponent<CameraController>().enabled = true;
     }
 
     void resumePlayer()

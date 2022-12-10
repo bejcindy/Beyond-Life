@@ -27,6 +27,8 @@ public class SphereController : MonoBehaviour
     int dirMultiplier;
     float speedPreset;
 
+    Vector3 offset = new Vector3(0, 2, 0);
+
     // Start is called before the first frame update
     void Start()
     {
@@ -90,7 +92,13 @@ public class SphereController : MonoBehaviour
 
         if (nearPlayer)
         {
-            controledSpeed = speedPreset * 20;
+            //controledSpeed = speedPreset * 20;
+            if (player.transform.childCount < 1)
+            {
+                transform.parent = player.transform;
+                transform.localPosition = offset;
+            }
+            
         }
         else
         {

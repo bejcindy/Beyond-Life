@@ -23,6 +23,12 @@ public class CurvePlayerController : MonoBehaviour
     public int levelOneTunnelPassed = 0;
     public bool messageEntered = false;
 
+    public int levelOneSoulFound = 0;
+    public GameObject[] levelOneBoards;
+    public GameObject[] levelOneSoulFrame;
+    public Vector3 levelOneBoardScale;
+    public Vector3 levelOneFrameScale;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +36,9 @@ public class CurvePlayerController : MonoBehaviour
         groundCheck = new bool[4];
         isLevel1 = true;
         cam = Camera.main;
+
+        levelOneBoardScale = levelOneBoards[0].transform.localScale;
+        levelOneFrameScale = levelOneSoulFrame[0].transform.localScale;
     }
 
     // Update is called once per frame
@@ -91,35 +100,42 @@ public class CurvePlayerController : MonoBehaviour
             }
             else
             {
-                if (GetComponent<Collider>().enabled)
-                {
-                    GetComponent<Collider>().enabled = false;
-                }
-                cantMove = true;
-                if (transform.position.y > 50)
-                {
-                    rb.AddForce(-transform.up * -g * 4000 * Time.deltaTime, ForceMode.Acceleration);
-                    dropX = transform.position.x;
-                    dropZ = transform.position.z;
-                    //Debug.Log(dropX);
-                }
-                else
-                {
-                    cantLook = true;
-                    //lerp Y position
-                    float lerpSpeed = Mathf.Lerp(-1f, 4000f, Mathf.Clamp(transform.position.y / 50, 0, 1));
-                    rb.AddForce(-transform.up * -g * lerpSpeed * Time.deltaTime, ForceMode.Acceleration);
-                    cam.GetComponent<CameraController>().Level1End = true;
-                    //lerp X & Z position
-                    //float xClamp = Mathf.Clamp(Mathf.Abs(dropX - transform.position.x) /Mathf.Abs( dropX), 0.001f, 1);
-                    //float zClamp= Mathf.Clamp(Mathf.Abs(dropZ - transform.position.z) /Mathf.Abs( dropZ), 0.001f, 1);
-                    float xLerp = Mathf.Lerp(transform.position.x, 0, 0.001f);
-                    float zLerp= Mathf.Lerp(transform.position.z, 0, 0.001f);
-                    Debug.Log(Mathf.Abs(dropX - transform.position.x) );
+                //    if (GetComponent<Collider>().enabled)
+                //    {
+                //        GetComponent<Collider>().enabled = false;
+                //    }
+                //    cantMove = true;
+                //    if (transform.position.y > 50)
+                //    {
+                        rb.AddForce(-transform.up * -g * 4000 * Time.deltaTime, ForceMode.Acceleration);
+                //        dropX = transform.position.x;
+                //        dropZ = transform.position.z;
+                //        //Debug.Log(dropX);
+                //    }
+                //    else
+                //    {
+                //        cantLook = true;
+                //        //lerp Y position
+                //        float lerpSpeed = Mathf.Lerp(-1f, 4000f, Mathf.Clamp(transform.position.y / 50, 0, 1));
+                //        rb.AddForce(-transform.up * -g * lerpSpeed * Time.deltaTime, ForceMode.Acceleration);
+                //        cam.GetComponent<CameraController>().Level1End = true;
+                //        //lerp X & Z position
+                //        //float xClamp = Mathf.Clamp(Mathf.Abs(dropX - transform.position.x) /Mathf.Abs( dropX), 0.001f, 1);
+                //        //float zClamp= Mathf.Clamp(Mathf.Abs(dropZ - transform.position.z) /Mathf.Abs( dropZ), 0.001f, 1);
+                //        float xLerp = Mathf.Lerp(transform.position.x, 0, 0.001f);
+                //        float zLerp= Mathf.Lerp(transform.position.z, 0, 0.001f);
+                //        Debug.Log(Mathf.Abs(dropX - transform.position.x) );
 
-                    transform.position = new Vector3(xLerp, transform.position.y, zLerp);
+                //        transform.position = new Vector3(xLerp, transform.position.y, zLerp);
+                //    }
                 }
             }
+
+
+        if(levelOneSoulFound == 8)
+        {
+            StartCoroutine(shrinkLevelOneBoards());
+
         }
         
     }
@@ -160,6 +176,9 @@ public class CurvePlayerController : MonoBehaviour
 
                     sphere.transform.parent = null;
                     sphere.transform.position = other.transform.position + Vector3.up * 1;
+                    other.gameObject.GetComponent<L1SoulLock>().hasSoul = true;
+
+                    levelOneSoulFound++;
                 }
             }
 
@@ -169,5 +188,22 @@ public class CurvePlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(.5f);
         SceneManager.LoadScene(sceneName);
+    }
+
+
+    public IEnumerator shrinkLevelOneBoards()
+    {
+        foreach (GameObject board in levelOneBoards)
+        {
+            board.transform.localScale = Vector3.Lerp(board.transform.localScale, 
+                                                        new Vector3 (levelOneBoardScale.x * 0.3f, levelOneBoardScale.y, levelOneBoardScale.z * 0.3f), 
+                                                        Time.deltaTime * 1);
+        }
+        foreach (GameObject frame in levelOneSoulFrame)
+        {
+            frame.transform.localScale = Vector3.Lerp(frame.transform.localScale, levelOneFrameScale * 0.5f, Time.deltaTime * 1);
+        }
+        yield return new WaitForSeconds(10f);
+        levelOneSoulFound = 0;
     }
 }

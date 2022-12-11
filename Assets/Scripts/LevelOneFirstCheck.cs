@@ -443,7 +443,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
 
 
 
-        yield return new WaitForSeconds(5.0f);
+        //yield return new WaitForSeconds(5.0f);
         resetTrack();
         GetComponent<BoxCollider>().enabled = true;
         player.GetComponent<CurvePlayerController>().enabled = true;

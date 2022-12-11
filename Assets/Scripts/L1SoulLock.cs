@@ -5,6 +5,7 @@ using UnityEngine;
 public class L1SoulLock : MonoBehaviour
 {
     public bool hasSoul = false;
+    public GameObject myBoard;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,6 +15,6 @@ public class L1SoulLock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

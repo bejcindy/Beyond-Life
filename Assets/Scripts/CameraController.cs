@@ -17,8 +17,8 @@ public class CameraController : MonoBehaviour
     Vector3 moveTarget;
     public Vector3 camLookOffset = new Vector3(0, .5f, 0);
     Camera cam;
-    float camMoveSpeed = 200f;
-    float camRotSpeed = 200f;
+    float camMoveSpeed = 100f;
+    float camRotSpeed = 100f;
 
     // Start is called before the first frame update
     void Start()

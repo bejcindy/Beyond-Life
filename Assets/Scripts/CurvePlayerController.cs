@@ -144,6 +144,8 @@ public class CurvePlayerController : MonoBehaviour
         
     }
 
+    
+
 
     private void OnTriggerStay(Collider other)
     {
@@ -159,6 +161,11 @@ public class CurvePlayerController : MonoBehaviour
                 Quaternion newRotation = Quaternion.LookRotation(newForward, newUp);
                 transform.rotation = newRotation;                
             }
+        }
+
+        if(other.gameObject.name == "Stop")
+        {
+            rb.isKinematic = true;
         }
         
     }

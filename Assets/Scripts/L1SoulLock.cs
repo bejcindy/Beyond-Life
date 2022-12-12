@@ -30,6 +30,15 @@ public class L1SoulLock : MonoBehaviour
             StartCoroutine(lerpToPort(myPort.transform.position, 30.0f));
 
         }
+        Debug.Log("distance with sould is " + Vector3.Distance(transform.position, myPort.transform.position));
+        if(Vector3.Distance(transform.position, myPort.transform.position) < 0.5f)
+        {
+            if(mySoul != null)
+            {
+                mySoul.GetComponent<LevelOneSoul>().arrivedAtPort = true;
+            }
+            
+        }
     }
 
     IEnumerator lerpToPort(Vector3 portPos, float duration)

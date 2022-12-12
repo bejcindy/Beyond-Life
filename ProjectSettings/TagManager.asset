@@ -12,6 +12,7 @@ TagManager:
   - Wall
   - Core
   - Receiver
+  - LevelOneCoreBridge
   layers:
   - Default
   - TransparentFX

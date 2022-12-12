@@ -26,8 +26,11 @@ public class CurvePlayerController : MonoBehaviour
     public int levelOneSoulFound = 0;
     public GameObject[] levelOneBoards;
     public GameObject[] levelOneSoulFrame;
+    public AudioClip boardShrinkSound;
     public Vector3 levelOneBoardScale;
     public Vector3 levelOneFrameScale;
+
+    public GameObject worldAS;
 
     // Start is called before the first frame update
     void Start()
@@ -173,7 +176,7 @@ public class CurvePlayerController : MonoBehaviour
                     transform.GetChild(10).GetComponent<Collider>().enabled = false;
                     transform.GetChild(10).GetComponent<SphereController>().enabled = false;
                     GameObject sphere = transform.GetChild(10).gameObject;
-
+                    other.gameObject.GetComponent<AudioSource>().enabled = true;
                     sphere.transform.parent = null;
                     sphere.transform.position = other.transform.position + Vector3.up * 1;
                     other.gameObject.GetComponent<L1SoulLock>().hasSoul = true;
@@ -193,11 +196,13 @@ public class CurvePlayerController : MonoBehaviour
 
     public IEnumerator shrinkLevelOneBoards()
     {
+        worldAS.GetComponent<AudioSource>().PlayOneShot(boardShrinkSound);
         foreach (GameObject board in levelOneBoards)
         {
             board.transform.localScale = Vector3.Lerp(board.transform.localScale, 
                                                         new Vector3 (levelOneBoardScale.x * 0.3f, levelOneBoardScale.y, levelOneBoardScale.z * 0.3f), 
                                                         Time.deltaTime * 1);
+            
         }
         foreach (GameObject frame in levelOneSoulFrame)
         {

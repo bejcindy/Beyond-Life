@@ -73,7 +73,8 @@ public class LevelOneFirstCheck   : MonoBehaviour
     public bool messageEntered = false;
     public static int soulCount = 0;
 
-
+    public AudioSource ambienceAS;
+    bool startSound = false;
 
     // Start is called before the first frame update
     void Start()
@@ -93,11 +94,21 @@ public class LevelOneFirstCheck   : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
         LevelOneFirstCheck.currentKey = Char.ToString(LevelOneFirstCheck.codeKeys[LevelOneFirstCheck.codeIndex]);
+
+
+        if (startSound)
+        {
+            bgSoundRaise();
+        }
         if (inCheck)
         {
             if (Input.GetKeyDown(currentKey)) 
             {
+
+                startSound = true;
                 inCheck = false;
                 Debug.Log("passing check");
                 keyPressed = true;
@@ -276,6 +287,20 @@ public class LevelOneFirstCheck   : MonoBehaviour
         }
     }  
 
+
+
+    void bgSoundRaise()
+    {
+        if(mainTrack.GetComponent<AudioSource>().volume < 1)
+        {
+            mainTrack.GetComponent<AudioSource>().volume += 0.1f * Time.deltaTime;
+        }
+        if (ambienceAS.volume < 1)
+        {
+            ambienceAS.volume += 0.1f * Time.deltaTime;
+        }
+
+    }
     IEnumerator resetLightAfterInput()
     {
         player.GetComponent<CurvePlayerController>().messageEntered = false;

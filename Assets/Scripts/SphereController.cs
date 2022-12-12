@@ -29,9 +29,13 @@ public class SphereController : MonoBehaviour
 
     Vector3 offset = new Vector3(0, 3, 0);
 
+    public AudioClip caught_Sound;
+    AudioSource AS;
+
     // Start is called before the first frame update
     void Start()
     {
+        AS = transform.GetChild(0).gameObject.GetComponent<AudioSource>();
         player = GameObject.FindGameObjectWithTag("Player");
         if (Random.Range(0, 100) < 50)
         {
@@ -54,6 +58,7 @@ public class SphereController : MonoBehaviour
             //if (player.transform.childCount < 1)
             //{
                 transform.parent = player.transform;
+                AS.PlayOneShot(caught_Sound);
                 transform.localPosition = offset;
                 controledSpeed = 0;
                 

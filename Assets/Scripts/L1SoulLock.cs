@@ -5,9 +5,9 @@ using UnityEngine;
 public class L1SoulLock : MonoBehaviour
 {
     public bool hasSoul = false;
-    public GameObject myBoard;
+    public GameObject myBase;
     public GameObject myPort;
-
+    public GameObject mySoul;
     public GameObject player;
 
     public bool hasPlayer;
@@ -15,6 +15,7 @@ public class L1SoulLock : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player");
+        myBase = transform.GetChild(0).gameObject;
     }
 
     // Update is called once per frame
@@ -24,7 +25,7 @@ public class L1SoulLock : MonoBehaviour
         {
             if (hasPlayer)
             {
-                player.transform.parent = myBoard.transform;
+                player.transform.parent = transform;
             }
             StartCoroutine(lerpToPort(myPort.transform.position, 30.0f));
 
@@ -34,18 +35,36 @@ public class L1SoulLock : MonoBehaviour
     IEnumerator lerpToPort(Vector3 portPos, float duration)
     {
         float time = 0;
-        Vector3 startPos = myBoard.transform.position;
+        Vector3 startPos = transform.position;
         while(time < duration)
         {
-            myBoard.transform.position = Vector3.Lerp(startPos, portPos, time/duration);
+            transform.position = Vector3.Lerp(startPos, portPos, time/duration);
             time += Time.deltaTime;
             yield return null;
         }
 
-        myBoard.transform.position = portPos;
+        transform.position = portPos;
     }
 
+    public void unlockAll()
+    {
+        myBase.transform.parent = null;
+        if(mySoul != null)
+        {
+            mySoul.transform.parent = null;
+        }
 
+    }
+
+    public void lockAll()
+    {
+        myBase.transform.parent = transform;
+        if(mySoul != null)
+        {
+            mySoul.transform.parent = transform;
+        }
+
+    }
 
     private void OnCollisionEnter(Collision collision)
     {

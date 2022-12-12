@@ -178,9 +178,10 @@ public class CurvePlayerController : MonoBehaviour
                     transform.GetChild(10).GetComponent<SphereController>().enabled = false;
                     GameObject sphere = transform.GetChild(10).gameObject;
                     other.gameObject.GetComponent<AudioSource>().enabled = true;
-                    sphere.transform.parent = null;
+
+                    other.gameObject.transform.parent.parent.gameObject.GetComponent<L1SoulLock>().mySoul = sphere;
                     sphere.transform.position = other.transform.position + Vector3.up * 1;
-                    other.gameObject.GetComponent<L1SoulLock>().hasSoul = true;
+                    other.gameObject.transform.parent.parent.gameObject.GetComponent<L1SoulLock>().hasSoul = true;
 
                     levelOneSoulFound++;
                 }
@@ -200,6 +201,7 @@ public class CurvePlayerController : MonoBehaviour
         worldAS.GetComponent<AudioSource>().PlayOneShot(boardShrinkSound);
         foreach (GameObject board in levelOneBoards)
         {
+            board.GetComponent<L1SoulLock>().unlockAll();
             board.transform.localScale = Vector3.Lerp(board.transform.localScale, 
                                                         new Vector3 (levelOneBoardScale.x * 0.3f, levelOneBoardScale.y, levelOneBoardScale.z * 0.3f), 
                                                         Time.deltaTime * 1);
@@ -208,6 +210,9 @@ public class CurvePlayerController : MonoBehaviour
         foreach (GameObject frame in levelOneSoulFrame)
         {
             frame.transform.localScale = Vector3.Lerp(frame.transform.localScale, levelOneFrameScale * 0.5f, Time.deltaTime * 1);
+        }
+        foreach (GameObject board in levelOneBoards) {
+            board.GetComponent<L1SoulLock>().lockAll();
         }
         yield return new WaitForSeconds(3f);
         levelOneSoulFound = 0;

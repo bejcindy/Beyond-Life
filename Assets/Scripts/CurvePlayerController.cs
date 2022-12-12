@@ -22,6 +22,7 @@ public class CurvePlayerController : MonoBehaviour
 
     public int levelOneTunnelPassed = 0;
     public bool messageEntered = false;
+    public bool toPort = false;
 
     public int levelOneSoulFound = 0;
     public GameObject[] levelOneBoards;
@@ -208,7 +209,8 @@ public class CurvePlayerController : MonoBehaviour
         {
             frame.transform.localScale = Vector3.Lerp(frame.transform.localScale, levelOneFrameScale * 0.5f, Time.deltaTime * 1);
         }
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(3f);
         levelOneSoulFound = 0;
+        toPort = true;
     }
 }

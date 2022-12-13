@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class CurvePlayerController : MonoBehaviour
 {
@@ -32,6 +33,7 @@ public class CurvePlayerController : MonoBehaviour
     public Vector3 levelOneFrameScale;
 
     public GameObject worldAS;
+    public GameObject blackImage;
     bool boardShrinkPlayed;
 
     // Start is called before the first frame update
@@ -63,6 +65,11 @@ public class CurvePlayerController : MonoBehaviour
 
         Vector3 direction = (transform.forward * z + transform.right * x).normalized;
         rb.velocity = direction * speed;
+
+        if(rb.velocity.x != 0 || rb.velocity.z != 0)
+        {
+            GetComponent<Animator>().Play("player_jump", 0, 0);
+        }
 
         if (!cantLook)
         {
@@ -174,9 +181,19 @@ public class CurvePlayerController : MonoBehaviour
         if(other.gameObject.name == "Stop")
         {
             rb.isKinematic = true;
+            StartCoroutine(startEnding());
+
         }
         
     }
+
+    IEnumerator startEnding()
+    {
+        yield return new WaitForSeconds(5.0f);
+        blackImage.GetComponent<Animator>().enabled = true;
+    }
+
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Core"))
@@ -222,7 +239,7 @@ public class CurvePlayerController : MonoBehaviour
             board.GetComponent<L1SoulLock>().unlockAll();
             board.transform.localScale = Vector3.Lerp(board.transform.localScale, 
                                                         new Vector3 (levelOneBoardScale.x * 0.3f, levelOneBoardScale.y, levelOneBoardScale.z * 0.3f), 
-                                                        Time.deltaTime * 1);
+                                                        Time.deltaTime*0.5f);
             
         }
         foreach (GameObject frame in levelOneSoulFrame)

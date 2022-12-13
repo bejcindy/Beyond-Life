@@ -286,9 +286,9 @@ public class LevelOneFirstCheck   : MonoBehaviour
         }
 
 
-        if (messageInput.GetComponent<LevelOneSecret>().messageEntered)
+        if (messageInput.GetComponent<LevelOneSecret>().done)
         {
-            lightAnim.SetBool("Checked", false);
+            resetTrack();
             resetLightAfterInput();
         }
     }  
@@ -309,15 +309,13 @@ public class LevelOneFirstCheck   : MonoBehaviour
     }
     void resetLightAfterInput()
     {
-        
-        Debug.Log("we should reset");
-        lightAnim.SetBool("wrongMessage", false);
-        
-        mainTrack.GetComponent<Animator>().speed = 1;
-        
+        messageInput.GetComponent<LevelOneSecret>().currentLight = null;
+        messageInput.GetComponent<LevelOneSecret>().lightAS = null;
+        Debug.Log("we should reset");        
         messageInput.GetComponent<LevelOneSecret>().messageEntered = false;
         messageInput.GetComponent<TMP_InputField>().text = "";
         messageInput.SetActive(false);
+        messageInput.GetComponent<LevelOneSecret>().done = false;
 
 
     }
@@ -401,13 +399,8 @@ public class LevelOneFirstCheck   : MonoBehaviour
     {
         mainTrack.GetComponent<Animator>().speed = 3;
         yield return new WaitForSeconds(1.0f);
-        if((player.GetComponent<CurvePlayerController>().levelOneTunnelPassed) % 8 == 0)
-        {
-
-            messagePrompt();
-        }
-        else
-        {
+        if((player.GetComponent<CurvePlayerController>().levelOneTunnelPassed) % 8 != 0)
+        { 
             mainTrack.GetComponent<Animator>().speed = 1;
         }
         
@@ -516,7 +509,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
         lightAnim.SetBool("Charging", false);
         lightAnim.SetBool("Fading", false);
         lightAnim.SetBool("SecondFail", false);
-        lightAnim.SetBool("messageFailed", false);
+        lightAnim.SetBool("wrongMessage", false);
         //lightAnim.enabled = false;
         tunnelAnim.enabled = false;
         playerTile.transform.parent = mainTrack.transform;

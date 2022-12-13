@@ -30,6 +30,7 @@ public class SphereController : MonoBehaviour
     Vector3 offset = new Vector3(0, 3, 0);
 
     public AudioClip caught_Sound;
+    public bool caughtSoundPlayed = false;
     AudioSource AS;
 
     // Start is called before the first frame update
@@ -58,7 +59,6 @@ public class SphereController : MonoBehaviour
             //if (player.transform.childCount < 1)
             //{
                 transform.parent = player.transform;
-                AS.PlayOneShot(caught_Sound);
                 transform.localPosition = offset;
                 controledSpeed = 0;
                 
@@ -98,6 +98,12 @@ public class SphereController : MonoBehaviour
             if (player.transform.childCount == 10)
             {
                 nearPlayer = true;
+                if (!caughtSoundPlayed)
+                {
+                    AS.PlayOneShot(caught_Sound);
+                    caughtSoundPlayed = true;
+                }
+                
             }
             //nearPlayer = true;
             //Debug.Log("here");
@@ -108,4 +114,6 @@ public class SphereController : MonoBehaviour
         yield return new WaitForSeconds(1f);
         Destroy(gameObject);
     }
+
+
 }

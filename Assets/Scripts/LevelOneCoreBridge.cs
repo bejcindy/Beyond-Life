@@ -15,7 +15,7 @@ public class LevelOneCoreBridge : MonoBehaviour
     private VolumeParameter<float> postexposure= new VolumeParameter<float>();
     private VolumeParameter<float> colorfilter= new VolumeParameter<float>();
 
-    public bool endingStart = true;
+    public bool endingStart = false;
     // Start is called before the first frame update
     void Start()
     {

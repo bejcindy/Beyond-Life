@@ -32,6 +32,7 @@ public class CurvePlayerController : MonoBehaviour
     public Vector3 levelOneFrameScale;
 
     public GameObject worldAS;
+    bool boardShrinkPlayed;
 
     // Start is called before the first frame update
     void Start()
@@ -138,9 +139,16 @@ public class CurvePlayerController : MonoBehaviour
 
         if(levelOneSoulFound == 8)
         {
+            if (!boardShrinkPlayed)
+            {
+                worldAS.GetComponent<AudioSource>().PlayOneShot(boardShrinkSound);
+                boardShrinkPlayed = true;
+            }
             StartCoroutine(shrinkLevelOneBoards());
 
         }
+
+
         
     }
 
@@ -177,7 +185,8 @@ public class CurvePlayerController : MonoBehaviour
         }
         if (other.CompareTag("Receiver"))
         {
-            if (!other.gameObject.GetComponent<L1SoulLock>().hasSoul)
+            GameObject board = other.gameObject.transform.parent.parent.gameObject;
+            if (!board.GetComponent<L1SoulLock>().hasSoul)
             {
                 if (transform.childCount != 10)
                 {
@@ -186,9 +195,10 @@ public class CurvePlayerController : MonoBehaviour
                     GameObject sphere = transform.GetChild(10).gameObject;
                     other.gameObject.GetComponent<AudioSource>().enabled = true;
 
-                    other.gameObject.transform.parent.parent.gameObject.GetComponent<L1SoulLock>().mySoul = sphere;
+                    board.GetComponent<L1SoulLock>().mySoul = sphere;
                     sphere.transform.position = other.transform.position + Vector3.up * 1;
-                    other.gameObject.transform.parent.parent.gameObject.GetComponent<L1SoulLock>().hasSoul = true;
+                    sphere.transform.parent = other.gameObject.transform;
+                    board.gameObject.GetComponent<L1SoulLock>().hasSoul = true;
 
                     levelOneSoulFound++;
                 }
@@ -205,7 +215,8 @@ public class CurvePlayerController : MonoBehaviour
 
     public IEnumerator shrinkLevelOneBoards()
     {
-        worldAS.GetComponent<AudioSource>().PlayOneShot(boardShrinkSound);
+
+        
         foreach (GameObject board in levelOneBoards)
         {
             board.GetComponent<L1SoulLock>().unlockAll();
@@ -222,7 +233,7 @@ public class CurvePlayerController : MonoBehaviour
             board.GetComponent<L1SoulLock>().lockAll();
         }
         yield return new WaitForSeconds(3f);
-        levelOneSoulFound = 0;
+        
         toPort = true;
     }
 }

@@ -41,7 +41,7 @@ public class WakeUp : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        blackImage.color = Color.black;
+        //blackImage.color = Color.black;
         t = 0;
         fallingAsleep = false;
         a = GetComponent<AudioSource>();

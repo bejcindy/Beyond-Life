@@ -12,6 +12,8 @@ public class LevelOneSecret : MonoBehaviour
     public Animator currentLight;
     public AudioSource lightAS;
     public AudioClip failedSound;
+
+    public bool messageEntered = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,20 +26,21 @@ public class LevelOneSecret : MonoBehaviour
         
     }
 
-    public void checkAnswer(string answer)
-    {
-        if(answer == Char.ToString(secret[LevelOneSecret.enterIndex]))
-        {
-            Debug.Log("answer is correct");
-        }
-        else
-        {
-            Debug.Log("answer is incorrect");
-        }
-    }
+    //public void checkAnswer(string answer)
+    //{
+    //    if(answer == Char.ToString(secret[LevelOneSecret.enterIndex]))
+    //    {
+    //        Debug.Log("answer is correct");
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("answer is incorrect");
+    //    }
+    //}
 
     public void submitAnswer(string answer)
     {
+        messageEntered = true;
         player.GetComponent<CurvePlayerController>().messageEntered = true;
         if (answer == Char.ToString(secret[LevelOneSecret.enterIndex]))
         {
@@ -47,15 +50,16 @@ public class LevelOneSecret : MonoBehaviour
         else
         {
             Debug.Log("answer is incorrect");
-            StartCoroutine(failedCheck());
+           failedCheck();
             
         }
     }
 
-    IEnumerator failedCheck()
+    void failedCheck()
     {
-        currentLight.SetBool("messageFailed", true);
+        Debug.Log("setting message failed to true");
+        currentLight.SetBool("wrongMessage", true);
         lightAS.PlayOneShot(failedSound);
-        yield return new WaitForSeconds(0.5f);
+
     }
 }

@@ -11,11 +11,14 @@ public class L1SoulLock : MonoBehaviour
     public GameObject player;
 
     public bool hasPlayer;
+
+    public float originalScaleX;
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Player");
         myBase = transform.GetChild(0).gameObject;
+        originalScaleX = transform.localScale.x;
     }
 
     // Update is called once per frame
@@ -23,11 +26,12 @@ public class L1SoulLock : MonoBehaviour
     {
         if(player.GetComponent<CurvePlayerController>().toPort)
         {
-            if (hasPlayer)
+            if (hasPlayer && transform.localScale.x <= originalScaleX*0.31f)
             {
                 player.transform.parent = transform;
+                StartCoroutine(lerpToPort(myPort.transform.position, 30.0f));
             }
-            StartCoroutine(lerpToPort(myPort.transform.position, 30.0f));
+            
 
         }
         if(Vector3.Distance(transform.position, myPort.transform.position) < 0.5f)
@@ -42,6 +46,7 @@ public class L1SoulLock : MonoBehaviour
 
     IEnumerator lerpToPort(Vector3 portPos, float duration)
     {
+        //yield return new WaitForSeconds(1.0f);
         float time = 0;
         Vector3 startPos = transform.position;
         while(time < duration)

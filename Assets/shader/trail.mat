@@ -53,10 +53,10 @@ Material:
     m_Floats:
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _dissoveScale: 35
+    - _dissoveScale: 10
     m_Colors:
-    - _Color1: {r: 15.999998, g: 1.9267013, b: 5.3442445, a: 1}
-    - _Color2: {r: 2.0705884, g: 0, b: 2.9960785, a: 1}
-    - _DissoveSpeed: {r: -0.5, g: 0, b: 0, a: 0}
-    - _MainTexSpeed: {r: -1, g: 0, b: 0, a: 0}
+    - _Color1: {r: 47.937256, g: 47.937256, b: 0, a: 1}
+    - _Color2: {r: 472.14154, g: 153.2606, b: 59.326683, a: 1}
+    - _DissoveSpeed: {r: -0.01, g: 0, b: 0, a: 0}
+    - _MainTexSpeed: {r: -0.01, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

@@ -51,6 +51,15 @@ public class CurvePlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (transform.position.y < -30f)
+        {
+            rb.isKinematic = true;
+        }
+
+        if (transform.position.y < -100f)
+        {
+            StartCoroutine(startEnding());
+        }
         if (!cantMove)
         {
             x = Input.GetAxisRaw("Horizontal");

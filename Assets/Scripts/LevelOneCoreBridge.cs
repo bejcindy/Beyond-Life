@@ -77,7 +77,7 @@ public class LevelOneCoreBridge : MonoBehaviour
 
     IEnumerator increaseLight()
     {
-        postexposure.value += 1f * Time.deltaTime;
+        postexposure.value += 3f * Time.deltaTime;
         CA.postExposure.SetValue(postexposure);
         yield return null;
     }

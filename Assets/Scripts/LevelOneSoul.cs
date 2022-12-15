@@ -23,6 +23,7 @@ public class LevelOneSoul : MonoBehaviour
 
     IEnumerator lerpToCore(Vector3 corePos, float duration)
     {
+        GetComponent<ParticleSystem>().Play();
         float time = 0;
         Vector3 startPos = transform.position;
         while(time < duration)

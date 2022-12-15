@@ -58,7 +58,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
     AudioSource lightAS;
     AudioSource tunnelButtonAS;
 
-    public static string codeKeys = "01101100011010010110011001100101";
+    public static string codeKeys = "01001100010010010100011001000101";
     public static int codeIndex = 0;
     public static string currentKey;
 

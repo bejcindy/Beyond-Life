@@ -214,6 +214,7 @@ public class CurvePlayerController : MonoBehaviour
 
                     board.GetComponent<L1SoulLock>().mySoul = sphere;
                     sphere.transform.position = other.transform.position + Vector3.up * 1;
+                    
                     sphere.transform.parent = other.gameObject.transform;
                     board.gameObject.GetComponent<L1SoulLock>().hasSoul = true;
 

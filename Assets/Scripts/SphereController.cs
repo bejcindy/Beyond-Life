@@ -59,6 +59,7 @@ public class SphereController : MonoBehaviour
             //if (player.transform.childCount < 1)
             //{
                 transform.parent = player.transform;
+            GetComponent<ParticleSystem>().Stop();
                 transform.localPosition = offset;
                 controledSpeed = 0;
                 

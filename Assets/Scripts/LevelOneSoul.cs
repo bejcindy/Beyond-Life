@@ -6,10 +6,17 @@ public class LevelOneSoul : MonoBehaviour
 {
     public GameObject core;
     public bool arrivedAtPort = false;
+
+    Vector3 originalScale;
+    public float targetScaleMulti;
+
+
     // Start is called before the first frame update
     void Start()
     {
         core = GameObject.Find("level1_orb");
+        originalScale = gameObject.transform.localScale;
+        targetScaleMulti = 10f;
     }
 
     // Update is called once per frame
@@ -18,6 +25,20 @@ public class LevelOneSoul : MonoBehaviour
         if (arrivedAtPort)
         {
             StartCoroutine(lerpToCore(core.transform.position, 10.0f));
+        }
+        if(transform.parent == null)
+        {
+            if (LevelOneFirstCheck.soulCount >= 8)
+            {
+                if (transform.localScale.x < originalScale.x * targetScaleMulti)
+                {
+                    StartCoroutine(soulGrow());
+                }
+            }
+        }
+        else if(gameObject.transform.parent.gameObject.tag == "Receiver")
+        {
+            StartCoroutine(lockSoul());
         }
     }
 
@@ -34,4 +55,21 @@ public class LevelOneSoul : MonoBehaviour
         }
         transform.position = corePos;
     }
+
+    IEnumerator soulGrow()
+    {
+        transform.localScale = Vector3.Lerp(transform.localScale,
+                                              new Vector3(transform.localScale.x * targetScaleMulti,
+                                                            transform.localScale.y * targetScaleMulti,
+                                                            transform.localScale.z * targetScaleMulti), Time.deltaTime * 0.01f);
+        yield return null;
+    }
+
+    IEnumerator lockSoul()
+    {
+        transform.localScale = Vector3.Lerp(transform.localScale, originalScale, Time.deltaTime * 2f);
+        yield return null;
+    }
+
+
 }

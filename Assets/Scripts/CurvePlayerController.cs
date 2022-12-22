@@ -36,6 +36,8 @@ public class CurvePlayerController : MonoBehaviour
     public GameObject blackImage;
     bool boardShrinkPlayed;
 
+
+
     // Start is called before the first frame update
     void Start()
     {

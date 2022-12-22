@@ -38,6 +38,8 @@ public class WakeUp : MonoBehaviour
     public string currentKey;
     public int pressAmt = 0;
 
+    public Animator tunnelAnim;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -55,13 +57,13 @@ public class WakeUp : MonoBehaviour
         {
             if (checkKey.activeSelf)
             {
-                if (Input.GetKeyDown(LevelOneFirstCheck.currentKey))
+                if (Input.GetKeyDown("0"))
                 {
                     pressAmt += 1;
                     //if player hasn't gained full view yet
                     if (!eyesOpen)
                     {
-                        newAlpha = blackImage.color.a - alphaDiff;
+                        newAlpha = 0;
                         //alphaDiff += 0.05f;
                         iPressedTimes += 1;
 
@@ -87,6 +89,8 @@ public class WakeUp : MonoBehaviour
                     }
                     t = 0;
                     checkKey.SetActive(false);
+                    tunnelAnim.enabled = true;
+                    this.gameObject.SetActive(false);
                 }
             }
             if (fallingAsleep)

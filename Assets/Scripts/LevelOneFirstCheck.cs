@@ -58,7 +58,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
     AudioSource lightAS;
     AudioSource tunnelButtonAS;
 
-    public static string codeKeys = "01001100010010010100011001000101";
+    public static string codeKeys = "1001100010010010100011001000101";
     public static int codeIndex = 0;
     public static string currentKey;
 
@@ -80,7 +80,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        LevelOneFirstCheck.currentKey = Char.ToString(codeKeys[codeIndex]);
+        LevelOneFirstCheck.currentKey = Char.ToString('0');
         AS = GetComponent<AudioSource>();
         lightAS = myLights.GetComponent<AudioSource>();
         tunnelButtonAS = tunnelCheckKey.GetComponent<AudioSource>();
@@ -110,7 +110,6 @@ public class LevelOneFirstCheck   : MonoBehaviour
         {
             if (Input.GetKeyDown(currentKey)) 
             {
-
                 startSound = true;
                 inCheck = false;
 
@@ -122,9 +121,11 @@ public class LevelOneFirstCheck   : MonoBehaviour
                 StartCoroutine(trackDash());
                 
             }
+            Debug.Log(currentKey);
 
             if (Input.GetKeyUp(currentKey))
             {
+                Debug.Log("key is up");
                 checkAnim.SetBool("ButtonUp", true);
                 checkAnim.SetBool("FirstPress", false);
 

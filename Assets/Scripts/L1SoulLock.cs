@@ -26,9 +26,13 @@ public class L1SoulLock : MonoBehaviour
     {
         if(player.GetComponent<CurvePlayerController>().toPort)
         {
-            if (hasPlayer && transform.localScale.x <= originalScaleX*0.31f)
+            if (transform.localScale.x <= originalScaleX*0.31f)
             {
-                player.transform.parent = transform;
+                if (hasPlayer)
+                {
+                    player.transform.parent = transform;
+                }
+                
                 StartCoroutine(lerpToPort(myPort.transform.position, 30.0f));
             }
             

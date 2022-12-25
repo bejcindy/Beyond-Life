@@ -26,20 +26,20 @@ public class LevelOneSoul : MonoBehaviour
         {
             StartCoroutine(lerpToCore(core.transform.position, 10.0f));
         }
-        if(transform.parent == null)
-        {
-            if (LevelOneFirstCheck.soulCount >= 8)
-            {
-                if (transform.localScale.x < originalScale.x * targetScaleMulti)
-                {
-                    StartCoroutine(soulGrow());
-                }
-            }
-        }
-        else if(gameObject.transform.parent.gameObject.tag == "Receiver")
-        {
-            StartCoroutine(lockSoul());
-        }
+        //if(transform.parent == null)
+        //{
+        //    if (LevelOneFirstCheck.soulCount >= 8)
+        //    {
+        //        if (transform.localScale.x < originalScale.x * targetScaleMulti)
+        //        {
+        //            StartCoroutine(soulGrow());
+        //        }
+        //    }
+        //}
+        //else if(gameObject.transform.parent.gameObject.tag == "Receiver")
+        //{
+        //    StartCoroutine(lockSoul());
+        //}
     }
 
     IEnumerator lerpToCore(Vector3 corePos, float duration)

@@ -33,7 +33,7 @@ public class L1SoulLock : MonoBehaviour
                     player.transform.parent = transform;
                 }
                 
-                StartCoroutine(lerpToPort(myPort.transform.position, 30.0f));
+                StartCoroutine(lerpToPort(myPort.transform.position, 15.0f));
             }
             
 

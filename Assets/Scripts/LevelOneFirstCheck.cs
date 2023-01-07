@@ -58,9 +58,15 @@ public class LevelOneFirstCheck   : MonoBehaviour
     AudioSource lightAS;
     AudioSource tunnelButtonAS;
 
-    public static string codeKeys = "1001100010010010100011001000101";
-    public static int codeIndex = 0;
-    public static string currentKey;
+    public static string codeKeys = "AQWEDCXZ";
+    public static string codeKeys1 = "0P;LKI89";
+    public static string codeKeys2 = "78IKJHY6";
+    public static string codeKeys3 = "KIOP;/><";
+    public static string[] codeKeyGroup = new string[] { codeKeys, codeKeys1, codeKeys2, codeKeys3 };
+
+    public static int groupIndex = 0;
+    public static int codeIndex = 1;
+    public static KeyCode currentKey;
 
     public GameObject tunnelCheckKey;
     public GameObject messageInput;
@@ -68,10 +74,12 @@ public class LevelOneFirstCheck   : MonoBehaviour
     public int tunnelKeyAmt;
     public char tunnelChar;
     public float tunnelThreshold;
-    int tnHelper = 1;
+    public static float trackCurrentSpeed;
 
     public bool messageEntered = false;
     public static int soulCount = 0;
+    public static bool messageCorrect = false;
+    int tnHelper;
 
     public AudioSource ambienceAS;
     bool startSound = false;
@@ -80,7 +88,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        LevelOneFirstCheck.currentKey = Char.ToString('0');
+        LevelOneFirstCheck.currentKey = KeyCode.I;
         AS = GetComponent<AudioSource>();
         lightAS = myLights.GetComponent<AudioSource>();
         tunnelButtonAS = tunnelCheckKey.GetComponent<AudioSource>();
@@ -92,14 +100,18 @@ public class LevelOneFirstCheck   : MonoBehaviour
         checkAnim = checkKey.GetComponent<Animator>();
 
         ambienceAS = GameObject.Find("Ambience").GetComponent<AudioSource>();
+        LevelOneFirstCheck.trackCurrentSpeed = mainTrack.GetComponent<Animator>().speed;
     }
 
     // Update is called once per frame
     void Update()
     {
 
-
-        LevelOneFirstCheck.currentKey = Char.ToString(LevelOneFirstCheck.codeKeys[LevelOneFirstCheck.codeIndex]);
+        if(LevelOneFirstCheck.codeIndex < 8)
+        {
+            LevelOneFirstCheck.currentKey = convertKey(LevelOneFirstCheck.codeKeys[LevelOneFirstCheck.codeIndex]);
+        }
+        
 
 
         if (startSound)
@@ -118,7 +130,9 @@ public class LevelOneFirstCheck   : MonoBehaviour
                 lightAnim.SetBool("Fading", false);
                 checkAnim.SetBool("FirstPress", true);
                 buttonSound.GetComponent<AudioSource>().Play();
-                StartCoroutine(trackDash());
+                //mainTrack.GetComponent<Animator>().speed = LevelOneFirstCheck.trackCurrentSpeed * 1.25f;
+                LevelOneFirstCheck.trackCurrentSpeed *= 1.125f;
+                
                 
             }
             Debug.Log(currentKey);
@@ -289,10 +303,35 @@ public class LevelOneFirstCheck   : MonoBehaviour
 
         if (messageInput.GetComponent<LevelOneSecret>().done)
         {
+            messageInput.GetComponent<LevelOneSecret>().done = false;
+            if (LevelOneFirstCheck.messageCorrect)
+            {
+                nextMessage();
+            }
+            else
+            {
+                Debug.Log("repeating message");
+                repeatMessage();
+            }
             resetTrack();
             resetLightAfterInput();
         }
     }  
+
+    void nextMessage()
+    {
+
+    }
+
+    void repeatMessage()
+    {
+        int splitn = UnityEngine.Random.Range(1, 7);
+        string[] mgroup = codeKeys.Split(codeKeys[splitn]);
+        string output = string.Format(codeKeys[splitn] + "{0}{1}", mgroup[1], mgroup[0]);
+        LevelOneFirstCheck.codeKeys = output;
+        LevelOneFirstCheck.codeIndex = 0;
+        Debug.Log(codeKeys);
+    }
 
 
 
@@ -321,13 +360,40 @@ public class LevelOneFirstCheck   : MonoBehaviour
 
     }
 
+
+    KeyCode convertKey(Char c)
+    {
+        switch (c)
+        {
+            case 'K':
+                return KeyCode.K;
+            case ';':
+                return KeyCode.Semicolon;
+            case '/':
+                return KeyCode.Slash;
+            case '>':
+                return KeyCode.Period;
+            case '<':
+                return KeyCode.Comma;
+            case 'I':
+                return KeyCode.I;
+            case 'O':
+                return KeyCode.O;
+            case 'P':
+                return KeyCode.P;
+
+            default:
+                return KeyCode.E;
+        }
+    }
+
     void OnTriggerEnter(Collider coll)
     {
         if(coll.gameObject.tag == "Player")
         {
             //wakeUpLogic.SetActive(true);
             inCheck = true;
-            checkKey.GetComponent<TextMeshProUGUI>().text = LevelOneFirstCheck.currentKey;
+            checkKey.GetComponent<TextMeshProUGUI>().text = Char.ToString(LevelOneFirstCheck.codeKeys[LevelOneFirstCheck.codeIndex]);
             checkKey.SetActive(true);
             lightAnim.SetBool("Fading", true);
         }
@@ -347,6 +413,8 @@ public class LevelOneFirstCheck   : MonoBehaviour
             {
                 failedFirstCheck = true;
                 lightAnim.SetBool("Fading", false);
+                StartCoroutine(enterSecondCheck());
+                
             }
             else
             {
@@ -362,7 +430,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
                 }
                 
             }
-            StartCoroutine(enterSecondCheck());
+            
             
         }
 
@@ -409,21 +477,19 @@ public class LevelOneFirstCheck   : MonoBehaviour
 
     IEnumerator enterSecondCheck()
     {
-        if (failedFirstCheck)
-        {
-            mainTrack.GetComponent<Animator>().speed = 0;
-            player.transform.parent = myTunnel.transform;
-            playerTile.transform.parent = myTunnel.transform;
-            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-            GetComponent<BoxCollider>().enabled = false;
-            yield return new WaitForSeconds(1.0f);
-            //checkKey.SetActive(true);
-            generateTunnelText();
-            tunnelCheckKey.SetActive(true);
-            tunnelAnim.enabled = true;
-            inSecondCheck = true;
+
+        mainTrack.GetComponent<Animator>().speed = 0;
+        player.transform.parent = myTunnel.transform;
+        playerTile.transform.parent = myTunnel.transform;
+        player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        GetComponent<BoxCollider>().enabled = false;
+        yield return new WaitForSeconds(1.0f);
+        //checkKey.SetActive(true);
+        generateTunnelText();
+        tunnelCheckKey.SetActive(true);
+        tunnelAnim.enabled = true;
+        inSecondCheck = true;
             
-        }
     }
 
 
@@ -491,7 +557,9 @@ public class LevelOneFirstCheck   : MonoBehaviour
                                                         RigidbodyConstraints.FreezePositionY;
 
         //resetting
+        
         resetTrack();
+
 
 
 
@@ -514,7 +582,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
         //lightAnim.enabled = false;
         tunnelAnim.enabled = false;
         playerTile.transform.parent = mainTrack.transform;
-        mainTrack.GetComponent<Animator>().speed = 1;
+        mainTrack.GetComponent<Animator>().speed = LevelOneFirstCheck.trackCurrentSpeed;
     }
 
 

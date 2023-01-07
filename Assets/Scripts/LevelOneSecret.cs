@@ -49,6 +49,7 @@ public class LevelOneSecret : MonoBehaviour
             Debug.Log("answer is correct");
             lightAS.PlayOneShot(messageCorrect);
             LevelOneSecret.enterIndex++;
+            LevelOneFirstCheck.messageCorrect = true;
             done = true;
         }
         else
@@ -62,7 +63,6 @@ public class LevelOneSecret : MonoBehaviour
 
     IEnumerator failedCheck()
     {
-        Debug.Log("setting message failed to true");
         currentLight.SetBool("wrongMessage", true);
         lightAS.PlayOneShot(failedSound);
         yield return new WaitForSeconds(0.5f);

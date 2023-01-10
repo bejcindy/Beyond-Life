@@ -16,27 +16,21 @@ public class LevelOneFirstCheck   : MonoBehaviour
 
     public GameObject spawnedBall;
     public WakeUp wakeUpMaster;
-    //public GameObject wakeUpLogic;
 
     public bool inCheck = false;
     public bool inSecondCheck = false;
 
     public bool onTrack = true;
 
-    //public float holdTime = 10.0f;
-    //public float holdFailCountDown = 2.0f;
-    //public float holdTimeSpeed = 2.0f;
-
-    //public float pressCD = 3.0f;
-    //float pressCDVal;
 
     //new stuff
     public bool keyPressed = false;
     public bool secondKeyPressed = false;
     public GameObject myTunnel;
     public GameObject myLights;
+    public GameObject mySoul;
     public GameObject buttonSound;
-    public Material currentMat;
+    public GameObject tunnelCheck;
 
 
     //New Logic
@@ -58,16 +52,6 @@ public class LevelOneFirstCheck   : MonoBehaviour
     AudioSource lightAS;
     AudioSource tunnelButtonAS;
 
-    public static string codeKeys = "AQWEDCXZ";
-    public static string codeKeys1 = "0P;LKI89";
-    public static string codeKeys2 = "78IKJHY6";
-    public static string codeKeys3 = "KIOP;/><";
-    public static string[] codeKeyGroup = new string[] { codeKeys, codeKeys1, codeKeys2, codeKeys3 };
-
-    public static int groupIndex = 0;
-    public static int codeIndex = 1;
-    public static KeyCode currentKey;
-
     public GameObject tunnelCheckKey;
     public GameObject messageInput;
     public KeyCode tunnelKey;
@@ -84,11 +68,24 @@ public class LevelOneFirstCheck   : MonoBehaviour
     public AudioSource ambienceAS;
     bool startSound = false;
 
+    Color greenLightColor;
+    Color emissionGreen;
+    Color yellowLightColor;
+    Color emissionYellow;
+    Color redLightColor;
+    Color emissionRed;
+
+    public bool changingGreen = false;
+    public bool changingYellow = false;
+    public bool changingRed = false;
+    
+
+
 
     // Start is called before the first frame update
     void Start()
     {
-        LevelOneFirstCheck.currentKey = KeyCode.I;
+        tunnelCheck = GameObject.Find("LevelOneTunnelCheck");
         AS = GetComponent<AudioSource>();
         lightAS = myLights.GetComponent<AudioSource>();
         tunnelButtonAS = tunnelCheckKey.GetComponent<AudioSource>();
@@ -101,102 +98,133 @@ public class LevelOneFirstCheck   : MonoBehaviour
 
         ambienceAS = GameObject.Find("Ambience").GetComponent<AudioSource>();
         LevelOneFirstCheck.trackCurrentSpeed = mainTrack.GetComponent<Animator>().speed;
+
+        //defaultWhite = Color.white;
+        //emissionWhite = new Color(6.7819f, 6.5866f, 5.0795f, 1f);
+        greenLightColor = new Color32(23, 255, 0, 255);
+        emissionGreen = new Color(0.025f, 0.75f, 0.025f, 1f);
+        yellowLightColor = Color.yellow;
+        emissionYellow = new Color(0.75f, 0.57f, 0.05f, 1f);
+        redLightColor = Color.red;
+        emissionRed = new Color(0.87f, 0f, 0f, 1f);
+
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        if(LevelOneFirstCheck.codeIndex < 8)
-        {
-            LevelOneFirstCheck.currentKey = convertKey(LevelOneFirstCheck.codeKeys[LevelOneFirstCheck.codeIndex]);
-        }
-        
-
-
         if (startSound)
         {
             bgSoundRaise();
         }
+
+        if (changingGreen)
+        {
+            foreach (Transform lightPart in myLights.transform)
+            {
+                Material lightMat = lightPart.gameObject.GetComponent<Renderer>().material;
+                lightMat.EnableKeyword("_EMISSION");
+                StartCoroutine(changeLight(lightMat, greenLightColor, emissionGreen, 2f));
+
+            }
+            
+            changingGreen = false;
+
+        }
+
+        if (changingYellow)
+        {
+            foreach (Transform lightPart in myLights.transform)
+            {
+                Material lightMat = lightPart.gameObject.GetComponent<Renderer>().material;
+                lightMat.EnableKeyword("_EMISSION");
+                StartCoroutine(changeLight(lightMat, yellowLightColor, emissionYellow, 2f));
+
+            }
+            
+            changingYellow = false;
+        }
+
+        if (changingRed)
+        {
+            foreach (Transform lightPart in myLights.transform)
+            {
+                Material lightMat = lightPart.gameObject.GetComponent<Renderer>().material;
+                lightMat.EnableKeyword("_EMISSION");
+                StartCoroutine(changeLight(lightMat, redLightColor, emissionRed, 2f));
+
+            }
+
+            changingYellow = false;
+        }
         if (inCheck)
         {
-            if (Input.GetKeyDown(currentKey)) 
+            if (Input.GetKeyDown(LevelOneKeys.currentKey)) 
             {
                 startSound = true;
+                changingGreen = true;
                 inCheck = false;
-
                 keyPressed = true;
-                lightAnim.SetBool("Checked", true);
-                lightAnim.SetBool("Fading", false);
-                checkAnim.SetBool("FirstPress", true);
                 buttonSound.GetComponent<AudioSource>().Play();
-                //mainTrack.GetComponent<Animator>().speed = LevelOneFirstCheck.trackCurrentSpeed * 1.25f;
-                LevelOneFirstCheck.trackCurrentSpeed *= 1.125f;
-                
-                
-            }
-            Debug.Log(currentKey);
+                StartCoroutine(trackDash());
+                StartCoroutine(mySoul.GetComponent<LevelOneSoul>().SoulGrow(1.25f, 1));
+                playerAnim.SetBool("PassCheck", true);
 
-            if (Input.GetKeyUp(currentKey))
+            }
+
+            if (Input.GetKeyUp(LevelOneKeys.currentKey))
             {
                 Debug.Log("key is up");
                 checkAnim.SetBool("ButtonUp", true);
-                checkAnim.SetBool("FirstPress", false);
 
             }
-            //if (!buttonSound.GetComponent<AudioSource>().isPlaying)
-            //{
-            //    buttonSound.GetComponent<AudioSource>().enabled = false;
-            //}
         }
 
 
         //rolling tunnel check
         if (inSecondCheck)
         {
-            if (Input.GetKeyDown(tunnelKey))
+            tunnelCheckKey.SetActive(true);
+            tunnelCheckKey.GetComponent<TextMeshProUGUI>().text = Char.ToString(tunnelCheck.GetComponent<LevelOneTunnelKeys>().currentChar);
+
+            if (!tunnelCheck.GetComponent<LevelOneTunnelKeys>().inCheck)
             {
-               //start light charging up animation
-                //lightAnim.SetBool("Charging", true);
-                secondKeyPressed = true;
-                if (tunnelKeyAmt > 0)
-                {
-                    tunnelButtonAS.PlayOneShot(buttonCheck);
-                }
-
-                //lightAS.Play();
-                //lightAnim.speed = 1;
-
-                //if(lightAnim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
-                //{
-                //    lightAS.Play();
-                //}
+                tunnelCheckKey.SetActive(false);
+                tunnelCheck.GetComponent<LevelOneTunnelKeys>().resetIndex();
             }
+            //if (Input.GetKeyDown(tunnelKey))
+            //{
+            //    secondKeyPressed = true;
+            //    if (tunnelKeyAmt > 0)
+            //    {
+            //        tunnelButtonAS.PlayOneShot(buttonCheck);
+            //    }
 
-            if (Input.GetKeyUp(tunnelKey))
-            {
-                if (tunnelKeyAmt > 0)
-                {
-                    tunnelKeyAmt -= 1;
-                    tnHelper += 1;
-                }
+            //}
+
+            //if (Input.GetKeyUp(tunnelKey))
+            //{
+            //    if (tunnelKeyAmt > 0)
+            //    {
+            //        tunnelKeyAmt -= 1;
+            //        tnHelper += 1;
+            //    }
 
                 
-                tunnelCheckKey.GetComponent<TextMeshProUGUI>().text = new string(tunnelChar, tunnelKeyAmt);
-                //lightAnim.speed = 0;
-                //lightAS.Pause();
+            //    tunnelCheckKey.GetComponent<TextMeshProUGUI>().text = new string(tunnelChar, tunnelKeyAmt);
 
-            }
+            //}
 
-            if(tunnelKeyAmt <= 0)
-            {
-                if (!lightAS.isPlaying)
-                {
-                    lightAS.Play();
-                }
-                lightAnim.SetBool("Charging", true);
-                lightAnim.speed = 0.3f;
-            }
+            //if(tunnelKeyAmt <= 0)
+            //{
+            //    if (!lightAS.isPlaying)
+            //    {
+            //        lightAS.Play();
+            //    }
+            //    lightAnim.SetBool("Charging", true);
+            //    lightAnim.speed = 0.3f;
+            //}
 
             //when tunnel is done rolling for one cycle 
             if(tunnelAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
@@ -204,136 +232,146 @@ public class LevelOneFirstCheck   : MonoBehaviour
                 tunnelCheckKey.SetActive(false);
 
                 //if keys not all pressed
-                if (tunnelKeyAmt>0 || !secondKeyPressed)
+                if (tunnelCheck.GetComponent<LevelOneTunnelKeys>().inCheck)
                 {
                     failedSecondCheck = true;
+                    changingRed = true;
                     StartCoroutine(triggerDropPlayer());
                 }
                 else
                 {
+                    changingYellow = true;
                     resumePlayer();
+                    resetTrack();
+                    resetTrackSpeed();
+                    resumeTrackSpeed();
                 }
+                tunnelCheck.GetComponent<LevelOneTunnelKeys>().resetIndex();
                 
             }
-            else
+            else //pressed all keys before tunnel rolling over 
             {
-                //if (lightAnim.GetCurrentAnimatorClipInfo(0)[0].clip.name == "ChargingLight" &&
-                //   lightAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1 && secondKeyPressed)
-                if(tunnelKeyAmt<=0 && !tunnelButtonAS.isPlaying)
+                if (!tunnelCheck.GetComponent<LevelOneTunnelKeys>().inCheck)
                 {
-                    tunnelCheckKey.SetActive(false);
+                    changingYellow = true;
                 }
-                //if (lightAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= tunnelThreshold*tnHelper)
-                //{
-                //    lightAnim.speed = 0;
-                //}
-                //Debug.Log("time can play is " + lightAS.clip.length * tunnelThreshold * tnHelper);
-                //Debug.Log("time is at "+ lightAS.time);
-                //if (lightAS.time >= (5f *tunnelThreshold * tnHelper))
-                //{
-                //    Debug.Log("we should pause");
-                //    lightAS.Pause();
-                //}
             }
+            //else
+            //{
+            //    if(tunnelKeyAmt<=0 && !tunnelButtonAS.isPlaying)
+            //    {
+            //        tunnelCheckKey.SetActive(false);
+            //    }
+            //}
 
 
         }
 
 
         //play shaking animation when player is still stuck on track
-        if (player.GetComponent<CurvePlayerController>().onTrack)
-        {
-            if (Input.GetKeyDown(KeyCode.W))
-            {
-                if (!playerAnim.isActiveAndEnabled)
-                {
-                    playerAnim.enabled = true;
-                }
-                else
-                {
-                    playerAnim.Play("chara_idle", 0, 0);
-                }
-            }
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                if (!playerAnim.isActiveAndEnabled)
-                {
-                    playerAnim.enabled = true;
-                }
-                else
-                {
-                    playerAnim.Play("chara_idle", 0, 0);
-                }
-            }
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                if (!playerAnim.isActiveAndEnabled)
-                {
-                    playerAnim.enabled = true;
-                }
-                else
-                {
-                    playerAnim.Play("chara_idle", 0, 0);
-                }
-            }
-            if (Input.GetKeyDown(KeyCode.D))
-            {
-                if (!playerAnim.isActiveAndEnabled)
-                {
-                    playerAnim.enabled = true;
-                }
-                else
-                {
-                    playerAnim.Play("chara_idle", 0, 0);
-                }
-            }
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                if (!playerAnim.isActiveAndEnabled)
-                {
-                    playerAnim.enabled = true;
-                }
-                else
-                {
-                    playerAnim.Play("chara_idle", 0, 0);
-                }
-            }
-        }
+        //if (player.GetComponent<CurvePlayerController>().onTrack)
+        //{
+        //    if (Input.GetKeyDown(KeyCode.W))
+        //    {
+        //        if (!playerAnim.isActiveAndEnabled)
+        //        {
+        //            playerAnim.enabled = true;
+        //        }
+        //        else
+        //        {
+        //            playerAnim.Play("chara_idle", 0, 0);
+        //        }
+        //    }
+        //    if (Input.GetKeyDown(KeyCode.A))
+        //    {
+        //        if (!playerAnim.isActiveAndEnabled)
+        //        {
+        //            playerAnim.enabled = true;
+        //        }
+        //        else
+        //        {
+        //            playerAnim.Play("chara_idle", 0, 0);
+        //        }
+        //    }
+        //    if (Input.GetKeyDown(KeyCode.S))
+        //    {
+        //        if (!playerAnim.isActiveAndEnabled)
+        //        {
+        //            playerAnim.enabled = true;
+        //        }
+        //        else
+        //        {
+        //            playerAnim.Play("chara_idle", 0, 0);
+        //        }
+        //    }
+        //    if (Input.GetKeyDown(KeyCode.D))
+        //    {
+        //        if (!playerAnim.isActiveAndEnabled)
+        //        {
+        //            playerAnim.enabled = true;
+        //        }
+        //        else
+        //        {
+        //            playerAnim.Play("chara_idle", 0, 0);
+        //        }
+        //    }
+        //    if (Input.GetKeyDown(KeyCode.Space))
+        //    {
+        //        if (!playerAnim.isActiveAndEnabled)
+        //        {
+        //            playerAnim.enabled = true;
+        //        }
+        //        else
+        //        {
+        //            playerAnim.Play("chara_idle", 0, 0);
+        //        }
+        //    }
+        //}
 
 
         if (messageInput.GetComponent<LevelOneSecret>().done)
         {
             messageInput.GetComponent<LevelOneSecret>().done = false;
-            if (LevelOneFirstCheck.messageCorrect)
-            {
-                nextMessage();
-            }
-            else
-            {
-                Debug.Log("repeating message");
-                repeatMessage();
-            }
+
             resetTrack();
+            if (!LevelOneSecret.inputCorrect)
+            {
+                resetTrackSpeed();
+            }
+            resumeTrackSpeed();
             resetLightAfterInput();
+            LevelOneSecret.inputCorrect = false;
         }
     }  
 
-    void nextMessage()
+
+
+    IEnumerator changeLight(Material mat, Color endColor, Color emissionColor, float duration)
     {
+
+        //foreach (Transform lightPart in myLights.transform)
+        //{
+        //    Material lightMat = lightPart.gameObject.GetComponent<Renderer>().material;
+        //    lightMat.EnableKeyword("_EMISSION");
+            float time = 0;
+            while(time < duration)
+            {
+                mat.color = Color.Lerp(mat.color, endColor, time/duration);
+                //lightMat.SetColor("_BaseColor", Color.Lerp(lightMat.color, new Color32(23, 255, 0, 255), Time.deltaTime*2f));
+                mat.SetColor("_EmissionColor", Color.Lerp(mat.color, emissionColor * 10f, time/duration));
+                time += Time.deltaTime;
+                yield return null;
+
+
+            }
+            mat.color = endColor;
+
+        //}
+
 
     }
 
-    void repeatMessage()
-    {
-        int splitn = UnityEngine.Random.Range(1, 7);
-        string[] mgroup = codeKeys.Split(codeKeys[splitn]);
-        string output = string.Format(codeKeys[splitn] + "{0}{1}", mgroup[1], mgroup[0]);
-        LevelOneFirstCheck.codeKeys = output;
-        LevelOneFirstCheck.codeIndex = 0;
-        Debug.Log(codeKeys);
-    }
-
-
+    
 
     void bgSoundRaise()
     {
@@ -356,36 +394,10 @@ public class LevelOneFirstCheck   : MonoBehaviour
         messageInput.GetComponent<TMP_InputField>().text = "";
         messageInput.SetActive(false);
         messageInput.GetComponent<LevelOneSecret>().done = false;
-
-
     }
 
 
-    KeyCode convertKey(Char c)
-    {
-        switch (c)
-        {
-            case 'K':
-                return KeyCode.K;
-            case ';':
-                return KeyCode.Semicolon;
-            case '/':
-                return KeyCode.Slash;
-            case '>':
-                return KeyCode.Period;
-            case '<':
-                return KeyCode.Comma;
-            case 'I':
-                return KeyCode.I;
-            case 'O':
-                return KeyCode.O;
-            case 'P':
-                return KeyCode.P;
 
-            default:
-                return KeyCode.E;
-        }
-    }
 
     void OnTriggerEnter(Collider coll)
     {
@@ -393,7 +405,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
         {
             //wakeUpLogic.SetActive(true);
             inCheck = true;
-            checkKey.GetComponent<TextMeshProUGUI>().text = Char.ToString(LevelOneFirstCheck.codeKeys[LevelOneFirstCheck.codeIndex]);
+            checkKey.GetComponent<TextMeshProUGUI>().text = Char.ToString(LevelOneKeys.currentChar);
             checkKey.SetActive(true);
             lightAnim.SetBool("Fading", true);
         }
@@ -407,7 +419,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
         if(other.gameObject.tag == "Player")
         {
             inCheck = false;
-            checkAnim.SetBool("FirstPress", false);
+            playerAnim.SetBool("PassCheck", false);
             checkKey.SetActive(false);
             if (!keyPressed)
             {
@@ -418,7 +430,8 @@ public class LevelOneFirstCheck   : MonoBehaviour
             }
             else
             {
-                LevelOneFirstCheck.codeIndex++;
+                LevelOneKeys.codeIndex++;
+                
                 player.GetComponent<CurvePlayerController>().levelOneTunnelPassed += 1;
                 if((player.GetComponent<CurvePlayerController>().levelOneTunnelPassed) % 8 == 0)
                 {
@@ -427,6 +440,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
                 else
                 {
                     resetTrack();
+                    resumeTrackSpeed();
                 }
                 
             }
@@ -434,24 +448,24 @@ public class LevelOneFirstCheck   : MonoBehaviour
             
         }
 
-        if (other.gameObject.tag == "NPC")
-        {
-            other.gameObject.GetComponent<LevelOneNPC>().spawnGauge += 1;
-            if(other.gameObject.GetComponent<LevelOneNPC>().spawnGauge == 8)
-            {
-                other.gameObject.GetComponent<LevelOneNPC>().spawnGauge = 0;
-                if (LevelOneFirstCheck.soulCount < 8)
-                {
-                    float xPosDif = UnityEngine.Random.Range(-2, 2);
-                    Vector3 spawnPos = new Vector3(myTunnel.transform.position.x + xPosDif, myTunnel.transform.position.y - 4.5f, myTunnel.transform.position.z);
-                    Instantiate(spawnedBall, spawnPos, Quaternion.identity);
-                    LevelOneFirstCheck.soulCount++;
-                }
+        //if (other.gameObject.tag == "NPC")
+        //{
+        //    other.gameObject.GetComponent<LevelOneNPC>().spawnGauge += 1;
+        //    if(other.gameObject.GetComponent<LevelOneNPC>().spawnGauge == 8)
+        //    {
+        //        other.gameObject.GetComponent<LevelOneNPC>().spawnGauge = 0;
+        //        if (LevelOneFirstCheck.soulCount < 8)
+        //        {
+        //            float xPosDif = UnityEngine.Random.Range(-2, 2);
+        //            Vector3 spawnPos = new Vector3(myTunnel.transform.position.x + xPosDif, myTunnel.transform.position.y - 4.5f, myTunnel.transform.position.z);
+        //            Instantiate(spawnedBall, spawnPos, Quaternion.identity);
+        //            LevelOneFirstCheck.soulCount++;
+        //        }
 
 
-            }
+        //    }
 
-        }
+        //}
     }
 
     void messagePrompt()
@@ -468,11 +482,11 @@ public class LevelOneFirstCheck   : MonoBehaviour
     {
         mainTrack.GetComponent<Animator>().speed = 3;
         yield return new WaitForSeconds(1.0f);
-        if((player.GetComponent<CurvePlayerController>().levelOneTunnelPassed) % 8 != 0)
-        { 
-            mainTrack.GetComponent<Animator>().speed = 1;
+        if ((player.GetComponent<CurvePlayerController>().levelOneTunnelPassed) % 8 != 0)
+        {
+            LevelOneFirstCheck.trackCurrentSpeed *= 1.125f;
         }
-        
+
     }
 
     IEnumerator enterSecondCheck()
@@ -485,7 +499,8 @@ public class LevelOneFirstCheck   : MonoBehaviour
         GetComponent<BoxCollider>().enabled = false;
         yield return new WaitForSeconds(1.0f);
         //checkKey.SetActive(true);
-        generateTunnelText();
+        //generateTunnelText();
+        tunnelCheck.GetComponent<LevelOneTunnelKeys>().inCheck = true;
         tunnelCheckKey.SetActive(true);
         tunnelAnim.enabled = true;
         inSecondCheck = true;
@@ -540,6 +555,8 @@ public class LevelOneFirstCheck   : MonoBehaviour
 
         //yield return new WaitForSeconds(5.0f);
         resetTrack();
+        resetTrackSpeed();
+        resumeTrackSpeed();
         GetComponent<BoxCollider>().enabled = true;
         player.GetComponent<CurvePlayerController>().enabled = true;
         Camera.main.GetComponent<CameraController>().enabled = true;
@@ -555,14 +572,6 @@ public class LevelOneFirstCheck   : MonoBehaviour
                                                         RigidbodyConstraints.FreezeRotationZ | 
                                                         RigidbodyConstraints.FreezeRotationY |
                                                         RigidbodyConstraints.FreezePositionY;
-
-        //resetting
-        
-        resetTrack();
-
-
-
-
     }
 
 
@@ -574,15 +583,28 @@ public class LevelOneFirstCheck   : MonoBehaviour
         failedSecondCheck = false;
         inCheck = false;
         keyPressed = false;
-        lightAnim.SetBool("Checked", false);
-        lightAnim.SetBool("Charging", false);
-        lightAnim.SetBool("Fading", false);
-        lightAnim.SetBool("SecondFail", false);
-        lightAnim.SetBool("wrongMessage", false);
-        //lightAnim.enabled = false;
+        foreach (AnimatorControllerParameter parameter in lightAnim.parameters)
+        {
+            lightAnim.SetBool(parameter.name, false);
+        }
+        //lightAnim.SetBool("Checked", false);
+        //lightAnim.SetBool("Charging", false);
+        //lightAnim.SetBool("Fading", false);
+        //lightAnim.SetBool("SecondFail", false);
+        //lightAnim.SetBool("wrongMessage", false);
         tunnelAnim.enabled = false;
         playerTile.transform.parent = mainTrack.transform;
+        
+    }
+
+    void resumeTrackSpeed()
+    {
         mainTrack.GetComponent<Animator>().speed = LevelOneFirstCheck.trackCurrentSpeed;
+    }
+
+    void resetTrackSpeed()
+    {
+        LevelOneFirstCheck.trackCurrentSpeed = 1;
     }
 
 

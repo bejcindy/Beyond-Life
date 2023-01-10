@@ -57,7 +57,7 @@ public class WakeUp : MonoBehaviour
         {
             if (checkKey.activeSelf)
             {
-                if (Input.GetKeyDown(KeyCode.V))
+                if (Input.GetKeyDown(KeyCode.A))
                 {
                     pressAmt += 1;
                     //if player hasn't gained full view yet

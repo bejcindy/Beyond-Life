@@ -5,7 +5,7 @@ using System;
 
 public class LevelOneSecret : MonoBehaviour
 {
-    string secret = "LIFE";
+    string secret = "SOUL";
     static int enterIndex = 0;
 
     public GameObject player;
@@ -16,6 +16,8 @@ public class LevelOneSecret : MonoBehaviour
 
     public bool messageEntered = false;
     public bool done = false;
+
+    public static bool inputCorrect = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -49,13 +51,15 @@ public class LevelOneSecret : MonoBehaviour
             Debug.Log("answer is correct");
             lightAS.PlayOneShot(messageCorrect);
             LevelOneSecret.enterIndex++;
-            LevelOneFirstCheck.messageCorrect = true;
             done = true;
+            inputCorrect = true;
+            LevelOneKeys.nextKeys= true;
         }
         else
         {
-            LevelOneFirstCheck.codeIndex = 0;
+            LevelOneKeys.codeIndex = 0;
             Debug.Log("answer is incorrect");
+            LevelOneKeys.repeatKeys = true;
             StartCoroutine(failedCheck());
             
         }

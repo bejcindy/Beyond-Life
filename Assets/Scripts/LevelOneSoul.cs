@@ -9,6 +9,7 @@ public class LevelOneSoul : MonoBehaviour
 
     Vector3 originalScale;
     public float targetScaleMulti;
+    float scaleModifier = 1;
 
 
     // Start is called before the first frame update
@@ -56,14 +57,25 @@ public class LevelOneSoul : MonoBehaviour
         transform.position = corePos;
     }
 
-    IEnumerator soulGrow()
+    public IEnumerator SoulGrow(float endVal, float duration)
     {
-        transform.localScale = Vector3.Lerp(transform.localScale,
-                                              new Vector3(transform.localScale.x * targetScaleMulti,
-                                                            transform.localScale.y * targetScaleMulti,
-                                                            transform.localScale.z * targetScaleMulti), Time.deltaTime * 0.01f);
-        yield return null;
+        float time = 0;
+        float startValue = scaleModifier;
+        Vector3 startScale = transform.localScale;
+        while(time < duration)
+        {
+            scaleModifier = Mathf.Lerp(startValue, endVal, time / duration);
+            transform.localScale = startScale *  scaleModifier;
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.localScale = startScale * endVal;
+        scaleModifier = endVal;
+
     }
+
+
 
     IEnumerator lockSoul()
     {

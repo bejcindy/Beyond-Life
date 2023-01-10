@@ -158,6 +158,7 @@ public class LevelOneFirstCheck   : MonoBehaviour
 
             changingYellow = false;
         }
+
         if (inCheck)
         {
             if (Input.GetKeyDown(LevelOneKeys.currentKey)) 
@@ -193,38 +194,6 @@ public class LevelOneFirstCheck   : MonoBehaviour
                 tunnelCheckKey.SetActive(false);
                 tunnelCheck.GetComponent<LevelOneTunnelKeys>().resetIndex();
             }
-            //if (Input.GetKeyDown(tunnelKey))
-            //{
-            //    secondKeyPressed = true;
-            //    if (tunnelKeyAmt > 0)
-            //    {
-            //        tunnelButtonAS.PlayOneShot(buttonCheck);
-            //    }
-
-            //}
-
-            //if (Input.GetKeyUp(tunnelKey))
-            //{
-            //    if (tunnelKeyAmt > 0)
-            //    {
-            //        tunnelKeyAmt -= 1;
-            //        tnHelper += 1;
-            //    }
-
-                
-            //    tunnelCheckKey.GetComponent<TextMeshProUGUI>().text = new string(tunnelChar, tunnelKeyAmt);
-
-            //}
-
-            //if(tunnelKeyAmt <= 0)
-            //{
-            //    if (!lightAS.isPlaying)
-            //    {
-            //        lightAS.Play();
-            //    }
-            //    lightAnim.SetBool("Charging", true);
-            //    lightAnim.speed = 0.3f;
-            //}
 
             //when tunnel is done rolling for one cycle 
             if(tunnelAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
@@ -236,7 +205,12 @@ public class LevelOneFirstCheck   : MonoBehaviour
                 {
                     failedSecondCheck = true;
                     changingRed = true;
-                    StartCoroutine(triggerDropPlayer());
+                    StartCoroutine(mySoul.GetComponent<LevelOneSoul>().SoulGrow(0.75f, 1));
+                    Invoke("resumePlayer", 1f);
+                    Invoke("resetTrack", 1f);
+                    Invoke("resetTrackSpeed", 1f);
+                    Invoke("resumeTrackSpeed", 1f);
+                    //StartCoroutine(triggerDropPlayer());
                 }
                 else
                 {
@@ -256,77 +230,9 @@ public class LevelOneFirstCheck   : MonoBehaviour
                     changingYellow = true;
                 }
             }
-            //else
-            //{
-            //    if(tunnelKeyAmt<=0 && !tunnelButtonAS.isPlaying)
-            //    {
-            //        tunnelCheckKey.SetActive(false);
-            //    }
-            //}
 
 
         }
-
-
-        //play shaking animation when player is still stuck on track
-        //if (player.GetComponent<CurvePlayerController>().onTrack)
-        //{
-        //    if (Input.GetKeyDown(KeyCode.W))
-        //    {
-        //        if (!playerAnim.isActiveAndEnabled)
-        //        {
-        //            playerAnim.enabled = true;
-        //        }
-        //        else
-        //        {
-        //            playerAnim.Play("chara_idle", 0, 0);
-        //        }
-        //    }
-        //    if (Input.GetKeyDown(KeyCode.A))
-        //    {
-        //        if (!playerAnim.isActiveAndEnabled)
-        //        {
-        //            playerAnim.enabled = true;
-        //        }
-        //        else
-        //        {
-        //            playerAnim.Play("chara_idle", 0, 0);
-        //        }
-        //    }
-        //    if (Input.GetKeyDown(KeyCode.S))
-        //    {
-        //        if (!playerAnim.isActiveAndEnabled)
-        //        {
-        //            playerAnim.enabled = true;
-        //        }
-        //        else
-        //        {
-        //            playerAnim.Play("chara_idle", 0, 0);
-        //        }
-        //    }
-        //    if (Input.GetKeyDown(KeyCode.D))
-        //    {
-        //        if (!playerAnim.isActiveAndEnabled)
-        //        {
-        //            playerAnim.enabled = true;
-        //        }
-        //        else
-        //        {
-        //            playerAnim.Play("chara_idle", 0, 0);
-        //        }
-        //    }
-        //    if (Input.GetKeyDown(KeyCode.Space))
-        //    {
-        //        if (!playerAnim.isActiveAndEnabled)
-        //        {
-        //            playerAnim.enabled = true;
-        //        }
-        //        else
-        //        {
-        //            playerAnim.Play("chara_idle", 0, 0);
-        //        }
-        //    }
-        //}
 
 
         if (messageInput.GetComponent<LevelOneSecret>().done)
@@ -349,27 +255,21 @@ public class LevelOneFirstCheck   : MonoBehaviour
     IEnumerator changeLight(Material mat, Color endColor, Color emissionColor, float duration)
     {
 
-        //foreach (Transform lightPart in myLights.transform)
-        //{
-        //    Material lightMat = lightPart.gameObject.GetComponent<Renderer>().material;
-        //    lightMat.EnableKeyword("_EMISSION");
-            float time = 0;
-            while(time < duration)
-            {
-                mat.color = Color.Lerp(mat.color, endColor, time/duration);
-                //lightMat.SetColor("_BaseColor", Color.Lerp(lightMat.color, new Color32(23, 255, 0, 255), Time.deltaTime*2f));
-                mat.SetColor("_EmissionColor", Color.Lerp(mat.color, emissionColor * 10f, time/duration));
-                time += Time.deltaTime;
-                yield return null;
+        float time = 0;
+        while(time < duration)
+        {
+            mat.color = Color.Lerp(mat.color, endColor, time/duration);
+            mat.SetColor("_EmissionColor", Color.Lerp(mat.color, emissionColor * 10f, time/duration));
+            time += Time.deltaTime;
+            yield return null;
 
 
-            }
-            mat.color = endColor;
-
-        //}
+        }
+        mat.color = endColor;
 
 
     }
+
 
     
 
@@ -491,7 +391,6 @@ public class LevelOneFirstCheck   : MonoBehaviour
 
     IEnumerator enterSecondCheck()
     {
-
         mainTrack.GetComponent<Animator>().speed = 0;
         player.transform.parent = myTunnel.transform;
         playerTile.transform.parent = myTunnel.transform;
@@ -526,16 +425,12 @@ public class LevelOneFirstCheck   : MonoBehaviour
             tunnelChar = 'T';
         }
         tunnelThreshold = 1f/amt;
- 
-
     }
     IEnumerator triggerDropPlayer()
     {
         player.GetComponent<CurvePlayerController>().onTrack = false;
-        playerAnim.enabled = false;
+        //playerAnim.enabled = false;
         inSecondCheck = false;
-        lightAnim.speed = 1;
-        lightAnim.SetBool("SecondFail", true);
         lightAS.clip = failedSound;
         if (!lightAS.isPlaying)
         {
